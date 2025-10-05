@@ -20,23 +20,19 @@ A structured log of my daily practice in **Data Structures and Algorithms (DSA)*
 
 | # | Problem Name | Difficulty | Solution Link |
 | :--- | :--- | :--- | :--- |
-| 1 | [Two Sum] | Easy | [Python](./Notes/Arrays/Two_Sum_Python.md) / [C#](./Notes/Arrays/Two_Sum_CSharp.md) |
-| 2 | [Problem 2 Name] | Medium | [Python](./Notes/Arrays/Problem_2_Python.md) |
-| 3 | [Problem 3 Name] | Hard | [C#](./Notes/Arrays/Problem_3_CSharp.md) |
-| **Status:** | 3/25 Completed | **Last Updated:** | October 5, 2025 |
+| **Status:** | 0 Completed | **Last Updated:** | To Start |
 
 ### 🟡 Strings
 
 | # | Problem Name | Difficulty | Solution Link |
 | :--- | :--- | :--- | :--- |
-| 1 | [Problem 1 Name] | Medium | [Python](./Notes/Strings/Problem_1_Python.md) |
-| **Status:** | 1/20 Completed | **Last Updated:** | October 6, 2025 |
+| **Status:** | 0 Completed | **Last Updated:** | To Start |
 
 ### 🟠 Linked Lists
 
 | # | Problem Name | Difficulty | Solution Link |
 | :--- | :--- | :--- | :--- |
-| 1 | [Problem 1 Name] | Easy | [C#](./Notes/Linked_Lists/Problem_1_CSharp.md) |
+| **Status:** | 0 Completed | **Last Updated:** | To Start |
 
 ### 🔴 Other Topics
 
