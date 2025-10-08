@@ -134,6 +134,28 @@ print(f"Can we make a salad? {can_make_salad}")
 
 We used operators to calculate a sum, compare values, and check multiple logical conditions at once.
 
+
+
+🧮 The Power Operator (**)
+
+The double-asterisk ** is Python’s operator for exponentiation — raising one number to the power of another.
+
+Syntax
+
+base ** exponent
+
+
+Code Example & Explanation
+
+radius = 5
+area = 3.14159 * (radius ** 2)
+print(f"The area of the circle is {area}")
+
+
+Here, radius ** 2 means “radius squared.”
+It’s the same as writing radius * radius, but much cleaner.
+
+
 -----
 
 ## **Stair 5: Control Flow - Giving Your Code a Brain** 🧠
@@ -247,6 +269,88 @@ A `while` loop is used when you don't know exactly how many times you need to lo
 > ## 💡 **Key Idea Recap**
 >
 > With these five stairs, you've learned how to write code that **stores data** (variables & data types), **performs actions** (operators), and **makes decisions** (control flow). You can now automate logic, which is the core of all programming\!
+
+
+🚫 Common Syntax Errors to Avoid
+
+When writing conditionals and loops, beginners often make a few easy-to-fix mistakes.
+Here are the most common ones:
+
+1. Mismatched Quotes
+
+Strings must start and end with the same type of quote (' or ").
+
+❌ Incorrect:
+
+input('Enter number 1")
+
+
+✅ Correct:
+
+input("Enter number 1")
+
+
+or
+
+input('Enter number 1')
+
+2. Missing Colons (:)
+
+In Python, lines that start a new block — like if, elif, else, for, and while — must end with a colon.
+
+❌ Incorrect:
+
+if num_1 > num_2
+    print("First is bigger")
+
+
+✅ Correct:
+
+if num_1 > num_2:
+    print("First is bigger")
+
+3. Missing Indentation
+
+All code that belongs inside an if, else, or loop must be indented (usually 4 spaces).
+
+❌ Incorrect:
+
+if True:
+print("Hello")
+
+
+✅ Correct:
+
+if True:
+    print("Hello")
+
+
+This indentation tells Python which code belongs to which block.
+
+
+💡 Formatting Numeric Output
+
+Sometimes, numbers have many decimal places — especially results from division or area formulas.
+You can format numbers in an f-string to make them more readable.
+
+Syntax
+
+f"{variable:.2f}"  # rounds to 2 decimal places
+
+
+Code Example
+
+pi = 3.1415926535
+print(f"Pi rounded to 2 decimals: {pi:.2f}")
+
+
+Output:
+
+Pi rounded to 2 decimals: 3.14
+
+
+This small detail makes your printed output clean and professional.
+
 
 
 
