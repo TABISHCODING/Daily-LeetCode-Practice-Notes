@@ -266,6 +266,73 @@ A `while` loop is used when you don't know exactly how many times you need to lo
 
 -----
 
+-----
+
+## Python Loops: `for` vs. `while`
+
+### The `for` Loop (The Tour Bus 🚌)
+
+**1. Purpose (from the text explanation):**
+A **`for` loop** is best when you have a known sequence of items to go through. Think of it as a checklist—it repeats an action for every single item on the list, automatically.
+
+**2. Example 1: Looping Through a List (from the text)**
+This is the most common use case.
+
+```python
+# Repeats for every item in the shopping list
+shopping_list = ["Milk", "Bread", "Eggs"]
+for item in shopping_list:
+    print(f"Buy {item}")
+```
+
+**3. Example 2: Looping a Specific Number of Times (from the images)**
+This is the standard way to count or repeat something exactly X times.
+
+```python
+# The range(1, 11) function generates the sequence of numbers 1 through 10
+for number in range(1, 11):
+    print(number)
+```
+
+-----
+
+### The `while` Loop (The Road Trip 🚗)
+
+**1. Purpose (from the text explanation):**
+A **`while` loop** is best when you don't know how many times you need to repeat, but you know the condition that should make it stop. It keeps going **while** a certain condition is true.
+
+**2. Example 1: Looping Until a Condition is Met (from the text)**
+This is the ideal use case for a `while` loop.
+
+```python
+# Repeats as long as the count is greater than 0
+count = 3
+while count > 0:
+    print(count)
+    count = count - 1 # This update is crucial!
+print("Blast off! 🚀")
+```
+
+**3. Example 2: Manually Counting to 10 (from the images)**
+This shows how a `while` loop *can* do the same job as the `for` loop, but requires more manual setup.
+
+```python
+# 1. Initialize a counter
+counter = 1
+# 2. Set the condition
+while counter <= 10:
+    print(counter)
+    # 3. IMPORTANT: Manually increment the counter
+    counter = counter + 1
+```
+
+-----
+
+## Key Takeaway: The Rule of Thumb
+
+  * **Use a `for` loop when you know how many times you need to loop** (e.g., for every item in a list, 10 times, for every letter in a word).
+  * **Use a `while` loop when you are waiting for a condition to change** (e.g., until a user types 'quit', while there is still gas in the tank, until a random number is greater than 5).
+
 > ## 💡 **Key Idea Recap**
 >
 > With these five stairs, you've learned how to write code that **stores data** (variables & data types), **performs actions** (operators), and **makes decisions** (control flow). You can now automate logic, which is the core of all programming\!
