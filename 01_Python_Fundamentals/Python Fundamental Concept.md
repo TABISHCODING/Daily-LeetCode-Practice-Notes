@@ -554,6 +554,97 @@ print(f"Your lucky number is {lucky_number}")
   * `return lucky_num` Instead of printing, the function uses `return` to send the value of `lucky_num` back as its output.
   * `lucky_number = get_lucky_number()` When we call the function, the value it returns is assigned to the `lucky_number` variable.
 
+---
+
+## 💡 What Happens If You Don’t Store or Print the Return Value?
+
+Sometimes, you might wonder —
+
+> “If my function uses `return`, will it still show the result if I don’t store it in a variable?”
+
+Let’s see how Python behaves 👇
+
+---
+
+### 🧠 Concept: `return` Gives, `print` Shows
+
+When a function uses the `return` keyword, it **sends a value back** to the place it was called from.
+However, it **does not display** that value automatically.
+
+If you **don’t store** or **print** the returned value, Python still calculates it — but it quietly disappears once the function ends.
+
+---
+
+### ⚙️ Code Example & Explanation
+
+```python
+import random
+
+def get_lucky_number():
+    lucky_num = random.randint(1, 100)
+    return lucky_num
+```
+
+#### Case 1️⃣: Not Storing or Printing
+
+```python
+get_lucky_number()
+```
+
+🧩 Output:
+*(Nothing is shown)*
+Python runs the function internally but doesn’t display the result.
+
+---
+
+#### Case 2️⃣: Printing Directly
+
+```python
+print(get_lucky_number())
+```
+
+🖨️ Output:
+
+```
+47
+```
+
+The `print()` function displays the value that was returned.
+
+---
+
+#### Case 3️⃣: Storing, Then Printing Later
+
+```python
+lucky_number = get_lucky_number()
+print(f"Your lucky number is {lucky_number}")
+```
+
+🧾 Output:
+
+```
+Your lucky number is 47
+```
+
+Here, the function returns a number, we **store** it in `lucky_number`, and **print it** afterward.
+
+---
+
+### 💬 Key Takeaway
+
+| Keyword   | What It Does                                            | Example            |
+| --------- | ------------------------------------------------------- | ------------------ |
+| `return`  | Sends a value back (invisible unless stored or printed) | `return lucky_num` |
+| `print()` | Displays something on the screen                        | `print(lucky_num)` |
+
+> **In short:**
+> 🪄 `return` gives.
+> 👀 `print` shows.
+
+Use `return` when you want to **use the result later** in your program.
+Use `print` when you just want to **see it immediately**.
+
+
 -----
 
 ## **Stair 4: Combining Inputs & Outputs** 📥➡️📤
