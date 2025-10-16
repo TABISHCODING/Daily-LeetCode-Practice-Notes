@@ -1,6 +1,6 @@
 
 
-# 🔢 Python Program: Finding a Missing Number in a Sequence
+# 🔢 Python Program: Finding a Missing Number in a Sequence.
 
 This guide explains three different methods to find the first missing number in a sequence of integers. We will cover a robust general-purpose solution and two other common algorithmic approaches.
 
