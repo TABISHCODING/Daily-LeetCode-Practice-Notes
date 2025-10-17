@@ -2243,6 +2243,45 @@ print("Sorted result:", sorted_numbers)  # Output: [2, 3, 5, 7, 9]
 | Combine      | Merge left + pivot + right → sorted list       |
 | Base Case    | Stop recursion for lists with 0 or 1 element   |
 
+
+```python
+def quick_sort(arr):
+    # Base case: 0 or 1 element is already sorted
+    if len(arr) <= 1:
+        return arr
+
+    pivot = arr[0]  # Choose pivot
+
+    left = []   # Elements <= pivot
+    right = []  # Elements > pivot
+
+    # Partition the remaining elements
+    for x in arr[1:]:
+        if x <= pivot:
+            left.append(x)
+        else:
+            right.append(x)
+
+    # Recursively sort left and right, then combine
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+# Example
+numbers = [7, 2, 5, 3, 9]
+sorted_numbers = quick_sort(numbers)
+print("Sorted result:", sorted_numbers)  # Output: [2, 3, 5, 7, 9]
+```
+
+### ✅ Step-by-Step Explanation
+
+1. **Base case:** Stop recursion when the list has **0 or 1 element**.
+2. **Pivot selection:** First element of the list.
+3. **Partitioning:**
+
+   * Loop through `arr[1:]` (all elements except pivot).
+   * If element `<= pivot`, add to `left`; else, add to `right`.
+4. **Recursion:** Sort `left` and `right` separately.
+5. **Combine:** Return `quick_sort(left) + [pivot] + quick_sort(right)`.
+
 ---
 
 # 🧩 Algorithms & Data Structures Cheatsheet
