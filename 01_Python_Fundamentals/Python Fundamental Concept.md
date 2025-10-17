@@ -904,6 +904,13 @@ print(grocery_list[0])  # Output: milk
 last_index = len(grocery_list) - 1
 print(grocery_list[last_index]) # Output: apples
 ```
+**NOTE**
+len(arr) = how many items are in the list
+
+len(arr) - 1 = index of the last item
+
+arr[len(arr)-1] = actual last item value
+
 
 ### Part B: `len()` (Getting the List's Size)
 
