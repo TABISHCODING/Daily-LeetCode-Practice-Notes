@@ -2,7 +2,7 @@
 
 # 🚀 Ultimate DSA Patterns Guide – Complete Tier-Based Roadmap
 
-A complete, **structured roadmap** to master **Data Structures & Algorithms (DSA)** from **beginner to advanced**, combining:
+A complete, **structured roadmap** to master **Data Structures & Algorithms (DSA)** from **beginner to advanced**, combining
 
 * 🔹 Core Computer Science & Python fundamentals
 * 🔹 Tier-based DSA Pattern Learning
