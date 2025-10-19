@@ -308,23 +308,25 @@ def threeSum(nums):
 
 ## 📊 **Stage 3: Learning Path (Progressive Ladder)**
 
-| Level     | Problem                   | LC # | Type                 | Pattern                   |
-| --------- | ------------------------- | ---- | -------------------- | ------------------------- |
-| 🟢 Easy   | Two Sum II                | 167  | Opposite Direction   | Find pair with target sum |
-| 🟢 Easy   | Valid Palindrome          | 125  | Opposite Direction   | Compare ends              |
-| 🟢 Easy   | Remove Duplicates         | 26   | Same Direction       | In-place                  |
-| 🟢 Easy   | Move Zeroes               | 283  | Same Direction       | Reordering                |
-| 🟢 Easy   | Merge Sorted Array        | 88   | Opposite Direction   | Merge 2 lists             |
-| 🟡 Medium | 3Sum                      | 15   | Fixed + Two Pointers | Triplet sum = 0           |
-| 🟡 Medium | Container With Most Water | 11   | Opposite Direction   | Max area                  |
-| 🟡 Medium | 3Sum Closest              | 16   | Fixed + Two Pointers | Closest sum               |
-| 🟡 Medium | Sort Colors               | 75   | Three Pointers       | Dutch flag                |
-| 🟡 Medium | Remove Duplicates II      | 80   | Same Direction       | Allow at most 2           |
-| 🟢 Easy   | Backspace String Compare  | 844  | Opposite Direction   | Compare both              |
-| 🟢 Easy   | Squares of Sorted Array   | 977  | Opposite Direction   | Merge squares             |
-| 🔴 Hard   | Trapping Rain Water       | 42   | Opposite Direction   | Max left/right            |
-| 🟡 Medium | 4Sum                      | 18   | Multiple Pointers    | Quadruplets               |
-| 🟢 Easy   | Is Subsequence            | 392  | Same Direction       | Two sequences             |
+## Two Pointers
+
+| # | Problem | Difficulty | LeetCode | Pattern Type | Pattern     |
+|---|---------|------------|----------|--------------| ------------------------- |
+| 1 | Two Sum II | Easy | [LC #167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Opposite Direction |Find pair with target sum |
+| 2 | Valid Palindrome | Easy | [LC #125](https://leetcode.com/problems/valid-palindrome/) | Opposite Direction |Compare ends              |
+| 3 | Remove Duplicates from Sorted Array | Easy | [LC #26](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) | Same Direction |In-place                  |
+| 4 | Move Zeroes | Easy | [LC #283](https://leetcode.com/problems/move-zeroes/) | Same Direction |Reordering                |
+| 5 | Merge Sorted Array | Easy | [LC #88](https://leetcode.com/problems/merge-sorted-array/) | Opposite Direction |Merge 2 lists             |
+| 6 | 3Sum | Medium | [LC #15](https://leetcode.com/problems/3sum/) | Fixed + Two Pointers |Triplet sum = 0           |
+| 7 | Container With Most Water | Medium | [LC #11](https://leetcode.com/problems/container-with-most-water/) | Opposite Direction |Max area                  |
+| 8 | 3Sum Closest | Medium | [LC #16](https://leetcode.com/problems/3sum-closest/) | Fixed + Two Pointers |Closest sum               |
+| 9 | Sort Colors | Medium | [LC #75](https://leetcode.com/problems/sort-colors/) | Three Pointers |Dutch flag                |
+| 10 | Remove Duplicates II | Medium | [LC #80](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) | Same Direction |Allow at most 2           |
+| 11 | Backspace String Compare | Easy | [LC #844](https://leetcode.com/problems/backspace-string-compare/) | Opposite Direction |Compare both              |
+| 12 | Squares of Sorted Array | Easy | [LC #977](https://leetcode.com/problems/squares-of-a-sorted-array/) | Opposite Direction |Merge squares             |
+| 13 | Trapping Rain Water | Hard | [LC #42](https://leetcode.com/problems/trapping-rain-water/) | Opposite Direction |Max left/right            |
+| 14 | 4Sum | Medium | [LC #18](https://leetcode.com/problems/4sum/) | Multiple Pointers | Quadruplets               |
+| 15 | Is Subsequence | Easy | [LC #392](https://leetcode.com/problems/is-subsequence/) | Same Direction |Two sequences             |
 
 ---
 
