@@ -12,17 +12,17 @@ A complete, **structured roadmap** to master **Data Structures & Algorithms (DSA
 
 ---
 
-## 🧭 Folder Navigation
+# 🧭 Folder Navigation
 
-| Folder                                                                          | Description                                                                                                                                                          |
-| :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 📁 **[1) Python_Fundamentals](./1)Python_Fundamentals/)**                       | Contains `Python full Concept.md` — your evolving base of Python + CS knowledge. Updated continuously as you learn new concepts while solving patternwise questions. |
-| 📁 **[2) DSA_Patterns_Tier_1_2](./2)DSA_Patterns_Tier_1_2/)**                   | Foundation patterns — Two Pointers, Sliding Window, Binary Search                                                                                                    |
-| 📁 **[3) DSA_Patterns_Tier_3_5](./3)DSA_Patterns_Tier_3_5/)**                   | Intermediate patterns — Stack, Queue, Linked List, Tree Traversals                                                                                                   |
-| 📁 **[4) DSA_Patterns_Tier_6_10](./4)DSA_Patterns_Tier_6_10/)**                 | Advanced patterns — Heap, Graph, DP, Backtracking, Trie                                                                                                              |
-| 📁 **[5) DSA_Problems_Masterlist](./5)DSA_Problems_Masterlist/)**               | 320+ categorized LeetCode problems with difficulty levels and pattern tags                                                                                           |
-| 📁 **[6) Pattern_Recognition_CheatSheet](./6)Pattern_Recognition_CheatSheet/)** | Pattern identification guide, triggers, decision trees & complexity charts                                                                                           |
-| 📁 **[7) Pattern_wise_leet_code](./7)Pattern_wise_leet_code/)**                 | ✅ Your **active coding workspace** – solving problems from `5) DSA_Problems_Masterlist` patternwise with **concept + detailed code explanations**                    |
+| Folder | Description |
+| :------ | :----------- |
+| 📁 **[1) Python_Fundamentals](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/1%29Python_Fundamentals/Python%20full%20Concept.md)** | Contains `Python full Concept.md` — your evolving base of **Python + CS knowledge**. Continuously updated as you master new concepts while solving patternwise DSA questions. |
+| 📁 **[2) DSA_Patterns_Tier_1_2](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/2%29DSA_Patterns_Tier_1_2/DSA_Patterns_Complete_Guide.md)** | 🧩 **Foundation patterns** — Two Pointers, Sliding Window, Binary Search. Establishes your problem-solving base. |
+| 📁 **[3) DSA_Patterns_Tier_3_5](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/3%29DSA_Patterns_Tier_3_5/DSA_Patterns_Complete_Guide_Part2.md)** | ⚙️ **Intermediate patterns** — Stack, Queue, Linked List, and Tree Traversals. Focus on structural data operations. |
+| 📁 **[4) DSA_Patterns_Tier_6_10](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/4%29DSA_Patterns_Tier_6_10/DSA_Patterns_Complete_Guide_Part3.md)** | 🚀 **Advanced patterns** — Heap, Graph, Dynamic Programming, Backtracking, and Trie. Optimized for interview-level problem solving. |
+| 📁 **[5) DSA_Problems_Masterlist](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/5%29DSA_Problems_Masterlist/DSA_Problems_Masterlist.md)** | 📘 Contains **320+ categorized LeetCode problems**, organized by **pattern and difficulty level** with curated progression. |
+| 📁 **[6) Pattern_Recognition_CheatSheet](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/blob/main/6%29Pattern_Recognition_CheatSheet/Pattern_Recognition_CheatSheet.md)** | 🧠 **Pattern Recognition Guide** — quick triggers, decision trees, and time–space complexity reference charts for instant recall. |
+| 📁 **[7) Pattern_wise_leet_code](https://github.com/TABISHCODING/Daily-LeetCode-Practice-Notes/tree/main/7%29Pattern%20wise%20-%20leet%20code)** | ✅ **Your active coding workspace** — solving problems from `5) DSA_Problems_Masterlist` pattern-by-pattern with **concept notes + detailed code explanations**. |
 
 ---
 
