@@ -567,32 +567,6 @@ Loop exits because we already returned result.
 
 ---
 
-## 🎮 How to “Play” with Binary Search
-
-To *experiment* and “feel” how binary search behaves:
-
-1. Print internal values inside the loop 👇
-
-   ```python
-   print(f"i={i}, left={left}, right={right}, mid={mid}, complement={complement}")
-   ```
-
-2. Try with different arrays and targets.
-   Example:
-
-   ```python
-   numbers = [1, 3, 4, 5, 7, 11, 15]
-   target = 10
-   ```
-
-   → you’ll see binary search narrowing down for `complement` each time.
-
-3. Try arrays where the complement is at:
-
-   * **beginning** of right half
-   * **middle**
-   * **end**
-     to see how binary search moves pointers.
 
 ---
 
