@@ -469,41 +469,274 @@ Everything fits — so this problem is **designed** for Two Pointer logic.
 
 ---
 
-## ✅ Final Summary
-
-| Approach    | Time  | Space | Works for Large Input? | Uses Sorted Property? |
-| ----------- | ----- | ----- | ---------------------- | --------------------- |
-| Brute Force | O(n²) | O(1)  | ❌                      | ❌                     |
-| Two Pointer | O(n)  | O(1)  | ✅                      | ✅                     |
+### 🪜 **Approach 3**(BINARY SEARCH)
+---
 
 ---
 
-### 💡 Final Code (Best Version)
+## 💡 Core Idea
+
+Since the array is **sorted**, we can use **binary search** instead of checking every pair.
+
+For every element `numbers[i]`,
+we find its **complement** = `target - numbers[i]`
+by **binary searching** in the right portion of the array (from `i+1` to end).
+
+If found → return indices
+Else → continue with next `i`
+
+---
+
+## ⚙️ Code Breakdown
 
 ```python
-def twoSum(numbers, target):
-    left, right = 0, len(numbers) - 1
+for i in range(len(numbers)):    # loop each element
+    left = i + 1                 # start searching from the next element
+    right = len(numbers) - 1     # last index
+    complement = target - numbers[i]   # number we need to reach target
+```
 
-    while left < right:
-        total = numbers[left] + numbers[right]
+We’ll now **binary search** for `complement` in `numbers[left:right+1]`.
 
-        if total == target:
-            return [left + 1, right + 1]  # Convert to 1-based indices
-        elif total < target:
-            left += 1  # Need a bigger number
-        else:
-            right -= 1  # Need a smaller number
+---
+
+### Binary Search Logic:
+
+```python
+while left <= right:
+    mid = (left + right) // 2
+
+    if numbers[mid] == complement:
+        return [i + 1, mid + 1]     # found → 1-based index
+    elif numbers[mid] < complement:
+        left = mid + 1              # need bigger number → move right
+    else:
+        right = mid - 1             # need smaller number → move left
+```
+
+If the loop ends and no match → go to next `i`.
+
+---
+
+## 🧮 Dry Run Example
+
+### Input:
+
+```python
+numbers = [2, 7, 11, 15]
+target = 9
 ```
 
 ---
 
-### 🧩 What You’ve Learned
+### Step 1️⃣  i = 0
 
-✅ How to break down a LeetCode problem clearly
-✅ What “1 ≤ i < j ≤ n” really means
-✅ Why sorted arrays hint toward Two Pointers
-✅ How brute force and two-pointer differ
-✅ Step-by-step reasoning behind each movement
+* `numbers[i] = 2`
+* `complement = 9 - 2 = 7`
+* Search for `7` in `[7, 11, 15]`
+
+| left | right | mid | numbers[mid] | comparison | action              |
+| ---- | ----- | --- | ------------ | ---------- | ------------------- |
+| 1    | 3     | 2   | 11           | 11 > 7     | right = mid - 1 = 1 |
+| 1    | 1     | 1   | 7            | 7 == 7     | ✅ found             |
+
+✅ Return `[i + 1, mid + 1] = [1, 2]`
 
 ---
+
+### Step 2️⃣  (No need)
+
+Loop exits because we already returned result.
+
+---
+
+## 🧠 Intuition of Why It Works
+
+* Each `i` locks one number.
+* Because the array is sorted, we can **quickly find** if its complement exists using **binary search** instead of scanning linearly.
+* So instead of O(n²), we get O(n log n).
+
+---
+
+## 🧩 Complexity
+
+| Metric    | Value                                                             |
+| --------- | ----------------------------------------------------------------- |
+| **Time**  | O(n log n) (loop over n elements, each binary search takes log n) |
+| **Space** | O(1) (no extra structures)                                        |
+
+---
+
+## 🎮 How to “Play” with Binary Search
+
+To *experiment* and “feel” how binary search behaves:
+
+1. Print internal values inside the loop 👇
+
+   ```python
+   print(f"i={i}, left={left}, right={right}, mid={mid}, complement={complement}")
+   ```
+
+2. Try with different arrays and targets.
+   Example:
+
+   ```python
+   numbers = [1, 3, 4, 5, 7, 11, 15]
+   target = 10
+   ```
+
+   → you’ll see binary search narrowing down for `complement` each time.
+
+3. Try arrays where the complement is at:
+
+   * **beginning** of right half
+   * **middle**
+   * **end**
+     to see how binary search moves pointers.
+
+---
+
+## 🏁 Summary
+
+| Step                 | Meaning                       |
+| -------------------- | ----------------------------- |
+| Loop `i`             | Fix first number              |
+| Compute `complement` | What you need to reach target |
+| Binary search        | Check if complement exists    |
+| Return indices       | Once found, stop              |
+
+---
+
+
+---
+
+# ⚡ Quick Revision — Two Sum II (Sorted Array)
+
+---
+
+## 🥉 1️⃣ **Brute Force Approach**
+
+### 💡 Logic:
+
+Try **every possible pair (i, j)** and check if their sum equals target.
+
+### 🧠 Steps:
+
+```python
+for i in range(len(numbers)):
+    for j in range(i + 1, len(numbers)):
+        if numbers[i] + numbers[j] == target:
+            return [i + 1, j + 1]
+```
+
+### 🧩 Complexity:
+
+| Type  | Value |
+| ----- | ----- |
+| Time  | O(n²) |
+| Space | O(1)  |
+
+### 🧠 Concept Summary:
+
+* Simple but **slow**.
+* Works even if array is **unsorted**.
+* Avoid for large inputs.
+
+🪫 Use only for **understanding** the problem.
+
+---
+
+## 🥈 2️⃣ **Binary Search Approach**
+
+### 💡 Logic:
+
+For each number, use **binary search** to find its complement (`target - numbers[i]`) in the right half.
+
+### 🧠 Steps:
+
+```python
+for i in range(len(numbers)):
+    left, right = i + 1, len(numbers) - 1
+    complement = target - numbers[i]
+    while left <= right:
+        mid = (left + right) // 2
+        if numbers[mid] == complement:
+            return [i + 1, mid + 1]
+        elif numbers[mid] < complement:
+            left = mid + 1
+        else:
+            right = mid - 1
+```
+
+### 🧩 Complexity:
+
+| Type  | Value      |
+| ----- | ---------- |
+| Time  | O(n log n) |
+| Space | O(1)       |
+
+### 🧠 Concept Summary:
+
+* Exploits **sorted array** using binary search.
+* **Loop + binary search** per element.
+* Easier to visualize but slower than two-pointer.
+
+⚙️ Use when you must use **binary search explicitly**.
+
+---
+
+## 🥇 3️⃣ **Two Pointer Approach (Optimal)**
+
+### 💡 Logic:
+
+Use **two pointers** — one from start (`left`) and one from end (`right`) — move them intelligently based on sum.
+
+### 🧠 Steps:
+
+```python
+left, right = 0, len(numbers) - 1
+while left < right:
+    current_sum = numbers[left] + numbers[right]
+    if current_sum == target:
+        return [left + 1, right + 1]
+    elif current_sum < target:
+        left += 1
+    else:
+        right -= 1
+```
+
+### 🧩 Complexity:
+
+| Type  | Value |
+| ----- | ----- |
+| Time  | O(n)  |
+| Space | O(1)  |
+
+### 🧠 Concept Summary:
+
+* Uses **sorted property** perfectly.
+* One pass → **fastest** solution.
+* Clean and elegant.
+
+🚀 Always choose this for sorted input arrays.
+
+---
+
+## 🔥 Final Comparison Table
+
+| Rank | Approach      | Time       | Space | Key Idea                      | Best Use Case                       |
+| ---- | ------------- | ---------- | ----- | ----------------------------- | ----------------------------------- |
+| 🥇   | Two Pointer   | O(n)       | O(1)  | Move inward from both ends    | Sorted array                        |
+| 🥈   | Binary Search | O(n log n) | O(1)  | Search complement per element | Sorted array, search practice       |
+| 🥉   | Brute Force   | O(n²)      | O(1)  | Try every pair                | Very small inputs or unsorted array |
+
+---
+
+## 🧠 Quick Mnemonic to Remember
+
+> **B → Binary**, **T → Two Pointer**, **B → Brute Force**
+> **Speed Ranking:** 🐢 Brute Force < 🚶 Binary Search < 🚀 Two Pointer
+
+---
+
 
