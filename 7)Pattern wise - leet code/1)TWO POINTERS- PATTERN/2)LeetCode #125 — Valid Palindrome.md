@@ -366,4 +366,45 @@ def isPalindrome(s: str) -> bool:
 
 ---
 
+Perfect! Let’s **rank all three approaches** for LeetCode 125 — Valid Palindrome, from best to worst 👇
+
+---
+
+## 🏆 Ranking Table
+
+| Rank | Approach                          | Logic                                       | Time     | Space    | Notes                                                            |
+| ---- | --------------------------------- | ------------------------------------------- | -------- | -------- | ---------------------------------------------------------------- |
+| 🥇 1 | **Two Pointer**                   | Skip non-alnum + compare from both ends     | **O(n)** | **O(1)** | ✅ Most efficient; optimal for interviews and large strings       |
+| 🥈 2 | **Brute Force (Clean + Reverse)** | Build cleaned string + compare with reverse | **O(n)** | **O(n)** | Works, simple to understand; uses extra space for cleaned string |
+| 🥉 3 | **Regex + Reverse**               | Use regex to clean + compare                | **O(n)** | **O(n)** | Elegant shortcut in Python; depends on regex; extra space used   |
+
+---
+
+### 🧠 Intuition Behind Ranking
+
+1. **Two Pointer** is **best** because:
+
+   * No extra string is created → O(1) space
+   * Only one pass with pointers → linear time
+   * Works well for **very large strings**
+
+2. **Brute Force (manual clean + reverse)** is **okay** because:
+
+   * Time is same as two-pointer, O(n)
+   * But extra space is used for cleaned string → not optimal
+
+3. **Regex + Reverse** is **least preferred for interviews** because:
+
+   * Relies on Python-specific library
+   * Creates extra string → uses O(n) space
+   * Slightly slower due to regex overhead
+
+---
+
+### 📝 Quick Memorization Tip
+
+> **“Pointers win, clean string fine, regex shines in Python”**
+
+---
+
 
