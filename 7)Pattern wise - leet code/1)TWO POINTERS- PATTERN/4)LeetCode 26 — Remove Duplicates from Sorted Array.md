@@ -163,71 +163,139 @@ class Solution:
         return i + 1
 ```
 
----
+-----
 
-## 🧮 **Dry Run — Example: `nums = [0,0,1,1,1,2,2,3,3,4]`**
+# Dry Run: Remove Duplicates (Two-Pointer Method)
 
-| Step | i | j | nums[i] | nums[j] | Condition (nums[j] != nums[i]) | Action         | nums (after step)     |
-| ---- | - | - | ------- | ------- | ------------------------------ | -------------- | --------------------- |
-| 1    | 0 | 1 | 0       | 0       | ❌ same                         | —              | [0,0,1,1,1,2,2,3,3,4] |
-| 2    | 0 | 2 | 0       | 1       | ✅ diff                         | i=1; nums[1]=1 | [0,1,1,1,1,2,2,3,3,4] |
-| 3    | 1 | 3 | 1       | 1       | ❌ same                         | —              | [0,1,1,1,1,2,2,3,3,4] |
-| 4    | 1 | 4 | 1       | 1       | ❌ same                         | —              | [0,1,1,1,1,2,2,3,3,4] |
-| 5    | 1 | 5 | 1       | 2       | ✅ diff                         | i=2; nums[2]=2 | [0,1,2,1,1,2,2,3,3,4] |
-| 6    | 2 | 6 | 2       | 2       | ❌ same                         | —              | [0,1,2,1,1,2,2,3,3,4] |
-| 7    | 2 | 7 | 2       | 3       | ✅ diff                         | i=3; nums[3]=3 | [0,1,2,3,1,2,2,3,3,4] |
-| 8    | 3 | 8 | 3       | 3       | ❌ same                         | —              | [0,1,2,3,1,2,2,3,3,4] |
-| 9    | 3 | 9 | 3       | 4       | ✅ diff                         | i=4; nums[4]=4 | [0,1,2,3,4,2,2,3,3,4] |
+-----
 
----
+This document explains the "fast/slow" pointer (or "Gatekeeper/Explorer") technique for solving LeetCode \#26: Remove Duplicates from Sorted Array.
 
-✅ End of loop:
+The process is like "compacting" the array in place.
 
-```
-i = 4
-Unique count = i + 1 = 5
-nums = [0,1,2,3,4,_,_,_,_,_]
-```
+## The Pointers' Jobs
 
----
+Think of the two pointers, `i` and `j`, as having different jobs:
 
-### ✅ **Answer**
+  * **`i` (The Slow Pointer / Gatekeeper) 📝**
 
-```
-Return k = 5
-Modified nums = [0,1,2,3,4,_,_,_,_,_]
-```
+      * `i` points to the last unique element that has been *placed* in the "good" section of the array.
+      * It **only moves** when a new unique number is found.
 
----
+  * **`j` (The Fast Pointer / Explorer) 🕵️**
 
-## 🧩 4. Quick Test Cases
+      * `j` moves forward one step at a time to **explore every element** in the array.
+
+The core logic is this line. It's the "Gatekeeper" (`i`) saying to the "Explorer" (`j`): "You found a new unique item\! I will copy it into the empty slot right after me."
 
 ```python
-sol = Solution()
-
-nums1 = [1,1,2]
-print(sol.removeDuplicates(nums1), nums1)  # ✅ 2, [1,2,_]
-
-nums2 = [0,0,1,1,1,2,2,3,3,4]
-print(sol.removeDuplicates(nums2), nums2)  # ✅ 5, [0,1,2,3,4,_,_,_,_,_]
-
-nums3 = [1,2,3]
-print(sol.removeDuplicates(nums3), nums3)  # ✅ 3, [1,2,3]
-
-nums4 = [1,1,1,1]
-print(sol.removeDuplicates(nums4), nums4)  # ✅ 1, [1,_,_,_]
+if nums[j] != nums[i]:
+    i += 1
+    nums[i] = nums[j]
 ```
 
----
+## Step-by-Step Dry Run
 
-## 🏁 Output
+Let's trace the algorithm with this example.
 
+**Input:** `nums = [0, 0, 1, 1, 2]`
+
+### Initial State
+
+The `for` loop starts `j` at index 1. `i` starts at 0.
+
+  * `i = 0`
+  * `j` is not yet in the loop.
+
+<!-- end list -->
+
+```bash
+[ 0, 0, 1, 1, 2 ]
+  i
 ```
-2 [1, 2, 2]
-5 [0, 1, 2, 3, 4, 2, 2, 3, 3, 4]
-3 [1, 2, 3]
-1 [1, 1, 1, 1]
-```
+
+-----
+
+### Inside the Loop
+
+  * **Loop 1: `j = 1`**
+
+      * **Pointers:** `i = 0`, `j = 1`
+      * **Array:**
+        ```bash
+        [ 0, 0, 1, 1, 2 ]
+          i  j
+        ```
+      * **Check:** `if nums[j] != nums[i]`
+      * **Values:** `if 0 != 0`
+      * **Result:** `False` (It's a duplicate).
+      * **Action:** Nothing happens.
+
+  * **Loop 2: `j = 2`**
+
+      * **Pointers:** `i = 0`, `j = 2`
+      * **Array:**
+        ```bash
+        [ 0, 0, 1, 1, 2 ]
+          i     j
+        ```
+      * **Check:** `if nums[j] != nums[i]`
+      * **Values:** `if 1 != 0`
+      * **Result:** `True` (We found a new unique element\!)
+      * **Action:**
+        1.  `i += 1` (Now `i = 1`)
+        2.  `nums[i] = nums[j]`
+              * `nums[1] = nums[2]`
+              * `nums[1] = 1`
+      * **Array is now:** `[ 0, 1, 1, 1, 2 ]` (The `1` from `nums[2]` **overwrites** the `0` at `nums[1]`)
+        ```bash
+        [ 0, 1, 1, 1, 2 ]
+             i  j
+        ```
+
+  * **Loop 3: `j = 3`**
+
+      * **Pointers:** `i = 1`, `j = 3`
+      * **Array:**
+        ```bash
+        [ 0, 1, 1, 1, 2 ]
+             i     j
+        ```
+      * **Check:** `if nums[j] != nums[i]`
+      * **Values:** `if 1 != 1`
+      * **Result:** `False` (It's a duplicate of the *newest* unique number).
+      * **Action:** Nothing happens.
+
+  * **Loop 4: `j = 4`**
+
+      * **Pointers:** `i = 1`, `j = 4`
+      * **Array:**
+        ```bash
+        [ 0, 1, 1, 1, 2 ]
+             i        j
+        ```
+      * **Check:** `if nums[j] != nums[i]`
+      * **Values:** `if 2 != 1`
+      * **Result:** `True` (We found another new unique element\!)
+      * **Action:**
+        1.  `i += 1` (Now `i = 2`)
+        2.  `nums[i] = nums[j]`
+              * `nums[2] = nums[4]`
+              * `nums[2] = 2`
+      * **Array is now:** `[ 0, 1, 2, 1, 2 ]` (The `2` from `nums[4]` **overwrites** the `1` at `nums[2]`)
+        ```bash
+        [ 0, 1, 2, 1, 2 ]
+                i     j
+        ```
+
+-----
+
+## End of Loop
+
+  * `j` has reached the end of the array. The loop stops.
+  * **Final Array:** `[ 0, 1, 2, 1, 2 ]`
+  * **Return Value:** The function returns `i + 1`, which is `2 + 1 = 3`.
+
 
 ---
 
