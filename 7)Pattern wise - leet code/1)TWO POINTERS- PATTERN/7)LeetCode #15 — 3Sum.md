@@ -97,71 +97,132 @@ class Solution:
 
 
 ---
+**DRY RUN with explanation**
+---
 
-### 1. `for i in range(n - 2):`
 
-* **`i` is the first number.**
-* **Why start at `0`?** (This is the default for `range()`). We need to start at the beginning of the array.
-* **Why stop at `n - 3`?** (Because `range(n-2)` goes up to, but does not include, `n-2`. So the last `i` is `n-3`).
-* `i` needs to leave room for two *more* numbers, `j` and `k`, to come *after* it.
-* If `i` went all the way to `n-1` (the end), there would be no room for `j` or `k`.
-* If `i` went to `n-2`, `j` could be `n-1`, but there would be no room for `k`.
-* So, `i` **must stop at `n-3`**, leaving `n-2` for `j` and `n-1` for `k`.
 
-### 2. `for j in range(i + 1, n - 1):`
+Think of it like picking a team of 3 people from a line of 6: `[A, B, C, D, E, F]`
 
-* **`j` is the second number.**
-* **Why start at `i + 1`?** This is the most important part! By *always* starting `j` *after* `i`, we guarantee two things:
-    1.  `j` is never the same index as `i`.
-    2.  We don't check combinations we've already seen. (e.g., if we check `(i=0, j=1)`, we will *never* check `(i=1, j=0)`. This cuts our work in half!)
-* **Why stop at `n - 2`?** (Because `range(..., n-1)` stops at `n-2`).
-* This is the same logic as `i`. `j` needs to leave room for *one* more number, `k`, to come *after* it.
-* The last slot `k` can take is `n-1`, so `j` must stop at `n-2`.
-
-### 3. `for k in range(j + 1, n):`
-
-* **`k` is the third number.**
-* **Why start at `j + 1`?** Same logic as before. We force `k` to be a *different* index from `j` and `i`, and we prevent re-checking combinations.
-* **Why stop at `n - 1`?** (Because `range(..., n)` stops at `n-1`).
-* `k` is the last number, so it's allowed to go all the way to the end of the array.
+If you just use three separate loops (`for i in range(6)`, `for j in range(6)`, `for k in range(6)`), you would check terrible combinations:
+* `[A, A, A]` (pointers are the same)
+* `[A, B, C]` (this is a good one!)
+* `[C, B, A]` (this is the *same team*! We don't want to check it again).
 
 ---
 
-### Visualization
+### The "No Going Backward" Rule
+To solve this, we invent a simple rule: **"To make a team, I will only pick people from left-to-right. I will never go backward."**
 
-Here's how the pointers move for an array with `n=5`: `[a, b, c, d, e]`
-Indices: `0, 1, 2, 3, 4`
+This is what your nested loops do!
 
-* **`i`** will run from `0` to `2` (`n-3`).
-* **`j`** will run from `i+1` to `3` (`n-2`).
-* **`k`** will run from `j+1` to `4` (`n-1`).
+#### 1. The `i` loop (First Team Member)
+`for i in range(n - 2):`
 
-**When `i = 0` (at `a`):**
-* `j = 1` (at `b`):
-    * `k = 2` (at `c`) → `(a, b, c)`
-    * `k = 3` (at `d`) → `(a, b, d)`
-    * `k = 4` (at `e`) → `(a, b, e)`
-* `j = 2` (at `c`):
-    * `k = 3` (at `d`) → `(a, c, d)`
-    * `k = 4` (at `e`) → `(a, c, e)`
-* `j = 3` (at `d`):
-    * `k = 4` (at `e`) → `(a, d, e)`
+This loop picks the *first* person.
+* Let's say `i` picks **`A`** (index 0).
 
-**When `i = 1` (at `b`):**
-* `j = 2` (at `c`):
-    * `k = 3` (at `d`) → `(b, c, d)`
-    * `k = 4` (at `e`) → `(b, c, e)`
-* `j = 3` (at `d`):
-    * `k = 4` (at `e`) → `(b, d, e)`
+#### 2. The `j` loop (Second Team Member)
+`for j in range(i + 1, n - 1):`
 
-**When `i = 2` (at `c`):**
-* `j = 3` (at `d`):
-    * `k = 4` (at `e`) → `(c, d, e)`
+* **`range(i + 1, ...)`** is the "No Going Backward" rule!
+* It forces `j` to start *after* `i`.
+* `j` *must* start by picking **`B`** (index 1). It is not allowed to pick `A` again.
 
-...and we're done! We've found every single unique triplet combination.
-✅ Simple to understand.
-❌ **Fails due to Time Limit Exceeded (TLE).**
+#### 3. The `k` loop (Third Team Member)
+`for k in range(j + 1, n):`
 
+* **`range(j + 1, ...)`** is the same rule again!
+* It forces `k` to start *after* `j`.
+* `k` *must* start by picking **`C`** (index 2).
+
+This system guarantees that `i`, `j`, and `k` are **always different** and that you **never check the same combination twice.**
+
+---
+
+### Why `n-2`, `n-1`, `n`? (The "Last Team" Rule)
+This just makes sure your loops don't crash when you run out of people.
+
+Let's find the **last possible team** in the line: `[A, B, C, D, E, F]`
+
+The last team you can possibly pick is **`[D, E, F]`**.
+* **`i`** is at `D` (index `3`)
+* **`j`** is at `E` (index `4`)
+* **`k`** is at `F` (index `5`)
+
+This tells us the *last* index each pointer ever needs to touch:
+* The **`i`** loop (first person) only needs to go up to **`D`** (index `3`). If `i` picked `E`, there wouldn't be two people left for `j` and `k`!
+* The **`j`** loop (second person) only needs to go up to **`E`** (index `4`).
+* The **`k`** loop (third person) needs to go all the way to **`F`** (index `5`).
+
+Now look at the code when `n = 6`:
+* `range(n - 2)` $\rightarrow$ `range(4)` $\rightarrow$ `0, 1, 2, 3`. **Last index is `3` (`D`)**. ✅
+* `range(..., n - 1)` $\rightarrow$ `range(..., 5)` $\rightarrow$ `...3, 4`. **Last index is `4` (`E`)**. ✅
+* `range(..., n)` $\rightarrow$ `range(..., 6)` $\rightarrow$ `...4, 5`. **Last index is `5` (`F`)**. ✅
+
+The ranges are set up to stop *exactly* at the last possible spot each pointer can be.
+
+---
+
+### How the `if` Check Fits In (Full Example)
+
+The `if nums[i] + nums[j] + nums[k] == 0:` check happens **inside the innermost `k` loop**. It is the *last* thing that happens, right after you've picked your team of three.
+
+Let's use `nums = [-1, 0, 1, 2, -1, -4]` (`n=6`).
+
+#### `i` is set to 0. (value `nums[0] = -1`)
+* `j` is set to 1. (value `nums[1] = 0`)
+    * `k` is set to 2. (value `nums[2] = 1`)
+        * **CHECK:** `if (-1) + 0 + 1 == 0`? **True.** Found a triplet!
+    * `k` is set to 3. (value `nums[3] = 2`)
+        * **CHECK:** `if (-1) + 0 + 2 == 0`? **False.** (Sum is 1)
+    * `k` is set to 4. (value `nums[4] = -1`)
+        * **CHECK:** `if (-1) + 0 + (-1) == 0`? **False.** (Sum is -2)
+    * `k` is set to 5. (value `nums[5] = -4`)
+        * **CHECK:** `if (-1) + 0 + (-4) == 0`? **False.** (Sum is -5)
+    * *(`k` loop finishes)*
+* `j` is set to 2. (value `nums[2] = 1`)
+    * `k` is set to 3. (value `nums[3] = 2`)
+        * **CHECK:** `if (-1) + 1 + 2 == 0`? **False.** (Sum is 2)
+    * `k` is set to 4. (value `nums[4] = -1`)
+        * **CHECK:** `if (-1) + 1 + (-1) == 0`? **False.** (Sum is -1)
+    * `k` is set to 5. (value `nums[5] = -4`)
+        * **CHECK:** `if (-1) + 1 + (-4) == 0`? **False.** (Sum is -4)
+    * *(`k` loop finishes)*
+* `j` is set to 3. (value `nums[3] = 2`)
+    * `k` is set to 4. (value `nums[4] = -1`)
+        * **CHECK:** `if (-1) + 2 + (-1) == 0`? **True.** Found a triplet!
+    * `k` is set to 5. (value `nums[5] = -4`)
+        * **CHECK:** `if (-1) + 2 + (-4) == 0`? **False.** (Sum is -3)
+    * *(`k` loop finishes)*
+* `j` is set to 4. (value `nums[4] = -1`)
+    * `k` is set to 5. (value `nums[5] = -4`)
+        * **CHECK:** `if (-1) + (-1) + (-4) == 0`? **False.** (Sum is -6)
+    * *(`k` loop finishes)*
+* *(`j` loop finishes)*
+
+#### `i` is set to 1. (value `nums[1] = 0`)
+* `j` is set to 2. (value `nums[2] = 1`)
+    * `k` is set to 3. (value `nums[3] = 2`)
+        * **CHECK:** `if 0 + 1 + 2 == 0`? **False.**
+    * ... (and so on) ...
+
+This "odometer" process continues, checking every single team *exactly once*.
+
+---
+
+### When The Loops Finish
+The loops run until the **very last team** `[D, E, F]` (or indices `[3, 4, 5]`) is checked.
+
+* **Final `i` loop:** `i = 3` (value `nums[3] = 2`)
+    * **Final `j` loop:** `j = 4` (value `nums[4] = -1`)
+        * **Final `k` loop:** `k = 5` (value `nums[5] = -4`)
+            * **FINAL CHECK:** `if 2 + (-1) + (-4) == 0`? **False.** (Sum is -3)
+        * *(`k` loop finishes)*
+    * *(`j` loop finishes)*
+* *(`i` loop finishes)*
+
+**Now, all loops are finished.** The `i` loop tries to go to `4`, but `range(4)` is done. The function has checked every possible unique combination and can now return the set of triplets it found.
 -----
 
 ## 🧩 4. Approach 2 — Sort + Two Pointers (Optimal)
