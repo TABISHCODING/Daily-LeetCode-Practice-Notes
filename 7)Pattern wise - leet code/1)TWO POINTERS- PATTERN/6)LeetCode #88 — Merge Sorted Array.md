@@ -272,6 +272,48 @@ Let's use `nums1 = [1, 2, 3, 0, 0, 0]`, `m = 3`, `nums2 = [2, 5, 6]`, `n = 3`
   * **Check:** `while p2 >= 0`
   * **Values:** `while -1 >= 0`
   * **Result:** `False`. The cleanup loop does not run.
+   
+
+---
+
+### The Two Piles of Cards Analogy
+
+Imagine you have two piles of sorted cards, `Pile 1` (`nums1`) and `Pile 2` (`nums2`), and you're merging them into one big pile, sorted. You're picking the **largest** card each time.
+
+Your main rule (the main loop) is:
+> "As long as I have cards in **both** `Pile 1` **AND** `Pile 2`, I will compare them and move the larger one."
+
+`while p1 >= 0 and p2 >= 0:`
+
+---
+
+### The Problem (The Fail Case)
+
+Let's say these are your piles:
+* `Pile 1` (`nums1`): `[4, 5]`
+* `Pile 2` (`nums2`): `[1, 2]`
+
+You run your rule:
+1.  **Compare:** `5` (from Pile 1) vs. `2` (from Pile 2).
+2.  **Action:** `5` is larger. You move `5` to your new pile. `Pile 1` now only has `[4]`.
+3.  **Compare:** `4` (from Pile 1) vs. `2` (from Pile 2).
+4.  **Action:** `4` is larger. You move `4` to your new pile. `Pile 1` is now **empty**.
+
+**Your main rule now stops!**
+The condition `while p1 >= 0 and p2 >= 0` is **FALSE**, because `p1` is now `-1` (Pile 1 is empty).
+
+But look! `Pile 2` (`nums2`) **still has `[1, 2]` left in it!**
+
+---
+
+### The Solution (The Cleanup Loop)
+
+This is why you **must** have the second loop. The second loop is your "cleanup" rule:
+> "Okay, I'm done with the main rule. Now, if `Pile 2` (`nums2`) still has any cards left in it, just move all of them over, since they are all smaller than what I've already moved."
+
+`while p2 >= 0:`
+
+This "cleanup" loop's only job is to handle the case where `Pile 1` (`nums1`) runs out of cards before `Pile 2` (`nums2`) does.
 
 -----
 
