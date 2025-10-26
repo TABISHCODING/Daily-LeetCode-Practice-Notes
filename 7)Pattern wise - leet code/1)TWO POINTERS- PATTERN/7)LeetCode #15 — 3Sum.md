@@ -320,6 +320,7 @@ class Solution:
 
 -----
 
+
 ## 🧮 6. Dry Run (Step-by-Step Visual)
 
 Here is a dry run for the "Sort + Two Pointers" algorithm.
@@ -403,6 +404,254 @@ Here is a dry run for the "Sort + Two Pointers" algorithm.
   * **Final Answer:** `[[-1, -1, 2], [-1, 0, 1]]`. This is correct\! ✅
 
 -----
+
+
+Let’s break the *entire* algorithm again **line by line**,
+and this time include **every line**, including all `while` and `if` for duplicates.
+We’ll dry-run it slowly so you’ll see *why we need each line* and what happens when we skip them.
+
+---
+
+# 🧮 Full Code (with comments)
+
+```python
+def three_sum(nums):
+    nums.sort()  # Step 1
+    res = []     # Step 2
+
+    for i in range(len(nums) - 2):  # Step 3
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue  # Step 4
+
+        left = i + 1              # Step 5
+        right = len(nums) - 1     # Step 6
+
+        while left < right:       # Step 7
+            total = nums[i] + nums[left] + nums[right]  # Step 8
+
+            if total == 0:        # Step 9
+                res.append([nums[i], nums[left], nums[right]])  # Step 10
+
+                left += 1          # Step 11
+                right -= 1         # Step 12
+
+                # Step 13: Skip duplicates for left pointer
+                while left < right and nums[left] == nums[left - 1]:
+                    left += 1
+
+                # Step 14: Skip duplicates for right pointer
+                while left < right and nums[right] == nums[right + 1]:
+                    right -= 1
+
+            elif total < 0:        # Step 15
+                left += 1
+            else:                  # Step 16
+                right -= 1
+
+    return res                     # Step 17
+```
+
+---
+
+# 🧠 Now Let’s Explain Every Line’s Purpose
+
+---
+
+### **Step 1: `nums.sort()`**
+
+We sort the array so that:
+
+* We can use the **two-pointer** technique (works only on sorted arrays).
+* Duplicates become adjacent → easy to skip them later.
+
+Example input:
+
+```
+nums = [-1, 0, 1, 2, -1, -4]
+After sorting: [-4, -1, -1, 0, 1, 2]
+```
+
+---
+
+### **Step 2: `res = []`**
+
+To store all unique triplets.
+
+---
+
+### **Step 3: `for i in range(len(nums) - 2):`**
+
+We fix one element `nums[i]` at a time.
+
+We go only till `len(nums)-2` because we always need at least 2 more elements (`left`, `right`).
+
+---
+
+### **Step 4:**
+
+```python
+if i > 0 and nums[i] == nums[i - 1]:
+    continue
+```
+
+✅ **Purpose:** Skip duplicates for the fixed element.
+
+👉 Suppose we already used `nums[i-1] = -1`.
+If the next element `nums[i]` is also `-1`,
+we’ll get the *same triplets again*. So we skip it.
+
+---
+
+### **Step 5–6: Initialize Two Pointers**
+
+```python
+left = i + 1
+right = len(nums) - 1
+```
+
+We now look for two numbers that make the sum = `-nums[i]`.
+
+---
+
+### **Step 7: `while left < right:`**
+
+Loop continues while pointers haven’t crossed.
+
+---
+
+### **Step 8: Calculate total**
+
+```python
+total = nums[i] + nums[left] + nums[right]
+```
+
+Check whether the three numbers sum to zero.
+
+---
+
+### **Step 9–12: When We Find a Valid Triplet**
+
+```python
+if total == 0:
+    res.append([nums[i], nums[left], nums[right]])
+    left += 1
+    right -= 1
+```
+
+✅ Found one valid triplet, store it.
+Then we move both pointers inward to check for more combinations.
+
+---
+
+### **Step 13–14: Skip Duplicates Around Pointers**
+
+This is where your question is 👇
+
+```python
+while left < right and nums[left] == nums[left - 1]:
+    left += 1
+```
+
+**Why?**
+If the next number on the left side is the same as the previous one,
+we’ll form the same triplet again.
+Example: `[-1, -1, 2]` → the next `-1` would make the same triplet again.
+
+So we **move left forward** until we see a new value.
+
+---
+
+```python
+while left < right and nums[right] == nums[right + 1]:
+    right -= 1
+```
+
+**Why?**
+Same logic for the right side.
+If `nums[right]` equals the previous `nums[right+1]` (which we just used),
+it’ll duplicate the same triplet.
+
+So we **move right backward** until we see a new value.
+
+✅ These two loops **guarantee unique triplets** in `res`.
+
+---
+
+### **Step 15–16: Adjust Pointers When Not Equal to 0**
+
+```python
+elif total < 0:
+    left += 1
+else:
+    right -= 1
+```
+
+* If total < 0 → need a larger sum → move `left` (increase number)
+* If total > 0 → need smaller sum → move `right` (decrease number)
+
+---
+
+### **Step 17: `return res`**
+
+Finally, return all unique triplets.
+
+---
+
+# 🧮 DRY RUN with Focus on Duplicate Skipping
+
+Input:
+
+```
+nums = [-1, 0, 1, 2, -1, -4]
+After sort → [-4, -1, -1, 0, 1, 2]
+```
+
+---
+
+| i | nums[i] | left           | right | total                    | Action                                     |
+| - | ------- | -------------- | ----- | ------------------------ | ------------------------------------------ |
+| 0 | -4      | 1              | 5     | -3                       | total < 0 → left++                         |
+| 0 | -4      | 2              | 5     | -3                       | left++                                     |
+| 0 | -4      | 3              | 5     | -2                       | left++                                     |
+| 0 | -4      | 4              | 5     | -1                       | left++                                     |
+| 0 | -4      | 5              | 5     | stop                     | No triplet                                 |
+| 1 | -1      | 2              | 5     | 0                        | ✅ append [-1, -1, 2], move left++, right-- |
+|   |         | 3              | 4     | 0                        | ✅ append [-1, 0, 1], move left++, right--  |
+|   |         | left=4,right=3 | stop  | Done                     |                                            |
+| 2 | -1      | 3              | 5     | skip (duplicate nums[i]) |                                            |
+| 3 | 0       | 4              | 5     | total=3>0 → right--      |                                            |
+|   | 0       | 4              | 4     | stop                     | Done                                       |
+
+Result → `[[-1, -1, 2], [-1, 0, 1]]`
+
+---
+
+# 🔁 What Happens If We REMOVE Duplicate-Skipping Lines?
+
+Try removing:
+
+```python
+if i > 0 and nums[i] == nums[i - 1]: continue
+```
+
+Then for i=1 and i=2 (both = -1), you’ll get the **same triplets twice**.
+
+Try removing:
+
+```python
+while left < right and nums[left] == nums[left - 1]: left += 1
+while left < right and nums[right] == nums[right + 1]: right -= 1
+```
+
+Then inside the same loop, if you have repeated numbers like `[-1, -1, 2]`,
+you’ll store duplicates like `[[-1, -1, 2], [-1, -1, 2]]`.
+
+So these lines make your answer **clean and unique** ✅
+
+---
+
+
+
 
 ## 🧩 7. Time & Space Analysis
 
