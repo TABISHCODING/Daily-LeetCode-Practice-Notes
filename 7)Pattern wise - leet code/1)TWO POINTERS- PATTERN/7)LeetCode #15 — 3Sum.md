@@ -246,169 +246,55 @@ This is now a **Two Sum II** problem on a sorted array\! We can solve it in $O(n
 
 ### 🧠 Logic
 
-1.  **Sort `nums`** ($O(n \log n)$).
-2.  Loop through the array with a pointer `i`. This `nums[i]` is our "fixed" first number.
-3.  **Critical: Skip Duplicates for `i`**: If `i > 0` and `nums[i]` is the *same* as `nums[i-1]`, we have already found all triplets for this number. **`continue`** to the next `i` to avoid duplicate triplets.
-4.  For each `i`, set `target = -nums[i]`.
-5.  Initialize two more pointers on the *rest* of the array: `left = i + 1` and `right = len(nums) - 1`.
-6.  Start a `while left < right` loop (this is the Two Sum II part):
-      * `current_sum = nums[left] + nums[right]`
-      * **If `current_sum == target`**: We found a triplet\! `[nums[i], nums[left], nums[right]]`. Add it to our results.
-          * **Critical: Skip Duplicates for `left` and `right`**: Now, we must move our pointers *past* any duplicates.
-          * `while left < right and nums[left] == nums[left+1]: left += 1`
-          * `while left < right and nums[right] == nums[right-1]: right -= 1`
-          * After skipping, move both pointers inward: `left += 1`, `right -= 1`.
-      * **If `current_sum < target`**: The sum is too small. We need a larger number, so move `left += 1`.
-      * **If `current_sum > target`**: The sum is too big. We need a smaller number, so move `right -= 1`.
-7.  Return the results.
+Here's the logic for that specific code, which doesn't use a separate `target` variable.
 
+The core idea is:
+1.  **Sort** the array. This is the most important step.
+2.  **Fix one number** (`nums[i]`) with an outer loop.
+3.  Use **two other pointers** (`left` and `right`) to "search" the rest of the array for two numbers that, when added to `nums[i]`, equal zero.
+
+---
+
+## Step-by-Step Logic
+
+### **Preparation**
+* **Step 1: `nums.sort()`**
+    * **Why?** Sorting is critical. It allows us to use the two-pointer trick. If our sum is too small, we *know* we can get a bigger number by moving the `left` pointer right. If the sum is too big, we *know* we can get a smaller number by moving the `right` pointer left. It also groups all duplicates together, making them easy to skip.
+* **Step 2: `res = []`**
+    * Just an empty list to store our answers.
+
+---
+
+### **The Main Loops**
+* **Step 3: `for i in range(len(nums) - 2):`**
+    * This loop "fixes" our first number, `nums[i]`. We iterate through almost the whole array, leaving room (`- 2`) for the `left` and `right` pointers.
+* **Step 4: `if i > 0 and nums[i] == nums[i - 1]: continue`**
+    * **Logic:** This skips duplicate *answers*. For example, if `nums = [-1, -1, 0, 1]`.
+    * When `i = 0` (value `-1`), we find the triplet `[-1, 0, 1]`.
+    * When `i = 1` (value `-1`), this `if` statement catches it. It sees that `nums[1]` is the same as `nums[0]`. We've *already* found all triplets for the number `-1`, so we `continue` (skip) to avoid adding `[-1, 0, 1]` a second time.
+* **Steps 5-7: The Two-Pointer Setup**
+    * We set `left = i + 1` (just after our fixed number) and `right = len(nums) - 1` (the very end).
+    * `while left < right:` just means we'll keep searching until our two pointers cross.
+
+---
+
+### **The Core Logic (Inside the `while` loop)**
+This is where your "no target" logic comes in.
+
+* **Step 8: `total = nums[i] + nums[left] + nums[right]`**
+    * We directly calculate the sum of the three numbers we are currently pointing at.
+* **Step 9-14: `if total == 0:` (We found an answer!)**
+    * `Step 10`: We add the triplet to our results.
+    * `Steps 11-14`: This is **crucial**. We found a valid triplet, but there might be duplicates *at the `left` and `right` pointers*.
+    * `while... nums[left] == nums[left - 1]`: This skips all duplicates for the `left` pointer. For example, if we have `[...2, 2, 2, 3...]` and `nums[left]` was the first `2`, this loop moves `left` all the way to the `3` to avoid checking the same pair again.
+    * `while... nums[right] == nums[right + 1]`: This does the same for the `right` pointer.
+* **Step 15: `elif total < 0:` (The sum is too small)**
+    * **Logic:** Our `total` is negative. We need a *larger* number to get closer to 0. Since the array is sorted, the only way to get a larger number is to move the **`left` pointer to the right** (`left += 1`).
+* **Step 16: `else:` (The sum is too big, `total > 0`)**
+    * **Logic:** Our `total` is positive. We need a *smaller* number. Since the array is sorted, the only way to get a smaller number is to move the **`right` pointer to the left** (`right -= 1`).
+
+This `while` loop continues, shrinking the "window" between `left` and `right`, until they cross. Then, the main `i` loop moves to the next number, and the process repeats.
 -----
-
-## 🧾 5. Full Code with Comments (Optimal)
-
-```python
-class Solution:
-    def threeSum(self, nums: list[int]) -> list[list[int]]:
-        res = []
-        # 1. Sort the array
-        nums.sort()
-        n = len(nums)
-        
-        # 2. Outer loop for the "fixed" number `nums[i]`
-        for i in range(n - 2):
-            
-            # 3. CRITICAL: Skip duplicate 'i' values
-            # If this 'i' is the same as the last 'i', we've
-            # already processed all its combinations.
-            if i > 0 and nums[i] == nums[i-1]:
-                continue
-                
-            # 4. Set up the Two Sum II problem
-            target = -nums[i]
-            left = i + 1
-            right = n - 1
-            
-            # 5. Inner loop (Two Pointers)
-            while left < right:
-                current_sum = nums[left] + nums[right]
-                
-                if current_sum == target:
-                    # Found a triplet!
-                    res.append([nums[i], nums[left], nums[right]])
-                    
-                    # 6. CRITICAL: Skip duplicates for 'left'
-                    while left < right and nums[left] == nums[left+1]:
-                        left += 1
-                    
-                    # 7. CRITICAL: Skip duplicates for 'right'
-                    while left < right and nums[right] == nums[right-1]:
-                        right -= 1
-                        
-                    # 8. Move pointers to find the next unique pair
-                    left += 1
-                    right -= 1
-                    
-                elif current_sum < target:
-                    # Sum is too small, need a larger number
-                    left += 1
-                else:
-                    # Sum is too large, need a smaller number
-                    right -= 1
-                    
-        return res
-```
-
------
-
-
-## 🧮 6. Dry Run (Step-by-Step Visual)
-
-Here is a dry run for the "Sort + Two Pointers" algorithm.
-
-**🎯 Input:** `nums = [-1, 0, 1, 2, -1, -4]`
-
-**Step 1: Sort `nums`**
-`nums` is now `[-4, -1, -1, 0, 1, 2]`
-`n = 6`
-`res = []`
-
------
-
-**`i` Loop 1: `i = 0`, `nums[i] = -4`**
-
-  * (Skip check: `i > 0` is false).
-  * `target = -(-4) = 4`
-  * `left = 1` (at `-1`), `right = 5` (at `2`)
-  * `while left < right`:
-      * `sum = nums[left] + nums[right]` → `(-1) + 2 = 1`.
-      * `1 < 4` (sum \< target). Move `left += 1`.
-      * `left = 2` (at `-1`). `sum = (-1) + 2 = 1`.
-      * `1 < 4` (sum \< target). Move `left += 1`.
-      * `left = 3` (at `0`). `sum = 0 + 2 = 2`.
-      * `2 < 4` (sum \< target). Move `left += 1`.
-      * `left = 4` (at `1`). `sum = 1 + 2 = 3`.
-      * `3 < 4` (sum \< target). Move `left += 1`.
-      * `left = 5` (at `2`). `left < right` (5 \< 5) is **False**. Loop ends.
-  * **Result:** No triplets found for `i = 0`.
-
------
-
-**`i` Loop 2: `i = 1`, `nums[i] = -1`**
-
-  * (Skip check: `nums[1] != nums[0]`).
-  * `target = -(-1) = 1`
-  * `left = 2` (at `-1`), `right = 5` (at `2`)
-  * `while left < right`:
-      * `sum = nums[left] + nums[right]` → `(-1) + 2 = 1`.
-      * `1 == 1` (sum == target). **FOUND A TRIPLET\!**
-      * `res.append([-1, -1, 2])`.
-      * **Skip duplicates:**
-          * `while nums[left] == nums[left+1]`? `(-1) != 0`. No skip.
-          * `while nums[right] == nums[right-1]`? `2 != 1`. No skip.
-      * Move pointers: `left` becomes `3` (at `0`), `right` becomes `4` (at `1`).
-      * `sum = nums[left] + nums[right]` → `0 + 1 = 1`.
-      * `1 == 1` (sum == target). **FOUND A TRIPLET\!**
-      * `res.append([-1, 0, 1])`.
-      * **Skip duplicates:**
-          * `while nums[left] == nums[left+1]`? `0 != 1`. No skip.
-          * `while nums[right] == nums[right-1]`? `1 != 0`. No skip.
-      * Move pointers: `left` becomes `4` (at `1`), `right` becomes `3` (at `0`).
-      * `left < right` (4 \< 3) is **False**. Loop ends.
-  * **Result:** `res = [[-1, -1, 2], [-1, 0, 1]]`
-
------
-
-**`i` Loop 3: `i = 2`, `nums[i] = -1`**
-
-  * (Skip check: `i > 0` is true. `nums[2] == nums[1]`? `(-1) == (-1)`? **True**).
-  * **Action: `continue`**. This *skips* processing and avoids a duplicate `[-1, 0, 1]`.
-
------
-
-**`i` Loop 4: `i = 3`, `nums[i] = 0`**
-
-  * (Skip check: `0 != -1`).
-  * `target = -0 = 0`
-  * `left = 4` (at `1`), `right = 5` (at `2`)
-  * `while left < right`:
-      * `sum = 1 + 2 = 3`.
-      * `3 > 0` (sum \> target). Move `right -= 1`.
-      * `left = 4`, `right = 4`. `left < right` is **False**. Loop ends.
-  * **Result:** No new triplets.
-
------
-
-**End of Loops:**
-
-  * `i` loop finishes.
-  * **Final Answer:** `[[-1, -1, 2], [-1, 0, 1]]`. This is correct\! ✅
-
------
-
-
-Let’s break the *entire* algorithm again **line by line**,
-and this time include **every line**, including all `while` and `if` for duplicates.
-We’ll dry-run it slowly so you’ll see *why we need each line* and what happens when we skip them.
 
 ---
 
@@ -597,34 +483,355 @@ Finally, return all unique triplets.
 
 ---
 
-# 🧮 DRY RUN with Focus on Duplicate Skipping
+# 🧮 DRY RUN
 
-Input:
+We’ll go through every single step exactly as the computer does — and explain *why* it takes each step.
+
+---
+
+
+## 🧩 Step-by-Step Dry Run (with 15 main steps)
+
+---
+
+### 🧮 STEP 1: Sort the array
+
+```python
+nums.sort()
+```
+
+Sorted:
 
 ```
-nums = [-1, 0, 1, 2, -1, -4]
-After sort → [-4, -1, -1, 0, 1, 2]
+nums = [-4, -1, -1, 0, 1, 2]
+```
+
+👉 Sorting helps us:
+
+* Use two-pointer technique.
+* Skip duplicates easily (since they’re next to each other).
+
+---
+
+### 🧮 STEP 2: Initialize result list
+
+```python
+res = []
+```
+
+Empty for now → `res = []`
+
+---
+
+### 🧮 STEP 3: Start loop to fix one number (`i`)
+
+```python
+for i in range(len(nums) - 2):
+```
+
+We’ll iterate `i = 0` to `3` (since last two positions are reserved for left & right pointers).
+
+---
+
+---
+
+### ✅ i = 0 → nums[i] = -4
+
+---
+
+### 🧮 STEP 4: Skip duplicate fixed numbers
+
+```python
+if i > 0 and nums[i] == nums[i - 1]:
+    continue
+```
+
+Here, `i=0`, so this check is **False** → continue normally.
+
+---
+
+### 🧮 STEP 5 & 6: Initialize two pointers
+
+```python
+left = i + 1 = 1
+right = len(nums) - 1 = 5
+```
+
+Pointers:
+
+```
+i=0 (-4), left=1 (-1), right=5 (2)
 ```
 
 ---
 
-| i | nums[i] | left           | right | total                    | Action                                     |
-| - | ------- | -------------- | ----- | ------------------------ | ------------------------------------------ |
-| 0 | -4      | 1              | 5     | -3                       | total < 0 → left++                         |
-| 0 | -4      | 2              | 5     | -3                       | left++                                     |
-| 0 | -4      | 3              | 5     | -2                       | left++                                     |
-| 0 | -4      | 4              | 5     | -1                       | left++                                     |
-| 0 | -4      | 5              | 5     | stop                     | No triplet                                 |
-| 1 | -1      | 2              | 5     | 0                        | ✅ append [-1, -1, 2], move left++, right-- |
-|   |         | 3              | 4     | 0                        | ✅ append [-1, 0, 1], move left++, right--  |
-|   |         | left=4,right=3 | stop  | Done                     |                                            |
-| 2 | -1      | 3              | 5     | skip (duplicate nums[i]) |                                            |
-| 3 | 0       | 4              | 5     | total=3>0 → right--      |                                            |
-|   | 0       | 4              | 4     | stop                     | Done                                       |
+### 🧮 STEP 7: While loop condition
 
-Result → `[[-1, -1, 2], [-1, 0, 1]]`
+`while left < right:` → (1 < 5) ✅
 
 ---
+
+### 🧮 STEP 8: Calculate total
+
+```python
+total = nums[i] + nums[left] + nums[right]
+       = (-4) + (-1) + (2) = -3
+```
+
+---
+
+### 🧮 STEP 9–16: Compare `total`
+
+* `total < 0` → move `left` pointer right
+
+```python
+left += 1
+```
+
+Now `left = 2` (nums[left] = -1)
+
+---
+
+### 🧮 STEP 8 again
+
+```
+total = (-4) + (-1) + (2) = -3
+```
+
+Still `< 0` → move left again → `left = 3 (0)`
+
+---
+
+Next:
+
+```
+total = (-4) + (0) + (2) = -2 < 0
+→ left = 4 (1)
+```
+
+Next:
+
+```
+total = (-4) + (1) + (2) = -1 < 0
+→ left = 5
+```
+
+Now `left = right` → while loop ends.
+
+No triplet found for i=0.
+
+---
+
+---
+
+### ✅ i = 1 → nums[i] = -1
+
+---
+
+### 🧮 STEP 4: Duplicate check
+
+```
+i > 0 → True
+nums[i] == nums[i-1]? → (-1 == -4)? No
+```
+
+So continue.
+
+---
+
+### 🧮 STEP 5–6: Initialize pointers
+
+```
+left = 2, right = 5
+```
+
+→ left=2 (-1), right=5 (2)
+
+---
+
+### 🧮 STEP 7: while (2 < 5) → ✅
+
+---
+
+### 🧮 STEP 8: total
+
+```
+total = (-1) + (-1) + (2) = 0
+```
+
+---
+
+### 🧮 STEP 9: Found triplet 🎯
+
+```
+res.append([-1, -1, 2])
+res = [[-1, -1, 2]]
+```
+
+---
+
+### 🧮 STEP 11–12: Move both pointers inward
+
+```
+left = 3, right = 4
+```
+
+---
+
+### 🧮 STEP 13: Skip duplicates for left
+
+```
+while left < right and nums[left] == nums[left - 1]
+→ nums[3]=0, nums[2]=-1 → not equal → skip
+```
+
+No duplicate on left.
+
+---
+
+### 🧮 STEP 14: Skip duplicates for right
+
+```
+nums[4]=1, nums[5]=2 → not equal → skip
+```
+
+No duplicate on right.
+
+---
+
+### 🧮 STEP 7 again: (3 < 4) ✅
+
+---
+
+### 🧮 STEP 8: total
+
+```
+total = (-1) + (0) + (1) = 0 ✅
+```
+
+---
+
+### 🧮 STEP 9: Found triplet 🎯
+
+```
+res.append([-1, 0, 1])
+res = [[-1, -1, 2], [-1, 0, 1]]
+```
+
+---
+
+### 🧮 STEP 11–12: Move both pointers
+
+```
+left = 4, right = 3
+```
+
+Now `left > right` → while loop ends.
+
+---
+
+### ✅ STEP 3 → next i
+
+---
+
+### ✅ i = 2 → nums[i] = -1
+
+---
+
+### 🧮 STEP 4: Duplicate check
+
+```
+nums[i] == nums[i-1]? (-1 == -1)? ✅ True
+→ continue
+```
+
+Skip this i (because we already processed -1 before).
+
+---
+
+### ✅ i = 3 → nums[i] = 0
+
+---
+
+### 🧮 STEP 4: Duplicate check
+
+```
+nums[3]=0, nums[2]=-1 → not equal → continue
+```
+
+---
+
+### 🧮 STEP 5–6: Initialize pointers
+
+```
+left = 4, right = 5
+```
+
+---
+
+### 🧮 STEP 7: while (4 < 5) ✅
+
+---
+
+### 🧮 STEP 8: total
+
+```
+total = (0) + (1) + (2) = 3 > 0
+```
+
+---
+
+### 🧮 STEP 16: Move right pointer left
+
+```
+right = 4
+```
+
+Now `left == right` → stop.
+
+---
+
+### ✅ Loop ends (i goes beyond limit)
+
+---
+
+### 🧮 STEP 17: Return result
+
+```
+res = [[-1, -1, 2], [-1, 0, 1]]
+```
+
+🎉 **Final Output:**
+
+```python
+[[-1, -1, 2], [-1, 0, 1]]
+```
+
+---
+
+## 🧾 Summary Table of Each Major Step
+
+| Step  | What Happens                          | Why                                            |
+| ----- | ------------------------------------- | ---------------------------------------------- |
+| 1     | Sort array                            | Needed for 2-pointer logic                     |
+| 2     | Initialize result list                | To store valid triplets                        |
+| 3     | Loop through each number as fixed `i` | To pick one number for 3Sum                    |
+| 4     | Skip duplicate `i`                    | Avoid repeating same triplets                  |
+| 5–6   | Set left/right pointers               | To search for 2 numbers that balance `nums[i]` |
+| 7     | While loop                            | Scan the range for valid pairs                 |
+| 8     | Compute `total`                       | Sum of 3 numbers                               |
+| 9–10  | If total==0                           | Found triplet, store it                        |
+| 11–12 | Move pointers                         | Continue searching for next possible pairs     |
+| 13    | Skip left duplicates                  | Prevent same triplet again                     |
+| 14    | Skip right duplicates                 | Same reason as above                           |
+| 15    | If total < 0                          | Need bigger numbers → move left                |
+| 16    | If total > 0                          | Need smaller numbers → move right              |
+| 17    | Return all unique triplets            | Done ✅                                         |
+
+---
+
+
+
 
 # 🔁 What Happens If We REMOVE Duplicate-Skipping Lines?
 
@@ -696,3 +903,95 @@ print(sol.threeSum([1, 2, -1, -5]))
 | :--- | :--- | :--- | :--- | :--- |
 | **1. Brute Force** | Three nested loops. Use a `set` to handle duplicates. | $O(n^3)$ | $O(k)$ | ❌ |
 | **2. Sort + 2 Pointers**| Sort first. Fix one element (`i`), use 2-pointers (`l, r`) on the rest. | $O(n^2)$ | $O(1)$ or $O(n)$ | ✅ |
+
+
+
+## 🧮 6. Dry Run (Step-by-Step Visual)
+
+Here is a dry run for the "Sort + Two Pointers" algorithm.
+
+**🎯 Input:** `nums = [-1, 0, 1, 2, -1, -4]`
+
+**Step 1: Sort `nums`**
+`nums` is now `[-4, -1, -1, 0, 1, 2]`
+`n = 6`
+`res = []`
+
+-----
+
+**`i` Loop 1: `i = 0`, `nums[i] = -4`**
+
+  * (Skip check: `i > 0` is false).
+  * `target = -(-4) = 4`
+  * `left = 1` (at `-1`), `right = 5` (at `2`)
+  * `while left < right`:
+      * `sum = nums[left] + nums[right]` → `(-1) + 2 = 1`.
+      * `1 < 4` (sum \< target). Move `left += 1`.
+      * `left = 2` (at `-1`). `sum = (-1) + 2 = 1`.
+      * `1 < 4` (sum \< target). Move `left += 1`.
+      * `left = 3` (at `0`). `sum = 0 + 2 = 2`.
+      * `2 < 4` (sum \< target). Move `left += 1`.
+      * `left = 4` (at `1`). `sum = 1 + 2 = 3`.
+      * `3 < 4` (sum \< target). Move `left += 1`.
+      * `left = 5` (at `2`). `left < right` (5 \< 5) is **False**. Loop ends.
+  * **Result:** No triplets found for `i = 0`.
+
+-----
+
+**`i` Loop 2: `i = 1`, `nums[i] = -1`**
+
+  * (Skip check: `nums[1] != nums[0]`).
+  * `target = -(-1) = 1`
+  * `left = 2` (at `-1`), `right = 5` (at `2`)
+  * `while left < right`:
+      * `sum = nums[left] + nums[right]` → `(-1) + 2 = 1`.
+      * `1 == 1` (sum == target). **FOUND A TRIPLET\!**
+      * `res.append([-1, -1, 2])`.
+      * **Skip duplicates:**
+          * `while nums[left] == nums[left+1]`? `(-1) != 0`. No skip.
+          * `while nums[right] == nums[right-1]`? `2 != 1`. No skip.
+      * Move pointers: `left` becomes `3` (at `0`), `right` becomes `4` (at `1`).
+      * `sum = nums[left] + nums[right]` → `0 + 1 = 1`.
+      * `1 == 1` (sum == target). **FOUND A TRIPLET\!**
+      * `res.append([-1, 0, 1])`.
+      * **Skip duplicates:**
+          * `while nums[left] == nums[left+1]`? `0 != 1`. No skip.
+          * `while nums[right] == nums[right-1]`? `1 != 0`. No skip.
+      * Move pointers: `left` becomes `4` (at `1`), `right` becomes `3` (at `0`).
+      * `left < right` (4 \< 3) is **False**. Loop ends.
+  * **Result:** `res = [[-1, -1, 2], [-1, 0, 1]]`
+
+-----
+
+**`i` Loop 3: `i = 2`, `nums[i] = -1`**
+
+  * (Skip check: `i > 0` is true. `nums[2] == nums[1]`? `(-1) == (-1)`? **True**).
+  * **Action: `continue`**. This *skips* processing and avoids a duplicate `[-1, 0, 1]`.
+
+-----
+
+**`i` Loop 4: `i = 3`, `nums[i] = 0`**
+
+  * (Skip check: `0 != -1`).
+  * `target = -0 = 0`
+  * `left = 4` (at `1`), `right = 5` (at `2`)
+  * `while left < right`:
+      * `sum = 1 + 2 = 3`.
+      * `3 > 0` (sum \> target). Move `right -= 1`.
+      * `left = 4`, `right = 4`. `left < right` is **False**. Loop ends.
+  * **Result:** No new triplets.
+
+-----
+
+**End of Loops:**
+
+  * `i` loop finishes.
+  * **Final Answer:** `[[-1, -1, 2], [-1, 0, 1]]`. This is correct\! ✅
+
+-----
+
+
+
+
+---
+
