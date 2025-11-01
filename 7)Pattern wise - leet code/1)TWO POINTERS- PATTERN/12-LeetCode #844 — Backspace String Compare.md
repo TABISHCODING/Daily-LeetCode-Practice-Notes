@@ -234,13 +234,10 @@ Think of `stack` as your text editor screen:
 | 💾 Space — O(n + m) | Each processed string stored in a separate list (stack). |
 
 ---
-Excellent 👏 — this is exactly the right question to *truly understand* how the **two-pointer backspace algorithm** works “in parallel” for both strings `s` and `t`.
-
-Let’s break down the **execution flow** of the code step by step — showing **how both sides move together**, how **each while-loop** interacts, and what’s happening *under the hood* as Python runs this line by line.
-
+# 🧩 **APPROACH 2**
 ---
 
-# 🧩 The Code (for reference)
+
 
 ```python
 class Solution:
