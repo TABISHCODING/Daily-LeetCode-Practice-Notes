@@ -905,6 +905,141 @@ while fast < len(arr):
 ---
 
 ### 🎓 MICRO-LEVEL EXERCISES - SAME DIRECTION
+Here is your **README.md** ✅
+You can paste this into GitHub or save as `README.md`:
+
+---
+
+````md
+# Two Pointer (Slow–Fast) Master Notes 🚀
+
+## ✅ Core Idea
+- `fast` scans every element  
+- `slow` stores only required (valid) elements
+
+---
+
+## 🔹 Pointer Rules
+
+| Pointer | Responsibility |
+|--------|----------------|
+| `fast` | Moves every iteration, checks conditions |
+| `slow` | Moves only when a valid value is found |
+
+---
+
+## 🔹 Movement Rule
+
+| Condition | `fast` moves? | `slow` moves? |
+|----------|--------------|--------------|
+| Valid value ✅ | ✔ Yes | ✔ Yes |
+| Invalid value ❌ | ✔ Yes | ✖ No |
+
+---
+
+## 🔹 Two Ways to Place Values
+
+### 1️⃣ **Assign / Overwrite** (Preserves order)
+```python
+arr[slow] = arr[fast]
+slow += 1
+````
+
+✅ Keeps original order
+⚠ Extra old values remain at end → must slice result
+
+### 2️⃣ **Swap** (Partition, order not preserved)
+
+```python
+arr[slow], arr[fast] = arr[fast], arr[slow]
+slow += 1
+```
+
+✅ Clean partition, no slicing required
+❌ Order may change
+
+---
+
+## 🔹 Do we need slicing?
+
+Ask yourself:
+
+> **Did `slow` store the values I want to keep?**
+
+| Answer                             | Use Slice    |
+| ---------------------------------- | ------------ |
+| ✅ Yes                              | `arr[:slow]` |
+| ❌ No (slow stored unwanted values) | `arr[slow:]` |
+
+---
+
+## 🔹 Where to slice?
+
+| slow writes at                 | Meaning                 | Use          |
+| ------------------------------ | ----------------------- | ------------ |
+| Start, storing **good values** | Valid part is at front  | `arr[:slow]` |
+| Start, storing **bad values**  | Valid part starts after | `arr[slow:]` |
+
+---
+
+## 💡 Memory Trick
+
+> **Fast finds, Slow stores.**
+> **Assign → slice it. Swap → done.**
+
+---
+
+## 🔹 General Code Template
+
+```python
+slow = 0
+for fast in range(len(arr)):
+    if condition:             # keep valid values
+        arr[slow] = arr[fast] # or swap(arr[slow], arr[fast])
+        slow += 1
+
+return arr[:slow]  # if assign was used
+```
+
+---
+
+## ✅ Problems You Can Solve With This Pattern
+
+✔ Remove element
+✔ Remove duplicates (sorted array)
+✔ Move zeros
+✔ Keep positives / negatives
+✔ Filter by condition
+✔ Even/Odd partition
+✔ In-place modifications
+
+---
+
+## Example: Remove Zeros (Assign vs Swap)
+
+### Assign (order preserved)
+
+```python
+if arr[fast] != 0:
+    arr[slow] = arr[fast]
+    slow += 1
+print(arr[:slow])
+```
+
+### Swap (no order guarantee)
+
+```python
+if arr[fast] != 0:
+    arr[slow], arr[fast] = arr[fast], arr[slow]
+    slow += 1
+print(arr)
+```
+
+---
+
+## 🚀 You are now ready to solve 80% array filtering problems using 1 pattern!
+
+
 
 #### **Stage 5: Basic Slow-Fast Movement (10 Questions)**
 
