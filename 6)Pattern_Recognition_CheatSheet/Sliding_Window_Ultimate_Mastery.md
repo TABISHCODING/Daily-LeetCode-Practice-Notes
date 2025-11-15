@@ -244,6 +244,41 @@ def validate_window(arr, k):
     return f"{len(arr) - k + 1} windows"
 ```
 
+
+# 🚀 Window Basics: Quick Formula Sheet from above questions
+
+---
+
+## 🪟 Window Calculations
+
+* **Total Number of Windows:** `N - K + 1`
+    * (Where `N` is the length of the array, `K` is the window size)
+* **Loop Iteration Range:** `range(N - K + 1)`
+    * (Gives you every valid starting index `i`)
+
+---
+
+## 📍 Indexing & Pointers
+
+* **Start Index of Window `i`:** `i`
+* **End Index of Window `i`:** `i + K - 1`
+* **Middle Element's Index (in window `i`):** `i + (K // 2)`
+* **Window Size (from pointers):** `right - left + 1`
+
+---
+
+## ✂️ Slicing Formulas
+
+* **Get Window at `i`:** `arr[i : i+K]`
+* **Get First Window:** `arr[0:K]` (or `arr[:K]`)
+* **Get Last Window:** `arr[-K:]` (or `arr[N-K:]`)
+
+---
+
+## ✅ Boundary Check
+
+* **Check if `index` is in window `i`:** `i <= index < i+K`
+*  window_start <= index < window_start + k
 ---
 
 ### 🎓 STAIRCASE 2: Window Sum Operations (15 Micro-Steps)
