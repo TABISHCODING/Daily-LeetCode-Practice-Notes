@@ -1,4 +1,28 @@
 
+---
+
+# ⭐ **FINAL POLISHED INTRODUCTION (Best Version)**
+
+Good morning/afternoon.
+**I am Md Tabish** from **Kolkata, West Bengal**.
+
+I completed my **B.Tech in Computer Science and Information Technology** from the University of Engineering and Management. Over the past year, I have focused on building a strong foundation in **Python development and backend engineering**, along with gaining practical exposure to full-stack skills.
+
+My technical experience includes Python-based backend development using **Flask and FastAPI**, building **REST APIs**, and working with databases like **PostgreSQL**. I also have basic experience with **JavaScript, React, and frontend integration**, and have worked on automation, file handling, and text processing using Python.
+
+As part of my learning journey, I built two major projects.
+The first is **ResumeDoctor.AI**, a resume–JD analysis system. It extracts keywords from resumes, compares them with job descriptions, and provides a match score along with improvement suggestions. I designed and developed the backend workflow, handled file processing, and implemented the complete logic behind the system.
+
+My second project is an **AI-Based Learning-to-Content Automation System**, where I automated the entire process of converting long notes into short, ready-to-publish videos. I used Python along with external APIs for script generation, voice generation, image creation, and automated video assembly.
+
+I also completed a **Python Full-Stack Developer internship at Labmentix**, where I worked on backend APIs, SQL operations, debugging tasks, and integrating the frontend with backend services. This experience gave me exposure to real development workflows and improved my problem-solving and collaboration skills.
+
+I am genuinely **passionate about Python development**, creating useful applications, and continuously learning new technologies. I enjoy solving problems and contributing positively to any team I work with.
+
+Thank you for the opportunity — I look forward to contributing and growing with your organization.
+
+---
+
 
 
 # ⭐ **HR-Friendly Self-Introduction (Updated + Smooth Skills Section)**
