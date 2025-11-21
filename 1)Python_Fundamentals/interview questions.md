@@ -70,6 +70,144 @@ Thank you for this opportunity — I look forward to contributing and growing wi
 
 ---
 
+---
+
+# ⭐ **Top 20 Verbal Communication Questions — Answers Based on Your Profile**
+
+---
+
+## **1. Tell me about yourself.**
+
+I am Md Tabish from Kolkata. I completed my B.Tech in Computer Science and Information Technology. Over the last year, I focused on building strong skills in Python development and backend engineering using Flask, FastAPI, REST APIs, and PostgreSQL, along with basic frontend experience in JavaScript and React.
+
+I built two major projects — ResumeDoctor.AI, which compares resumes with job descriptions and gives match scores with suggestions, and an AI-Based Learning-to-Content Automation System that converts long notes into short video content.
+
+I also completed a Python Full-Stack Developer internship at Labmentix, where I worked on backend APIs, SQL operations, debugging, and connecting frontend with backend. I am passionate about building useful systems and continuously learning new technologies.
+
+---
+
+## **2. What are your strengths?**
+
+My strengths are consistency, patience, and problem-solving. I learn quickly, stay calm under pressure, and I enjoy breaking down problems into simpler parts. I am disciplined with deadlines and always try to improve the quality of my work.
+
+---
+
+## **3. What are your weaknesses (blind spots)?**
+
+I sometimes over-focus on perfecting small details, especially in UI or documentation, which can slow me down. But I am actively improving this by prioritizing tasks and following a more structured workflow.
+
+---
+
+## **4. Why this company?**
+
+I am looking for a place where I can grow as a Python developer, work on real-world applications, and learn from experienced engineers. Your company offers a good environment for learning, structured processes, and exposure to industry-level projects — which aligns perfectly with my career goals.
+
+---
+
+## **5. Why did you want to work as a _____ (Python/Full-Stack Developer)?**
+
+I enjoy creating backend logic, building APIs, and automating processes. Python gives me clarity, and backend development allows me to solve real problems. I chose this field because I like creating systems that make other people’s work easier.
+
+---
+
+## **6. What motivates you or challenges you?**
+
+I am motivated by the opportunity to learn something new and apply it to real projects. I enjoy challenges like debugging, optimizing code, or understanding a new technology because solving them gives me confidence and growth.
+
+---
+
+## **7. What are your activities or interests outside of work?**
+
+I enjoy learning new technologies, exploring AI tools, improving my coding logic, and sometimes watching project tutorials. Apart from tech, I like spending time with my family and going for long walks.
+
+---
+
+## **8. Have you considered starting your own business?**
+
+Not currently. My priority is to gain real industry experience, learn best practices, and grow as a developer by working with experienced teams. Later in my career, I may explore entrepreneurship, but right now I want to build strong fundamentals.
+
+---
+
+## **9. Why should we hire you?**
+
+You should hire me because I have strong hands-on experience in Python, Flask, FastAPI, and API development, along with real project work and an internship. I am sincere, quick to learn, and I can adapt to new tasks very fast. I bring both technical skills and a positive attitude to the team.
+
+---
+
+## **10. How do you handle criticism?**
+
+I take criticism as feedback. I usually reflect on what went wrong and try to improve. During my internship, whenever a senior reviewed my work, I accepted their corrections and used them to improve my next tasks.
+
+---
+
+## **11. What do you know about the company and role?**
+
+The role aligns with backend/full-stack development, API building, SQL work, and real project implementation — which matches my skills. I know your company works on scalable applications, follows structured processes, and encourages learning and growth.
+
+---
+
+## **12. What are the qualities you look for in a boss?**
+
+I prefer someone who gives clear instructions, supports learning, and provides honest feedback. I appreciate leaders who guide and help the team improve instead of just pointing out mistakes.
+
+---
+
+## **13. Talk about your dream company.**
+
+My dream company is one where I can grow technically, work with supportive seniors, and contribute to meaningful projects. I don’t focus on a specific brand — I focus on the environment and learning opportunities.
+
+---
+
+## **14. How do you stay updated with the latest technologies?**
+
+I follow documentation, tech blogs, YouTube channels, official framework docs, and practice by building small projects. I also experiment with new APIs and tools, especially related to Python and automation.
+
+---
+
+## **15. Can you work under pressure?**
+
+Yes, I can. During my internship and while building projects, I managed deadlines, debugging issues, and unexpected problems. I stay calm, break the tasks down, and complete them step by step.
+
+---
+
+## **16. How would you describe the company culture you prefer?**
+
+I prefer a culture where learning, teamwork, and communication are encouraged. A place where people help each other, share knowledge, and work together without unnecessary pressure.
+
+---
+
+## **17. What are your salary expectations?**
+
+As a fresher, I am open to the company’s standard compensation for this role. My priority is to grow, learn, and contribute effectively.
+
+---
+
+## **18. Where do you see yourself in 5 years?**
+
+In 5 years, I see myself as a skilled Python/Backend developer, working on larger systems, mentoring juniors, and handling bigger responsibilities. I want to grow technically as well as professionally.
+
+---
+
+## **19. Do you have any questions for us?**
+
+Yes, I would like to know:
+
+* What does a typical day look like for a developer in your company?
+* How do you support learning and skill growth for freshers?
+* What technologies or tools does your team use regularly?
+
+(Choose one to speak.)
+
+---
+
+## **20. Are you comfortable with relocation and night shifts?**
+
+Yes, I am comfortable with relocation.
+For night shifts — I prefer a general day shift, but I am open if required occasionally depending on company needs.
+
+---
+
+
  
  
  **BEHAVIORAL INTERVIEW QUESTIONS**
