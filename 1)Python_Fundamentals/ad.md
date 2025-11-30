@@ -460,98 +460,6 @@ I spent the time strengthening my fundamentals — Python, SQL, backend concepts
 
 
 
-resume->
-Skills
-
-Languages: Python
-Frameworks: Flask
-Databases: Oracle SQL
-
-Database Skills:
-
-Good understanding of RDBMS concepts (constraints, keys, normalization, tables)
-
-Excellent knowledge of writing SQL queries
-
-Strong understanding of Grouping, Subqueries, SQL Functions
-
-Solid understanding of SQL Joins (Inner, Left, Right, and Full Joins)
-
-Good knowledge of DDL, DML, and TCL operations
-
-Backend Skills:
-
-REST API development using Flask
-
-Designing clean and scalable backend logic
-
-Integrating databases with backend APIs
-
-Other Skills:
-
-Data Structures & Algorithms (DSA)
-
-Git & Version Control
-
-Internship Experience
-Python Backend Developer Intern — Labmentix.in
-
-Apr 2025 – Oct 2025
-
-Developed backend APIs using Flask with proper routing, validations, and structured responses.
-
-Worked extensively with Oracle SQL for table design, writing optimized queries, CRUD operations, joins, and indexing.
-
-Integrated database operations within backend APIs and improved query performance.
-
-Debugged backend modules, optimized API flow, and ensured stable backend–database connectivity.
-
-Participated in Agile sprints and contributed to backend modules with strong problem-solving and debugging skills.
-
-Projects
-ResumeDoctor.AI — Resume-JD Matcher (Backend Project)
-
-Built the backend using Flask and integrated with Oracle SQL to store resumes, extracted data, and match results.
-
-Implemented logic for keyword extraction, scoring, and comparison between resumes and job descriptions.
-
-Designed and structured database tables for efficient storage and analysis.
-
-Deployed the project on Render Cloud.
-
-Created a basic frontend using HTML, CSS, Bootstrap, and minimal JavaScript only for testing and connecting APIs (backend was the main focus).
-
-AI-Based Learning-to-Content Automation System (Python Backend Project)
-
-Built a complete backend workflow in Python to convert long educational notes into short, ready-to-publish videos.
-
-Used external APIs for script generation, text-to-speech, image generation, and automated video creation.
-
-Managed complete backend execution including workflow orchestration, data processing, and error handling.
-
-Implemented a simple UI using HTML/CSS/JS for triggering backend tasks, while the major work remained backend-centric.
-
-Certifications
-
-Python Programming Fundamentals
-
-Issuing Organization: Microsoft
-
-Date Completed: October 4, 2025
-
-Credential Link: Available on request
-
-Web Development with Python
-
-Issuing Organization: Microsoft
-
-Date Completed: October 9, 2025
-
-Credential Link: Available on request
-
-Learning / Familiar With:
-
-PySpark (DataFrames, basic transformations, joins)
 
 
 “Why didn’t you put PySpark in main skills?”
@@ -1418,37 +1326,95 @@ FastAPI supports async.
 16. How to monitor Flask logs in production?
 
 ---
+resume->
+Skills
 
-# If you want, I can now give you:
+Languages: Python
+Frameworks: Flask
+Databases: Oracle SQL
 
-### ✔ Complete **Flask backend cheat sheet (1 page)**
+Database Skills:
 
-### ✔ Your **2 projects authenticity preparation questions**
+Good understanding of RDBMS concepts (constraints, keys, normalization, tables)
 
-### ✔ A **mock technical interview (Python + Flask)**
+Excellent knowledge of writing SQL queries
 
-### ✔ Full code templates for Flask interview
+Strong understanding of Grouping, Subqueries, SQL Functions
 
-Just tell me **which one you want next**.
- Section 18 - Interview Closing Questions
-Perfect Questions to Ask Interviewer
-"What does a typical day look like for someone in this role?"
+Solid understanding of SQL Joins (Inner, Left, Right, and Full Joins)
 
-Shows genuine interest in day-to-day work
-"What are the key technologies and tools the team uses?"
+Good knowledge of DDL, DML, and TCL operations
 
-Shows technical curiosity
-"What opportunities are there for learning and growth?"
+Backend Skills:
 
-Shows long-term thinking
-"What do you enjoy most about working here?"
+REST API development using Flask
 
-Personal connection, positive framing
-"Is there any advice you would give someone entering the Apprentice role to perform well early?"
+Designing clean and scalable backend logic
 
-Shows eagerness to succeed
-How to Ask for Feedback
-Approach: "I'm always looking to improve. Is there any feedback you can share about my interview today?"
+Integrating databases with backend APIs
 
-If They Say "We cannot give feedback"
-Response: "I understand. Thank you for your time today. I really enjoyed learning about the role and the team. I'm excited about the opportunity and look forward to hearing from you."
+Other Skills:
+
+Data Structures & Algorithms (DSA)
+
+Git & Version Control
+
+Internship Experience
+Python Backend Developer Intern — Labmentix.in
+
+Apr 2025 – Oct 2025
+
+Developed backend APIs using Flask with proper routing, validations, and structured responses.
+
+Worked extensively with Oracle SQL for table design, writing optimized queries, CRUD operations, joins, and indexing.
+
+Integrated database operations within backend APIs and improved query performance.
+
+Debugged backend modules, optimized API flow, and ensured stable backend–database connectivity.
+
+Participated in Agile sprints and contributed to backend modules with strong problem-solving and debugging skills.
+
+Projects
+ResumeDoctor.AI — Resume-JD Matcher (Backend Project)
+
+Built the backend using Flask and integrated with Oracle SQL to store resumes, extracted data, and match results.
+
+Implemented logic for keyword extraction, scoring, and comparison between resumes and job descriptions.
+
+Designed and structured database tables for efficient storage and analysis.
+
+Deployed the project on Render Cloud.
+
+Created a basic frontend using HTML, CSS, Bootstrap, and minimal JavaScript only for testing and connecting APIs (backend was the main focus).
+
+AI-Based Learning-to-Content Automation System (Python Backend Project)
+
+Built a complete backend workflow in Python to convert long educational notes into short, ready-to-publish videos.
+
+Used external APIs for script generation, text-to-speech, image generation, and automated video creation.
+
+Managed complete backend execution including workflow orchestration, data processing, and error handling.
+
+Implemented a simple UI using HTML/CSS/JS for triggering backend tasks, while the major work remained backend-centric.
+
+Certifications
+
+Python Programming Fundamentals
+
+Issuing Organization: Microsoft
+
+Date Completed: October 4, 2025
+
+Credential Link: Available on request
+
+Web Development with Python
+
+Issuing Organization: Microsoft
+
+Date Completed: October 9, 2025
+
+Credential Link: Available on request
+
+Learning / Familiar With:
+
+PySpark (DataFrames, basic transformations, joins)
