@@ -1,8 +1,7 @@
 Good morning/afternoon. My name is Md Tabish, and I am from Kolkata, West Bengal.
 I completed my B.Tech in Computer Science and Information Technology from the University of Engineering and Management.
 
-Over the past year, I have focused mainly on Python backend development.
-My core skills include building REST APIs using Flask, writing clean backend logic, and working with Oracle SQL for table design, writing queries, and integrating database operations with backend APIs.
+Over the past year, I have focused on building a strong foundation in Python development and backend engineering. My technical experience includes developing backend services using Flask, building REST APIs, and working with Oracle SQL for table design, writing efficient queries, and integrating database operations with backend APIs.
 
 As part of my learning journey, I built two major projects.
 The first is ResumeDoctor.AI, a resume–JD analysis system. It extracts keywords from resumes, compares them with job descriptions, and provides a match score along with improvement suggestions. I deployed this project on Render and handled the complete backend implementation.
@@ -11,7 +10,7 @@ My second project is an AI-Based Learning-to-Content Automation System, where I 
 
 I also completed a Python backend internship at Labmentix, where I worked on API development, SQL tasks, debugging backend issues, and understanding real development workflows, which strengthened my practical problem-solving abilities.
 
-Since my strongest foundation is in Python and databases, I chose the Python + Database + PySpark domain because it aligns naturally with my skills. I am currently building my PySpark fundamentals—especially DataFrames, basic transformations, joins, and simple ETL concepts—so I can contribute effectively to data-driven and scalable backend systems as well.
+Since my strongest foundation is in Python and databases, I chose the Python + Database + PySpark domain because it aligns naturally with my existing skills. I am currently building my PySpark fundamentals — especially working with DataFrames, transformations, joins, and simple ETL concepts — so I can contribute effectively to data-driven and scalable backend systems as well.
 
 I am passionate about backend development, data-oriented problem-solving, and continuously improving my technical abilities.
 Thank you for the opportunity—I look forward to contributing and growing with your organization.
