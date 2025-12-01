@@ -8,6 +8,7 @@ OOP (Object-Oriented Programming) is a programming technique that organizes code
 Instead of writing everything with functions and variables scattered around, we group related data and functions inside **classes**.
 
 OOP is a method of programming where we structure our code by grouping related data and behaviors into single units called Objects. This allows us to model real-world things—like a 'User' or a 'Product'—directly in our code, making it easier to manage, reuse, and scale.
+
 ---
 
 ## 1. Class
