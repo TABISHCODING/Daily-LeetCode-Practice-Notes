@@ -1374,18 +1374,22 @@ Debugged backend modules, optimized API flow, and ensured stable backend–datab
 
 Participated in Agile sprints and contributed to backend modules with strong problem-solving and debugging skills.
 
-Projects
-ResumeDoctor.AI — Resume-JD Matcher (Backend Project)
 
-Built the backend using Flask and integrated with Oracle SQL to store resumes, extracted data, and match results.
 
-Implemented logic for keyword extraction, scoring, and comparison between resumes and job descriptions.
+---
 
-Designed and structured database tables for efficient storage and analysis.
+# ✅ **Project: ResumeDoctor.AI — AI-Based Resume & Job Description Analyzer**
 
-Deployed the project on Render Cloud.
+**Tech:** Python, Flask, Gemini API, PDF/DOCX Parsing, Render Deployment
 
-Created a basic frontend using HTML, CSS, Bootstrap, and minimal JavaScript only for testing and connecting APIs (backend was the main focus).
+* Developed a Flask backend where users upload a resume and job description for real-time AI analysis.
+* Extracted clean text from PDF/DOCX using Python libraries and processed files securely in memory.
+* Integrated Gemini API to generate a match score, matched/missing skills, and resume improvement suggestions.
+* Deployed the backend on Render using Gunicorn and environment variables for secure API key management.
+
+---
+
+
 
 AI-Based Learning-to-Content Automation System (Python Backend Project)
 
