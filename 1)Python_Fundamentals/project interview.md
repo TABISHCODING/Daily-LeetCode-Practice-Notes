@@ -2196,18 +2196,316 @@ For OCR, I’d detect when pdfplumber fails and then run pages through Tesseract
 
 ---
 
-🎉 You now have **all Top 50 priority questions** for your project covered with **long + short answers** for:
-
-* Project & Architecture
-* File Upload + Extraction
-* Frontend → Backend
-* Gemini Integration
-* /analyze & Backend Logic
-* Deployment
-* Security
-* Scaling & Future Improvements
 
 
+Here are **the 10 EXTRA questions** with **perfect fresher-level answers**, plus **their priorities** so you know what matters most in interviews.
+
+These 10 answers will fully cover the remaining concepts from:
+
+* Flask Basics
+* Authentication
+* Sessions
+* Jinja2 templates
+* `before_request`
+* Route protection
+
+---
+
+# ⭐ PRIORITY ORDER (Most → Least Important)
+
+### 🔥 **HIGH PRIORITY (must prepare perfectly)**
+
+1. Registration flow
+2. Login flow + session usage
+3. Logout flow
+4. Password hashing
+5. Route protection (`before_request`)
+
+### ⚡ MEDIUM PRIORITY
+
+6. Jinja2 templates
+7. Showing form errors
+8. redirect() and url_for()
+
+### 🌱 LOW PRIORITY (simple definitions)
+
+9. Why hash passwords
+10. Which hashing library used
+
+---
+
+# ⭐ EXTRA SECTION — AUTH & TEMPLATE QUESTIONS WITH ANSWERS
+
+---
+
+# **1. How does your registration flow work in ResumeDoctor.AI?**
+
+⭐ **Priority: HIGH**
+
+### ✅ Long Answer
+
+My registration flow works as follows:
+
+1. User opens the `/register` route where a Jinja form collects:
+
+   * Name
+   * Email
+   * Password
+
+2. Backend receives the form using `request.form`.
+
+3. I validate fields:
+
+   * Check for empty fields
+   * Check if email already exists
+
+4. I hash the password using Werkzeug or bcrypt **before saving** it to the database.
+
+5. Insert user record into the DB (name, email, hashed password).
+
+6. Redirect user to `/login` with a success message.
+
+### ⏳ Short Answer
+
+User submits the register form → backend validates → hashes password → saves user → redirects to login.
+
+---
+
+# **2. How does your login flow work? What do you store in session?**
+
+⭐ **Priority: VERY HIGH (Most important)**
+
+### ✅ Long Answer
+
+1. User submits login form (email + password).
+2. I fetch the user from the DB using the email.
+3. I compare the hashed password using `check_password_hash()`.
+4. If login is successful:
+
+   * I store user identity inside Flask `session`:
+
+     ```python
+     session['user_id'] = user.id
+     session['user_email'] = user.email
+     ```
+5. After login, user is redirected to the dashboard or main analyzer page.
+6. If login fails, I show an error message using Jinja templates.
+
+### ⏳ Short Answer
+
+Validate user → check hashed password → on success store `user_id` in session → redirect to dashboard.
+
+---
+
+# **3. How do you implement logout? What happens in the backend?**
+
+⭐ **Priority: HIGH**
+
+### ✅ Long Answer
+
+Logout simply clears the user session:
+
+```python
+session.clear()
+return redirect(url_for('login'))
+```
+
+This removes:
+
+* user_id
+* user_email
+* any stored auth state
+
+The user is forced back to the login page.
+
+### ⏳ Short Answer
+
+I clear the session using `session.clear()` and redirect to the login page.
+
+---
+
+# **4. Why do you use password hashing instead of storing plain text passwords?**
+
+⭐ **Priority: HIGH**
+
+### 🎯 Perfect Answer
+
+Storing plain text passwords is extremely insecure because:
+
+* Database leaks expose real passwords
+* Same password reused across multiple websites
+* Attackers get full access instantly
+
+Hashing converts the password into a **non-reversible** string.
+Even if DB is leaked, attackers can’t recover the original password.
+
+### ⏳ Short Answer
+
+Hashing makes passwords non-reversible and keeps users safe even if the database is compromised.
+
+---
+
+# **5. Which hashing method/library did you use and how?**
+
+⭐ **Priority: MEDIUM**
+
+### Option A → Werkzeug (default Flask ecosystem)
+
+```python
+from werkzeug.security import generate_password_hash, check_password_hash
+
+hashed = generate_password_hash(password)
+check_password_hash(hashed, input_password)
+```
+
+### Option B → bcrypt
+
+More secure, slower (good for auth).
+
+```python
+import bcrypt
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+```
+
+### ⏳ Short Answer
+
+I use `generate_password_hash()` to store passwords safely and `check_password_hash()` to verify during login.
+
+---
+
+# **6. What are Jinja2 templates and where did you use them?**
+
+⭐ **Priority: MEDIUM**
+
+### ✅ Long Answer
+
+Jinja2 is Flask’s template engine.
+It helps generate dynamic HTML using:
+
+* Variables
+* Loops
+* Conditions
+
+In my project I used Jinja2 for:
+
+* Register page
+* Login page
+* Showing success/error messages
+* Form validation messages
+
+### ⏳ Short Answer
+
+Jinja2 lets me generate dynamic HTML pages. I used it for login and register forms.
+
+---
+
+# **7. How do you show form errors (e.g., “invalid login”) in your HTML pages?**
+
+⭐ **Priority: MEDIUM**
+
+### Perfect Answer
+
+I pass messages to the template using:
+
+```python
+return render_template("login.html", error="Invalid email or password")
+```
+
+In the template:
+
+```html
+{% if error %}
+<p class="text-danger">{{ error }}</p>
+{% endif %}
+```
+
+### ⏳ Short Answer
+
+I pass an `error` variable to the template and display it conditionally using Jinja.
+
+---
+
+# **8. What is redirect() and url_for()? Where did you use them?**
+
+⭐ **Priority: MEDIUM**
+
+### redirect()
+
+Redirects user to another route.
+
+### url_for()
+
+Generates URL dynamically using route name.
+
+### Used in:
+
+* After registration redirect → login
+* After login redirect → dashboard
+* Logout redirect → login
+
+### ⏳ Short Answer
+
+`redirect()` sends user to another page and `url_for()` builds URLs using route names. I used both for login/register navigation.
+
+---
+
+# **9. How do you use @app.before_request?**
+
+⭐ **Priority: HIGH**
+
+### Perfect Answer
+
+`@app.before_request` runs **before every request**.
+I use it for route protection:
+
+```python
+@app.before_request
+def check_login():
+    protected_routes = ['dashboard', 'analyze']
+    if 'user_id' not in session and request.endpoint in protected_routes:
+        return redirect(url_for('login'))
+```
+
+This ensures:
+
+* Logged-out users cannot access analyzer/dashboard.
+* Only authenticated users reach protected pages.
+
+### ⏳ Short Answer
+
+It runs before each request. I use it to check session and block unauthorized users.
+
+---
+
+# **10. How do you protect certain routes so only logged-in users can access them?**
+
+⭐ **Priority: HIGH**
+
+### Perfect Answer
+
+Two methods:
+
+### **Method 1 — Session Check**
+
+```python
+if 'user_id' not in session:
+    return redirect(url_for('login'))
+```
+
+### **Method 2 — before_request Middleware**
+
+Automatically protects all sensitive routes (best practice).
+
+### Logic:
+
+* If session does not contain user_id → redirect to login
+* Otherwise → allow access
+
+### ⏳ Short Answer
+
+I protect routes by checking if `user_id` exists in session; if not, I redirect user to login.
+
+---
 
 
 
