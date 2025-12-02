@@ -438,7 +438,7 @@ These are *final polished, interview-ready responses* you can speak directly in 
 
 *"Sure, let me walk you through the entire architecture and flow of my project ResumeDoctor.AI."*
 
-ResumeDoctor.AI is designed as a full end-to-end AI system that compares a resume with a job description and generates a structured match analysis using Gemini AI. The architecture follows a clear modular pipeline: **Frontend → Flask Backend → extractor.py → ai_client.py → db.py → Frontend UI**.
+ResumeDoctor.AI is designed as a full end-to-end AI system that compares a resume with a job description and generates a structured match analysis using Gemini AI. The architecture follows a clear modular pipeline The flow begins at the frontend, reaches the Flask backend, goes to the extractor module, continues to the AI module, saves to the database if needed, and ends by sending the results back to the frontend.
 
 Everything begins at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze* button, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
 
