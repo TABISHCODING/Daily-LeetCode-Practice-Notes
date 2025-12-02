@@ -435,7 +435,17 @@ If needed, the output is stored in Oracle via `db.py`, and finally Flask returns
 So the pipeline is: **Frontend → Flask → extractor.py → ai_client.py → optional db.py → Frontend UI output**."*
 
 ---
+Sure. The backend of my project, ResumeDoctor.AI, is built using Flask and follows a clean, modular architecture designed specifically for AI workflows and file processing.
 
+The backend exposes a primary POST endpoint /analyze, which receives the resume file and job description sent from the frontend as multipart FormData. Flask first reads these inputs through request.files and request.form, and performs validations like file type, size, and JD presence.
+
+After validation, the backend routes the resume file into extractor.py, which is a dedicated module for text extraction. It uses pdfplumber for PDF files and python-docx for DOCX files, ensuring that the backend always works with clean, plain text.
+
+Next, both the extracted resume_text and the jd_text are passed into ai_client.py, which is the core intelligence layer. This module builds a structured prompt and sends it to Gemini 1.5 Flash, requesting a strict JSON response containing match score, matched skills, missing skills, and improvement suggestions. The module also includes JSON validation for reliability.
+
+Optionally, the processed analysis can be stored in an Oracle database through db.py, which keeps history for future analytics or reuse.
+
+Finally, Flask returns a structured JSON response back to the frontend using jsonify(), and the UI renders the results to the user.
 
 ### 🎤 *Detailed, Descriptive, Architecture-Focused Answer*
 
