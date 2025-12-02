@@ -418,27 +418,30 @@ These are *final polished, interview-ready responses* you can speak directly in 
 ---
 
 # ⭐ **SECTION A — PROJECT & ARCHITECTURE (10 Questions)**
-
-### 👉 Each question contains:
-
-* **LONG Answer** (detailed, technical, impressive)
-* **SHORT Answer (30 sec)** (for rapid-fire or when interviewer says “briefly”)
-
----
-
-
-
-
-
 ---
 
 # ⭐ **Q1 — Explain your project end-to-end (architecture + flow).**
+
+# ⭐ **More Informative 30–40 Sec Architecture Answer**
+
+*"Sure, here’s the architecture of my project ResumeDoctor.AI. It’s an AI-based resume–JD analysis system that extracts text from the resume, compares it against the job description using Gemini, and returns a match score with skill insights.
+
+The flow begins at the frontend where the user uploads a PDF or DOCX resume and enters the JD. When they click Analyze, the frontend sends both inputs to the `/analyze` endpoint as a multipart FormData request.
+
+Flask reads the resume and JD, performs checks like file type, size, and JD availability, and then hands the resume to `extractor.py`, which converts it into clean text using pdfplumber or python-docx. That text, along with the JD, is passed into `ai_client.py`, where I build a structured prompt for Gemini 1.5 Flash and request a strict JSON response containing match score, matched skills, missing skills, and improvement suggestions.
+
+If needed, the output is stored in Oracle via `db.py`, and finally Flask returns a clean JSON response back to the frontend, which displays the full analysis to the user.
+
+So the pipeline is: **Frontend → Flask → extractor.py → ai_client.py → optional db.py → Frontend UI output**."*
+
+---
+
 
 ### 🎤 *Detailed, Descriptive, Architecture-Focused Answer*
 
 *"Sure, let me walk you through the entire architecture and flow of my project ResumeDoctor.AI."*
 
-ResumeDoctor.AI is designed as a full end-to-end AI system that compares a resume with a job description and generates a structured match analysis using Gemini AI. The architecture follows a clear modular pipeline The flow begins at the frontend, reaches the Flask backend, goes to the extractor module, continues to the AI module, saves to the database if needed, and ends by sending the results back to the frontend.
+so basicaly ResumeDoctor.AI, a resume–JD analysis system. It extracts keywords from resumes, compares them with job descriptions, and provides a match score along with improvement suggestions. The architecture follows a clear modular pipeline The flow begins at the frontend, reaches the Flask backend, goes to the extractor module, continues to the AI module, saves to the database if needed, and ends by sending the results back to the frontend.
 
 Everything begins at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze* button, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
 
