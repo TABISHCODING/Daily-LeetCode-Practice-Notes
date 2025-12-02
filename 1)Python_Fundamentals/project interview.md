@@ -935,7 +935,7 @@ To follow the Single Responsibility Principle. Each module focuses on one task�
 
 ### **🔹 SHORT ANSWER (30 sec):**
 
-Main challenges were PDF extraction failures, enforcing strict JSON from Gemini, handling corrupted files, and deployment issues on Render. I solved these using modular error handling, JSON cleaning, and proper Gunicorn + PORT configuration.
+I mainly faced issues with PDF extraction, strict JSON handling from Gemini, and deployment on Render. I fixed these by adding proper error handling, JSON validation, and setting up render.yaml correctly.
 
 ---
 
@@ -1006,7 +1006,6 @@ The model considers:
 
 ### **🔹 SHORT ANSWER (30 sec):**
 
-I mainly faced issues with PDF extraction, strict JSON handling from Gemini, and deployment on Render. I fixed these by adding proper error handling, JSON validation, and setting up render.yaml correctly.
 ---
 
 ---
