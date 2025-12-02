@@ -490,84 +490,272 @@ So from the moment the button is clicked to the moment results appear, the reque
 This completes the full request-response lifecycle for a single analysis.
 
 ---
+---
 
+# ⭐ Q1 — Explain your project end-to-end (architecture + flow)
 
+### 🎤 Interview-style, natural, detailed answer
 
-# ✅ **1. Explain your project end-to-end (architecture + flow).**
+*"Sure, I’ll walk you through the full architecture and flow of my project, ResumeDoctor.AI."*
 
-### **🔷 LONG ANSWER:**
+So ResumeDoctor.AI is an end-to-end AI system that compares a candidate’s resume with a job description and gives a structured match analysis using Gemini AI.
+At a high level, the pipeline looks like this:
 
-My project, **ResumeDoctor.AI**, is an AI-powered resume and job-description analysis tool.
-The end-to-end flow is:
+**Frontend → Flask Backend → extractor.py → ai_client.py → db.py → Frontend UI**
 
-1. **Frontend** — User uploads a resume (PDF/DOCX) and pastes the JD.
-2. The frontend sends both using **multipart/form-data** through a fetch POST call.
-3. **Flask backend** receives the data via
-
-   * `request.files['resume']`
-   * `request.form['job_description']`
-4. The resume file goes into **extractor.py**, which:
-
-   * Uses **pdfplumber** for PDFs
-   * **python-docx** for DOCX
-   * Returns clean extracted text
-5. Both extracted resume text + JD text are sent to **ai_client.py**, which:
-
-   * Builds a structured prompt
-   * Calls **Gemini 1.5 Flash**
-   * Forces strict JSON output
-   * Validates response keys (score, matched skills, missing skills, suggestions)
-6. The final structured result goes back to **/analyze** route.
-7. Optionally, **db.py** saves analysis history into an Oracle DB.
-8. Flask sends a final JSON response to the frontend UI showing:
-
-   * Match score
-   * Matched skills
-   * Missing skills
-   * Suggestions
-
-Final architecture:
-**Frontend → Flask → extractor.py → ai_client.py → db.py → Frontend UI**
+Let me go through this in the order a real request flows.
 
 ---
 
-### **🔹 SHORT ANSWER (30 sec):**
+**1️⃣ User → Frontend (Upload & Trigger)**
+Everything starts at the **frontend**.
 
-ResumeDoctor.AI takes a resume and JD, extracts the text, sends both to Gemini AI, and returns a match score with skills and suggestions. The frontend uploads using multipart/form-data, Flask validates inputs, extractor.py extracts text, ai_client.py calls Gemini and parses JSON, db.py optionally stores results, and the frontend displays the output.
+* The user uploads a **resume** (PDF or DOCX)
+* Pastes the **job description**
+* Clicks on **“Analyze”**
+
+As soon as they click, the frontend builds a **FormData** object and sends both the file and JD to my backend using a `POST /analyze` call with **multipart/form-data**.
+
+So step one is simply:
+
+> *Frontend collects data → sends it to Flask.*
+
+---
+
+**2️⃣ Flask Backend → Input Handling & Validation**
+
+On the backend, my **Flask** route `/analyze` receives that request.
+
+* The resume file comes in via `request.files['resume']`
+* The JD text comes in via `request.form['job_description']`
+
+Before doing anything heavy, this layer validates:
+
+* Is the file type allowed? (PDF/DOCX)
+* Is the file size within limits?
+* Did the user actually provide a job description?
+
+Only if everything is valid does the request move forward in the pipeline.
+
+---
+
+**3️⃣ extractor.py → Resume File → Clean Text**
+
+Next, the backend passes the resume file to a separate module: **`extractor.py`**.
+
+This module’s only job is:
+**“Take any supported file and give me clean text.”**
+
+* For **PDF**, it uses `pdfplumber`
+* For **DOCX**, it uses `python-docx`
+
+The result is a **normalized, clean `resume_text`** that is ready to be compared with the JD.
+
+---
+
+**4️⃣ ai_client.py → Talk to Gemini & Get JSON**
+
+Now I have:
+
+* `resume_text`
+* `jd_text`
+
+Both are passed into **`ai_client.py`**, which is basically the **AI brain** of the system.
+
+This module:
+
+* Builds a **structured prompt** for **Gemini 1.5 Flash**
+* Asks Gemini to:
+
+  * compare resume vs JD
+  * calculate a **match score**
+  * find **matched skills**
+  * find **missing skills**
+  * generate **suggestions**
+* Forces the model to respond in **strict JSON format**
+* Validates that all the expected keys are present
+
+So from this step, I get a clean structured object like:
+
+```json
+{
+  "score": ...,
+  "matched_skills": [...],
+  "missing_skills": [...],
+  "suggestions": [...]
+}
+```
+
+---
+
+**5️⃣ db.py (Optional) → Save Analysis to Oracle**
+
+If I want to keep a history of analyses, that structured result is sent to **`db.py`**, which handles interaction with **Oracle DB**.
+
+This allows things like:
+
+* Showing past analyses
+* Building analytics or dashboards later
+
+---
+
+**6️⃣ Back to Frontend → Display to User**
+
+Finally, Flask sends the structured JSON back to the **frontend UI**.
+
+The frontend then displays:
+
+* Overall **match score**
+* **Matched skills**
+* **Missing skills**
+* **Suggestions** to improve the resume
+
+So the user experience feels like:
+
+> Upload → Click Analyze → Instantly see how well your resume matches the JD.
+
+---
+
+🔁 **Architecture in one line:**
+
+> **User → Frontend → FormData → Flask → extractor.py → ai_client.py → (db.py optional) → Frontend UI**
+
+That’s the complete end-to-end architecture and flow of ResumeDoctor.AI.
 
 ---
 
 ---
 
-# ✅ **2. Walk me through the complete request → response cycle.**
+# ⭐ Q2 — Walk me through the complete request → response cycle
 
-### **🔷 LONG ANSWER:**
+### 🎤 Interview-style, natural, step-by-step answer
 
-1. User clicks “Analyze Resume.”
-2. Frontend creates a **FormData** object containing the PDF/DOCX file + JD text.
-3. Sends a POST request using fetch to `/analyze`.
-4. Flask receives data:
-
-   * `request.files['resume']`
-   * `request.form['job_description']`
-5. Backend validates:
-
-   * File type
-   * File size
-   * JD content
-6. extractor.py extracts text using pdfplumber/python-docx.
-7. ai_client.py builds prompt, calls Gemini, enforces strict JSON, and parses output.
-8. db.py optionally stores analysis history.
-9. Flask returns structured JSON with score, matched/missing skills, suggestions.
-10. Frontend displays results immediately.
+*"Sure, I’ll explain exactly what happens when a user clicks ‘Analyze’ — from request to response."*
 
 ---
 
-### **🔹 SHORT ANSWER (30 sec):**
+**1️⃣ User Action → Frontend Sends Request**
 
-Frontend sends resume + JD using FormData, backend validates, extractor.py extracts text, ai_client.py calls Gemini and parses the JSON, db.py optionally stores it, and Flask returns match score and skills to the frontend.
+The journey starts when the user:
+
+* Selects a resume file
+* Pastes the job description
+* Clicks **“Analyze”**
+
+The frontend then:
+
+* Builds a **FormData** object containing:
+
+  * `resume` file
+  * `job_description` text
+* Sends a `POST` request to **`/analyze`** on the Flask backend using **multipart/form-data**.
+
+So from the browser’s point of view, it’s:
+
+> “Here is my resume and JD; please analyze them.”
 
 ---
+
+**2️⃣ Flask Receives & Validates the Input**
+
+On the backend, **Flask** receives this request.
+
+It reads:
+
+* `request.files['resume']` → the uploaded file
+* `request.form['job_description']` → the JD text
+
+Before doing anything else, the backend validates:
+
+* Resume is **PDF or DOCX**
+* File size is within allowed limits
+* JD is **not empty**
+
+If validation fails → it returns an error.
+If validation passes → it continues.
+
+---
+
+**3️⃣ extractor.py → Turn File into Text**
+
+After validation, Flask passes the resume file into **`extractor.py`**.
+
+This module:
+
+* Checks the file type
+* Uses:
+
+  * `pdfplumber` for PDFs
+  * `python-docx` for DOCX
+* Produces **plain `resume_text`**
+
+So this step converts the raw binary file into clean, machine-readable text.
+
+---
+
+**4️⃣ ai_client.py → Send Resume + JD to Gemini**
+
+Next, Flask passes the:
+
+* `resume_text`
+* `jd_text`
+
+to **`ai_client.py`**.
+
+Here’s what happens inside:
+
+* A structured prompt is built for **Gemini 1.5 Flash**
+* The model is asked to:
+
+  * compare resume vs JD
+  * compute a **match score**
+  * list **matched skills**
+  * list **missing skills**
+  * provide **improvement suggestions**
+* The response is requested in **strict JSON format**
+* After receiving the response, I validate the JSON:
+
+  * Are all keys present?
+  * Is the structure valid?
+
+So by the end of this step, I have a **clean structured result** ready for the frontend.
+
+---
+
+**5️⃣ Optional Step → Save to Database via db.py**
+
+If history tracking is enabled, Flask passes that structured result to **`db.py`**, which saves it into an **Oracle database**.
+
+This enables features like:
+
+* Viewing previous analyses
+* Reporting and analytics later
+
+---
+
+**6️⃣ Flask Sends JSON → Frontend Displays Result**
+
+Finally, Flask sends back a **JSON response** to the frontend, containing:
+
+* Match score
+* Matched skills
+* Missing skills
+* Suggestions
+
+The frontend receives this JSON and immediately updates the UI to show the user:
+
+> “How well does your resume match this JD, and what should you improve?”
+
+---
+
+🔁 **End-to-end request → response flow in one line:**
+
+> **Frontend → FormData → Flask validation → extractor.py → ai_client.py → (db.py optional) → JSON response → Frontend UI**
+
+That completes the full lifecycle for one analysis request.
+
+---
+
 
 ---
 
