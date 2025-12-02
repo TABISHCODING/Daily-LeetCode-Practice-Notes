@@ -440,7 +440,7 @@ These are *final polished, interview-ready responses* you can speak directly in 
 
 ResumeDoctor.AI is designed as a full end-to-end AI system that compares a resume with a job description and generates a structured match analysis using Gemini AI. The architecture follows a clear modular pipeline: **Frontend → Flask Backend → extractor.py → ai_client.py → db.py → Frontend UI**.
 
-Everything begins at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze*, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
+Everything begins at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze* button, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
 
 Once the request reaches the **Flask backend**, the system reads the resume file through `request.files` and the JD text using `request.form`. This layer also performs all validation — checking the file type, file size, and ensuring the JD is provided. Only valid requests move further into the pipeline.
 
@@ -456,6 +456,23 @@ So the complete architecture runs like this:
 **User → Frontend → FormData → Flask → extractor.py → ai_client.py → (db.py optional) → Frontend UI.**
 
 This gives users a seamless, AI-powered resume-JD matching experience from upload to insights.
+
+("I used multipart/form-data because it’s the only encoding that allows sending both a file and text fields in the same POST request. The resume is binary data, and JD is plain text, so multipart lets the frontend package them as separate parts, and the backend can cleanly read them with request.files and request.form." Meaning of the Sentence
+
+“Sends both the file and JD to my backend using a POST /analyze call with multipart/form-data.”
+
+This means:
+
+The frontend is making a POST request to your backend endpoint /analyze.
+
+In that request, the frontend is sending two things together:
+
+A resume file (PDF/DOCX)
+
+A text field containing the job description
+
+To send both a file + text in one request, the request body must use multipart/form-data.)
+
 
 ---
 
