@@ -804,6 +804,17 @@ It tells job seekers how well their resume matches a JD by generating a match sc
 # ✅ **4. Why did you choose Flask instead of FastAPI or Django?**
 
 
+Flask (What I used)
+
+Lightweight, simple, easy to start
+
+Perfect for small APIs
+
+Gives full control
+
+Fast to build prototypes
+Best when you want minimal setup and full flexibility
+
 I chose Flask because it is very simple to learn and perfect for small backend projects. My project only needed a few APIs, file upload support, and an easy way to call the Gemini AI model. Flask lets me do all of that with very little code. FastAPI is faster but not required for my use case, and Django is too heavy because it comes with many features I don’t need. Flask was the simplest and most practical choice for this project.
 
 ---
