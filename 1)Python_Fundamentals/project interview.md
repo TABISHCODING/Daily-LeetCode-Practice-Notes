@@ -1006,8 +1006,7 @@ The model considers:
 
 ### **🔹 SHORT ANSWER (30 sec):**
 
-Gemini analyzes resume + JD and returns structured JSON with matched skills, missing skills, and a score from 0–100. The score is based on skill overlap and role relevance. I validate the JSON and ensure the score stays within range.
-
+I mainly faced issues with PDF extraction, strict JSON handling from Gemini, and deployment on Render. I fixed these by adding proper error handling, JSON validation, and setting up render.yaml correctly.
 ---
 
 ---
