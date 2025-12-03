@@ -723,18 +723,37 @@ def about():
 ## **14. 🔥 How do you define dynamic routes in Flask?**
 
 ### ⭐ Beginner Explanation
+Dynamic routes in Flask allow us to accept variable values in the URL by using angle brackets < >.
+The value inside the brackets becomes a route parameter that we can access in the function.
 
-Dynamic routes take values from the URL:
+Example:
 
-```python
-@app.route("/user/<name>")
-def user(name):
+@app.route('/user/<name>')
+def user_profile(name):
     return f"Hello {name}"
-```
 
-### ⏱ Interview Answer
 
-Dynamic routes use `< >` to accept parameters from the URL, like `/user/<id>`.
+If you visit:
+
+/user/Tabish → Output: Hello Tabish
+/user/Ali → Output: Hello Ali
+
+Flask automatically passes the dynamic part (name) to the function.
+
+⭐ Parameter Types (optional but impressive)
+
+You can also specify types:
+
+@app.route('/user/<string:name>')
+@app.route('/order/<int:order_id>')
+@app.route('/price/<float:amount>')
+
+
+This ensures the URL matches specific data types.
+
+“Why do we use dynamic routes?”
+
+To build URLs that depend on user input or database values, like user profiles, product pages, or blog posts.
 
 ---
 
