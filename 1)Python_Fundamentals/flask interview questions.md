@@ -641,9 +641,7 @@ Flask is perfect for REST APIs, microservices, CRUD apps, login systems, and AI-
 ## **10. What are template engines in Flask?**
 
 ### ⭐ Beginner Explanation
-
-Template engines generate **dynamic HTML**.
-
+Template engines in Flask are tools that let you generate dynamic HTML pages by mixing HTML with variables, loops, and conditions. Flask uses the Jinja2 template engine to do this.
 Flask uses **Jinja2** for:
 
 * Passing variables
@@ -656,11 +654,6 @@ Example:
 ```html
 <h1>Hello {{ name }}</h1>
 ```
-
-### ⏱ Interview Answer
-
-Template engines like Jinja2 help create dynamic HTML by using variables and loops inside templates.
-
 ---
 
 ## **11. Why is Flask ideal for APIs & microservices?**
