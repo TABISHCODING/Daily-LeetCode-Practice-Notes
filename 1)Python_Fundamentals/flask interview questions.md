@@ -1157,16 +1157,9 @@ Using `request.remote_addr`.
 
 ### ⭐ Beginner Explanation
 
-Flask uses **Werkzeug's routing system**:
-
-1. Reads all route patterns
-2. Compares request URL
-3. Picks the first matching pattern
-4. Calls the view function
-
-### ⏱ Interview Answer
-
-Flask uses Werkzeug’s routing engine to compare the request URL with route patterns and call the correct view.
+Flask uses Werkzeug’s routing system.
+It stores all routes in a URL map and matches every incoming request path and method against that map.
+If a match is found, it calls the corresponding function; if not, it returns 404.
 
 ---
 
