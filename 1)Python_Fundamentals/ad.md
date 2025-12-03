@@ -82,6 +82,43 @@ The role aligns with backend development, API building, SQL work, and scalable d
 **Yes, I am comfortable with relocation, and I am open to flexible shifts as required by the role or project needs.**
 
 ---
+1. How to Ask for Feedback (Polite + Professional)
+
+Ask this only at the end, not during the interview.
+
+Option 1 — Safe & Professional
+
+“Before we end, may I ask for a small feedback? I’d love to know if there’s anything I should improve for future interviews.”
+
+Option 2 — Fresher-Friendly
+
+“Since I’m in the learning phase, any quick feedback on my performance today would really help me grow. If it’s possible, I’d appreciate it.”
+
+Option 3 — Very Polite (If interviewer looks strict)
+
+“If it’s allowed, could you share one thing I did well and one thing I can improve?”
+
+(This raises the chance they’ll share something.)
+
+If the interviewer says: “We can’t give feedback.”
+
+This is common. Companies avoid giving feedback because of policies.
+
+Here is the exact script you should say:
+
+✅ Perfect Response
+
+“No problem at all. Thank you for letting me know. I appreciate your time today and I really enjoyed the discussion.”
+
+This keeps your impression positive.
+
+🟢 3. If you still want to leave a smart final impression
+
+You can add this small line (optional):
+
+“I’ll continue improving my skills. Thank you again for the opportunity.”
+
+This shows maturity.
 
 # 🟡 **SECTION B — MEDIUM PRIORITY (Prepare After Section A)**
 
@@ -107,10 +144,14 @@ Frequently asked, but secondary.
 
 ---
 
-## **13. What kind of company culture do you prefer?**What environment do you prefer?
+## 13. What kind of company culture do you prefer?What environment do you prefer?
 
-**I prefer a culture that encourages learning, teamwork, and open communication. A collaborative environment where people help each other grow is ideal for me.
+I prefer a culture that encourages learning, teamwork, and open communication. A collaborative environment where people help each other grow is ideal for me.
 I prefer a supportive environment where I can learn from experienced developers, ask questions freely, and grow step by step.**
+
+ii)Talk about your dream company.
+
+My dream company is one where I can learn continuously, collaborate with talented engineers, and contribute to meaningful backend projects. I value a supportive, growth-oriented environment more than a specific brand name.
 
 ---
 
@@ -128,9 +169,10 @@ I want to take ownership of modules, work on larger projects, and help juniors a
 
 ## **16. Can you work under pressure?**.How do you handle pressure or deadlines?
 
-**Yes. I stay calm, break the task into smaller steps, and complete it systematically. Pressure helps me stay focused and finish tasks efficiently.**
+Yes. I stay calm, break the task into smaller steps, and complete it systematically. Pressure helps me stay focused and finish tasks efficiently.**
 
- I break tasks into smaller steps and finish the most important parts first. Staying calm and organized helps me meet deadlines, even if time is limited.
+I break tasks into smaller steps and finish the most important parts first. Staying calm and organized helps me meet deadlines, even if time is limited.
+ 
 ---
 
 # 🟡 **SECTION C — MEDIUM PRIORITY: TEAMWORK & BEHAVIOURAL**
@@ -149,16 +191,17 @@ I want to take ownership of modules, work on larger projects, and help juniors a
 
 “I’m comfortable with both. I enjoy teamwork for learning, and I can also work independently with responsibility.”**
 
-ii)Talk about your dream company.**
 
-**My dream company is one where I can learn continuously, collaborate with talented engineers, and contribute to meaningful backend projects. I value a supportive, growth-oriented environment more than a specific brand name.**
 ---
 
 ## **19. How do you handle disagreements in a team?**
 
-**I stay calm, listen to the other person, understand their perspective, and then share my point logically. I focus on the solution, not the argument.**
-                          OR
-I listen first to understand the other person’s perspective, then share my view calmly. I focus on what’s best for the task, not on proving myself right                          
+I stay calm, listen to the other person, understand their perspective, and then share my point logically. I focus on the solution, not the argument.
+                                                    
+                                                     OR
+                          
+I listen first to understand the other person’s perspective, then share my view calmly. I focus on what’s best for the task, not on proving myself right  
+
 ---
 
 ## **20. How do you handle criticism or feedback?**
