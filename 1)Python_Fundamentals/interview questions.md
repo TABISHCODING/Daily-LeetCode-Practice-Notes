@@ -14,6 +14,7 @@ Since my strongest foundation is in Python and databases, I chose the Python + D
 
 I am passionate about backend development, data-oriented problem-solving, and continuously improving my technical abilities.
 Thank you for the opportunity—I look forward to contributing and growing with your organization.
+
 ---
 
 # ⭐ **FINAL POLISHED INTRODUCTION (Best Version)**
