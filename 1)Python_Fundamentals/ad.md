@@ -33,17 +33,22 @@ Good strengths for freshers:
 ---
 
 ## **2. What are your weaknesses?**
-
-**sometimes take extra time to ensure my work is perfect. But now I’m learning to balance quality with deadlines.”**
+“Sometimes I take extra time to make my work perfect, but I’m learning to balance quality with timely completion.  I’m improving it by planning my tasks more clearly — I break the work into small steps and set mini-deadlines for myself. This helps me avoid over-focusing on one part and finish my work on time without losing quality.”
 
 ---
 
 ## **3. Why this company? (Adobe)**
 
-**Adobe is a global leader in digital experiences, creativity, and cloud-based solutions. I admire Adobe’s strong engineering culture, innovation, and the impact it creates through products like Creative Cloud, Document Cloud, and Experience Cloud.
-For a fresher, Adobe provides an excellent environment to learn, grow, and work on meaningful real-world systems. The company’s focus on quality, innovation, and continuous learning aligns with the way I want to build my career as a backend developer.**
+“I want to work at Adobe because it’s much more than the ‘Photoshop company.’ I know the business is built on three major pillars: Creative Cloud, Document Cloud, and the enterprise-focused Experience Cloud.
+What interests me most is the Adobe Experience Platform. It uses SQL for its query services and Python for data science workflows, which aligns directly with the skills I’m building. It feels like a natural fit for the kind of backend and data-related work I want to do.
+I’m also really impressed by Adobe’s push into Generative AI with Firefly and GenStudio. It shows how strongly the company focuses on innovation. For a fresher, I can’t think of a better place to learn, contribute, and work on products that have such a huge global impact.”**
 
 ---
+“What data problems does AEP solve?”
+
+*“From what I understand, Adobe Experience Platform helps companies bring all their customer data into one place. Many businesses have their data split across different systems like sales, marketing, email, or website analytics. AEP combines all of this and creates a single customer profile.
+
+It uses SQL to query large amounts of data and Python for data science work. This helps companies give more accurate and personalized experiences to their users.”
 
 ## **4. Why do you want to work as a Python Backend Developer?**
 
@@ -60,17 +65,19 @@ For a fresher, Adobe provides an excellent environment to learn, grow, and work 
 ## **6.i What motivates or challenges you?**
 
 **I am motivated by learning new concepts and applying them to practical tasks. Challenges like debugging or understanding a new concept push me to think deeper, and solving them gives me confidence and satisfaction.
-6.ii Tell me about a challenge you faced and how you solved it.**
+
+
+6.ii **Tell me about a challenge you faced and how you solved it.**
+
 In my project, I faced an API issue where data wasn’t syncing correctly. I analyzed logs, identified the error, applied proper exception handling, and fixed the API logic. As a result, the system became stable and faster.”**
 
 ---
 
 ## **7. What do you know about the company and the role? (Adobe Version)**
 
-**Adobe is a global leader in digital creativity, document solutions, and experience platforms — with products like Creative Cloud, Acrobat, and Experience Cloud used by millions worldwide.
-I respect Adobe’s engineering standards, innovation culture, and strong focus on building high-quality, scalable software.
-The role aligns with backend development, API building, SQL work, and scalable data-related tasks. It matches my strengths in Python, Flask, and databases, and also aligns with my goal of learning PySpark for large-scale data workflows. Adobe is an excellent place for me to grow and contribute.**
-
+***“I see Adobe as much more than the ‘Photoshop company.’ I know the business is built on three major pillars: Creative Cloud, Document Cloud, and the enterprise-focused Experience Cloud.
+What interests me most is the Adobe Experience Platform. It uses SQL for its query services and Python for data science workflows, which aligns directly with the skills I’m building. It feels like a natural fit for the kind of backend and data-related work I want to do.
+I’m also really impressed by Adobe’s push into Generative AI with Firefly and GenStudio. It shows how strongly the company focuses on innovation. For a fresher, I can’t think of a better place to learn, contribute, and work on products that have such a huge global impact.”**
 ---
 
 ## **8. What are your salary expectations?**
