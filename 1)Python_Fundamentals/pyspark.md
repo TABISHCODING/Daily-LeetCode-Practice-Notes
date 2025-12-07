@@ -1,3 +1,1171 @@
+
+
+* Use **one main DataFrame** (`df`) for most examples
+* Use **separate small DataFrames** just for `join()` examples
+* Go **exactly in the order you listed (1–23)**
+* For each:
+
+  * ✅ *Why we need it* (practical reason)
+  * ✅ Syntax
+  * ✅ Example code
+  * ✅ Expected output
+* For **`join()`**: cover **all main join types** with clear cases + outputs.
+
+---
+
+## 🧱 Base DataFrame for Most Examples
+
+```python
+data = [
+    (1, "Rahul", 25, "IT", 50000),
+    (2, "Anita", 17, "HR", 30000),
+    (3, "Suresh", 30, "IT", 70000),
+    (4, "Meena", 25, "HR", 30000)
+]
+cols = ["id", "name", "age", "dept", "salary"]
+
+df = spark.createDataFrame(data, cols)
+df.show()
+```
+
+**Output**
+
+```
++---+------+---+----+------+
+|id |name  |age|dept|salary|
++---+------+---+----+------+
+|1  |Rahul |25 |IT  |50000 |
+|2  |Anita |17 |HR  |30000 |
+|3  |Suresh|30 |IT  |70000 |
+|4  |Meena |25 |HR  |30000 |
++---+------+---+----+------+
+```
+
+---
+
+# 🔹 LEVEL 1: Core & Selection Transformations
+
+---
+
+### 1. `select()`
+
+**Why we need it:**
+To choose **only required columns** for analysis, improving readability and performance.
+
+**Syntax:**
+
+```python
+df.select("col1", "col2", ...)
+```
+
+**Example:**
+
+```python
+df.select("name", "age").show()
+```
+
+**Output:**
+
+```
++------+---+
+|name  |age|
++------+---+
+|Rahul |25 |
+|Anita |17 |
+|Suresh|30 |
+|Meena |25 |
++------+---+
+```
+
+---
+
+### 2. `withColumn()` (NEW + MODIFY)
+
+**Why we need it:**
+For **feature engineering** – to **create new columns** or **update existing ones** based on expressions.
+
+**Syntax:**
+
+```python
+df.withColumn("new_col", expression)
+```
+
+#### (a) Create new column
+
+```python
+from pyspark.sql.functions import col
+
+df_new = df.withColumn("age_plus_1", col("age") + 1)
+df_new.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+----------+
+|id |name  |age|dept|salary|age_plus_1|
++---+------+---+----+------+----------+
+|1  |Rahul |25 |IT  |50000 |26        |
+|2  |Anita |17 |HR  |30000 |18        |
+|3  |Suresh|30 |IT  |70000 |31        |
+|4  |Meena |25 |HR  |30000 |26        |
++---+------+---+----+------+----------+
+```
+
+#### (b) Modify existing column
+
+```python
+df_mod = df.withColumn("salary", col("salary") * 1.1)
+df_mod.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+
+|id |name  |age|dept|salary|
++---+------+---+----+------+
+|1  |Rahul |25 |IT  |55000 |
+|2  |Anita |17 |HR  |33000 |
+|3  |Suresh|30 |IT  |77000 |
+|4  |Meena |25 |HR  |33000 |
++---+------+---+----+------+
+```
+
+---
+
+### 3. `withColumnRenamed()`
+
+**Why we need it:**
+To **standardize column names** or make them more meaningful (useful for downstream systems, reporting, joins).
+
+**Syntax:**
+
+```python
+df.withColumnRenamed("old_name", "new_name")
+```
+
+**Example:**
+
+```python
+df_renamed = df.withColumnRenamed("salary", "monthly_salary")
+df_renamed.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+--------------+
+|id |name  |age|dept|monthly_salary|
++---+------+---+----+--------------+
+|1  |Rahul |25 |IT  |50000         |
+|2  |Anita |17 |HR  |30000         |
+|3  |Suresh|30 |IT  |70000         |
+|4  |Meena |25 |HR  |30000         |
++---+------+---+----+--------------+
+```
+
+---
+
+### 4. `drop()`
+
+**Why we need it:**
+To **remove unnecessary columns**, reducing data size and avoiding confusion.
+
+**Syntax:**
+
+```python
+df.drop("col1", "col2", ...)
+```
+
+**Example:**
+
+```python
+df_dropped = df.drop("dept")
+df_dropped.show()
+```
+
+**Output:**
+
+```
++---+------+---+------+
+|id |name  |age|salary|
++---+------+---+------+
+|1  |Rahul |25 |50000 |
+|2  |Anita |17 |30000 |
+|3  |Suresh|30 |70000 |
+|4  |Meena |25 |30000 |
++---+------+---+------+
+```
+
+---
+
+### 5. `filter()` / `where()`
+
+**Why we need it:**
+To **keep only rows that satisfy conditions**, which is core to data cleaning and analysis.
+
+**Syntax:**
+
+```python
+df.filter(condition)
+df.where(condition)
+```
+
+**Example: keep employees with age > 20**
+
+```python
+from pyspark.sql.functions import col
+
+df.filter(col("age") > 20).show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+
+|id |name  |age|dept|salary|
++---+------+---+----+------+
+|1  |Rahul |25 |IT  |50000 |
+|3  |Suresh|30 |IT  |70000 |
+|4  |Meena |25 |HR  |30000 |
++---+------+---+----+------+
+```
+
+`where()` is same as `filter()`:
+
+```python
+df.where(col("age") > 20).show()
+```
+
+(⏫ Same output)
+
+---
+
+### 6. `distinct()`
+
+**Why we need it:**
+To **remove duplicate rows**, especially after joins or unions, or when counting unique entities.
+
+**Syntax:**
+
+```python
+df.distinct()
+```
+
+**Example: unique departments**
+
+```python
+df.select("dept").distinct().show()
+```
+
+**Output:**
+
+```
++----+
+|dept|
++----+
+|IT  |
+|HR  |
++----+
+```
+
+---
+
+# 🔹 LEVEL 2: Row & Column Transformations
+
+---
+
+### 7. `alias()`
+
+**Why we need it:**
+To give **temporary names** to columns (useful in `select`, aggregations, joins).
+
+**Syntax:**
+
+```python
+df.select(col("col").alias("new_name"))
+```
+
+**Example:**
+
+```python
+from pyspark.sql.functions import col
+
+df_alias = df.select(col("salary").alias("income"))
+df_alias.show()
+```
+
+**Output:**
+
+```
++------+
+|income|
++------+
+|50000 |
+|30000 |
+|70000 |
+|30000 |
++------+
+```
+
+---
+
+### 8. `cast()`
+
+**Why we need it:**
+To **convert column data types** (string ↔ int ↔ double etc.) for calculations, joins, or writing to targets.
+
+**Syntax:**
+
+```python
+df.withColumn("col", col("col").cast("datatype"))
+```
+
+**Example:**
+
+```python
+df_cast = df.withColumn("age_str", col("age").cast("string"))
+df_cast.printSchema()
+```
+
+**Output Schema:**
+
+```
+root
+ |-- id: integer (nullable = true)
+ |-- name: string (nullable = true)
+ |-- age: integer (nullable = true)
+ |-- dept: string (nullable = true)
+ |-- salary: integer (nullable = true)
+ |-- age_str: string (nullable = true)
+```
+
+---
+
+### 9. `when()` / `otherwise()`
+
+**Why we need it:**
+This is for **CASE WHEN / IF-ELSE logic** on columns → used heavily in feature engineering and rule-based categorisation.
+
+**Syntax:**
+
+```python
+when(condition, value).otherwise(value)
+```
+
+**Example: classify age group**
+
+```python
+from pyspark.sql.functions import when, col
+
+df_age_group = df.withColumn(
+    "age_group",
+    when(col("age") < 18, "Minor").otherwise("Adult")
+)
+df_age_group.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+---------+
+|id |name  |age|dept|salary|age_group|
++---+------+---+----+------+---------+
+|1  |Rahul |25 |IT  |50000 |Adult    |
+|2  |Anita |17 |HR  |30000 |Minor    |
+|3  |Suresh|30 |IT  |70000 |Adult    |
+|4  |Meena |25 |HR  |30000 |Adult    |
++---+------+---+----+------+---------+
+```
+
+---
+
+### 10. `lit()`
+
+**Why we need it:**
+To add a **constant value as a column** (e.g., default country, source system tag).
+
+**Syntax:**
+
+```python
+lit(value)
+```
+
+**Example:**
+
+```python
+from pyspark.sql.functions import lit
+
+df_country = df.withColumn("country", lit("India"))
+df_country.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+-------+
+|id |name  |age|dept|salary|country|
++---+------+---+----+------+-------+
+|1  |Rahul |25 |IT  |50000 |India  |
+|2  |Anita |17 |HR  |30000 |India  |
+|3  |Suresh|30 |IT  |70000 |India  |
+|4  |Meena |25 |HR  |30000 |India  |
++---+------+---+----+------+-------+
+```
+
+---
+
+### 11. `substr()`
+
+**Why we need it:**
+To extract **parts of a string**, like year from a date string, or country code, etc.
+
+**Syntax:**
+
+```python
+col("col").substr(start, length)
+```
+
+*(start is 1-based index)*
+
+**Example: first 3 chars of name**
+
+```python
+from pyspark.sql.functions import col
+
+df_sub = df.select(col("name").substr(1, 3).alias("short_name"))
+df_sub.show()
+```
+
+**Output:**
+
+```
++----------+
+|short_name|
++----------+
+|Rah       |
+|Ani       |
+|Sur       |
+|Mee       |
++----------+
+```
+
+---
+
+### 12. `concat()` / `concat_ws()`
+
+**Why we need it:**
+To **combine multiple columns** into one string column (for IDs, labels, full names, etc.).
+
+**Syntax:**
+
+```python
+concat(col1, col2, ...)
+concat_ws(separator, col1, col2, ...)
+```
+
+**Example: dept-id label**
+
+```python
+from pyspark.sql.functions import concat_ws
+
+df_label = df.withColumn("dept_id_label", concat_ws("-", "dept", "id"))
+df_label.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+-------------+
+|id |name  |age|dept|salary|dept_id_label|
++---+------+---+----+------+-------------+
+|1  |Rahul |25 |IT  |50000 |IT-1         |
+|2  |Anita |17 |HR  |30000 |HR-2         |
+|3  |Suresh|30 |IT  |70000 |IT-3         |
+|4  |Meena |25 |HR  |30000 |HR-4         |
++---+------+---+----+------+-------------+
+```
+
+---
+
+# 🔹 LEVEL 3: Aggregation & Grouping (Intermediate Core)
+
+---
+
+### 13. `groupBy()`
+
+**Why we need it:**
+To **group rows** by one or more columns before aggregating (like SQL GROUP BY).
+
+**Syntax:**
+
+```python
+df.groupBy("col1", "col2", ...)
+```
+
+**Example: number of employees per dept**
+
+```python
+df_group = df.groupBy("dept").count()
+df_group.show()
+```
+
+**Output:**
+
+```
++----+-----+
+|dept|count|
++----+-----+
+|IT  |2    |
+|HR  |2    |
++----+-----+
+```
+
+---
+
+### 14. `agg()`
+
+**Why we need it:**
+To apply **multiple aggregations** at once (sum, avg, min, etc.) after `groupBy()`.
+
+**Syntax:**
+
+```python
+df.groupBy("col").agg(agg_exprs...)
+```
+
+**Example: sum salary by dept**
+
+```python
+from pyspark.sql.functions import sum
+
+df_agg = df.groupBy("dept").agg(sum("salary").alias("total_salary"))
+df_agg.show()
+```
+
+**Output:**
+
+```
++----+------------+
+|dept|total_salary|
++----+------------+
+|IT  |120000      |
+|HR  |60000       |
++----+------------+
+```
+
+---
+
+### 15. `count()` (inside aggregation)
+
+**Why we need it:**
+To **count rows per group** – e.g., how many employees in each dept.
+
+**Syntax:**
+
+```python
+df.groupBy("col").count()
+```
+
+Already shown in step 13.
+
+---
+
+### 16. `sum()`, `avg()`, `min()`, `max()`
+
+**Why we need them:**
+These are **aggregate functions** used inside `agg()` or `select()` to compute metrics.
+
+**Example: full stats per dept**
+
+```python
+from pyspark.sql.functions import sum, avg, min, max
+
+df_stats = df.groupBy("dept").agg(
+    sum("salary").alias("total_salary"),
+    avg("salary").alias("avg_salary"),
+    min("salary").alias("min_salary"),
+    max("salary").alias("max_salary")
+)
+df_stats.show()
+```
+
+**Output:**
+
+```
++----+------------+----------+----------+----------+
+|dept|total_salary|avg_salary|min_salary|max_salary|
++----+------------+----------+----------+----------+
+|IT  |120000      |60000.0   |50000     |70000     |
+|HR  |60000       |30000.0   |30000     |30000     |
++----+------------+----------+----------+----------+
+```
+
+---
+
+# 🔹 LEVEL 4: Sorting & Joins
+
+---
+
+### 17. `orderBy()` / `sort()`
+
+**Why we need it:**
+To **sort the data** for reports, debugging, or exporting ordered data.
+
+**Syntax:**
+
+```python
+df.orderBy("col")
+df.sort("col")
+```
+
+**Example: highest salary first**
+
+```python
+from pyspark.sql.functions import col
+
+df_sorted = df.orderBy(col("salary").desc())
+df_sorted.show()
+```
+
+**Output:**
+
+```
++---+------+---+----+------+
+|id |name  |age|dept|salary|
++---+------+---+----+------+
+|3  |Suresh|30 |IT  |70000 |
+|1  |Rahul |25 |IT  |50000 |
+|2  |Anita |17 |HR  |30000 |
+|4  |Meena |25 |HR  |30000 |
++---+------+---+----+------+
+```
+
+`sort()` works the same as `orderBy()`.
+
+---
+
+### 18. `join()` – ALL MAIN CASES
+
+**Why we need it:**
+To **combine related data** from multiple tables/DataFrames (classic relational operation).
+Used when data is **split across dimensions and facts** (employees, departments, etc.).
+
+---
+
+#### 🔹 Setup for join examples
+
+```python
+employees = spark.createDataFrame(
+    [
+        (1, "Rahul", 10),
+        (2, "Anita", 20),
+        (3, "Suresh", 30),
+        (4, "Meena", 40)
+    ],
+    ["emp_id", "emp_name", "dept_id"]
+)
+
+departments = spark.createDataFrame(
+    [
+        (10, "IT"),
+        (20, "HR"),
+        (50, "Finance")
+    ],
+    ["dept_id", "dept_name"]
+)
+
+employees.show()
+departments.show()
+```
+
+**employees**
+
+```
++------+--------+-------+
+|emp_id|emp_name|dept_id|
++------+--------+-------+
+|1     |Rahul   |10     |
+|2     |Anita   |20     |
+|3     |Suresh  |30     |
+|4     |Meena   |40     |
++------+--------+-------+
+```
+
+**departments**
+
+```
++-------+---------+
+|dept_id|dept_name|
++-------+---------+
+|10     |IT       |
+|20     |HR       |
+|50     |Finance  |
++-------+---------+
+```
+
+Note:
+
+* dept 10,20: match
+* employees 3,4 (dept 30,40): no matching department
+* department 50: no employees
+
+---
+
+#### (a) INNER JOIN (default)
+
+**Why:**
+Get **only matching rows** – typical for most business reports.
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "inner")
+```
+
+**Example:**
+
+```python
+inner_join = employees.join(departments, "dept_id", "inner")
+inner_join.show()
+```
+
+**Output:**
+
+```
++-------+------+--------+---------+
+|dept_id|emp_id|emp_name|dept_name|
++-------+------+--------+---------+
+|10     |1     |Rahul   |IT       |
+|20     |2     |Anita   |HR       |
++-------+------+--------+---------+
+```
+
+---
+
+#### (b) LEFT OUTER JOIN
+
+**Why:**
+Keep **all employees**, even if they don’t have a matching department. Missing dept info appears as NULL.
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "left")
+# or "left_outer"
+```
+
+**Example:**
+
+```python
+left_join = employees.join(departments, "dept_id", "left")
+left_join.show()
+```
+
+**Output:**
+
+```
++-------+------+--------+---------+
+|dept_id|emp_id|emp_name|dept_name|
++-------+------+--------+---------+
+|10     |1     |Rahul   |IT       |
+|20     |2     |Anita   |HR       |
+|30     |3     |Suresh  |null     |
+|40     |4     |Meena   |null     |
++-------+------+--------+---------+
+```
+
+---
+
+#### (c) RIGHT OUTER JOIN
+
+**Why:**
+Keep **all departments**, even if they have no employees.
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "right")
+# or "right_outer"
+```
+
+**Example:**
+
+```python
+right_join = employees.join(departments, "dept_id", "right")
+right_join.show()
+```
+
+**Output:**
+
+```
++-------+------+--------+---------+
+|dept_id|emp_id|emp_name|dept_name|
++-------+------+--------+---------+
+|10     |1     |Rahul   |IT       |
+|20     |2     |Anita   |HR       |
+|50     |null  |null    |Finance  |
++-------+------+--------+---------+
+```
+
+---
+
+#### (d) FULL OUTER JOIN
+
+**Why:**
+Keep **everything from both sides**; unmatched rows from either side become NULL on the other side.
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "full")
+# or "full_outer"
+```
+
+**Example:**
+
+```python
+full_join = employees.join(departments, "dept_id", "full")
+full_join.show()
+```
+
+**Output (order may vary slightly):**
+
+```
++-------+------+--------+---------+
+|dept_id|emp_id|emp_name|dept_name|
++-------+------+--------+---------+
+|10     |1     |Rahul   |IT       |
+|20     |2     |Anita   |HR       |
+|30     |3     |Suresh  |null     |
+|40     |4     |Meena   |null     |
+|50     |null  |null    |Finance  |
++-------+------+--------+---------+
+```
+
+---
+
+#### (e) LEFT SEMI JOIN
+
+**Why:**
+Return **only rows from left** that **have a match** in right – behaves like a **filter** (“keep employees whose dept exists in department table”).
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "left_semi")
+```
+
+**Example:**
+
+```python
+left_semi = employees.join(departments, "dept_id", "left_semi")
+left_semi.show()
+```
+
+**Output:**
+
+```
++------+--------+-------+
+|emp_id|emp_name|dept_id|
++------+--------+-------+
+|1     |Rahul   |10     |
+|2     |Anita   |20     |
++------+--------+-------+
+```
+
+(Only employees whose dept_id matches 10 or 20)
+
+---
+
+#### (f) LEFT ANTI JOIN
+
+**Why:**
+Return **only rows from left** that **do NOT have a match** in right – used to find **orphans / bad data**.
+
+**Syntax:**
+
+```python
+employees.join(departments, "dept_id", "left_anti")
+```
+
+**Example:**
+
+```python
+left_anti = employees.join(departments, "dept_id", "left_anti")
+left_anti.show()
+```
+
+**Output:**
+
+```
++------+--------+-------+
+|emp_id|emp_name|dept_id|
++------+--------+-------+
+|3     |Suresh  |30     |
+|4     |Meena   |40     |
++------+--------+-------+
+```
+
+---
+
+#### (g) CROSS JOIN
+
+**Why:**
+**Cartesian product** – all combinations of rows; rarely used in production except for generating combinations or with very small tables.
+
+**Syntax:**
+
+```python
+employees.crossJoin(departments)
+# or employees.join(departments, how="cross")
+```
+
+**Example:**
+
+```python
+cross = employees.crossJoin(departments)
+cross.show()
+```
+
+**Output (4 employees × 3 departments = 12 rows, truncated view):**
+
+```
++------+--------+-------+-------+---------+
+|emp_id|emp_name|dept_id|dept_id|dept_name|
++------+--------+-------+-------+---------+
+|1     |Rahul   |10     |10     |IT       |
+|1     |Rahul   |10     |20     |HR       |
+|1     |Rahul   |10     |50     |Finance  |
+|2     |Anita   |20     |10     |IT       |
+|...   |...     |...    |...    |...      |
++------+--------+-------+-------+---------+
+```
+
+---
+
+# 🔹 LEVEL 5: Advanced-But-Intermediate Transformations
+
+---
+
+### 19. `explode()`
+
+**Why we need it:**
+To **convert array column into multiple rows**, one row per element. Used heavily when dealing with JSON or list-type fields.
+
+**Syntax:**
+
+```python
+explode(col("array_col"))
+```
+
+**Example:**
+
+```python
+from pyspark.sql.functions import explode
+
+df_arr = spark.createDataFrame(
+    [(1, ["pen", "book"]), (2, ["mouse", "keyboard"])],
+    ["id", "items"]
+)
+
+df_exploded = df_arr.withColumn("item", explode("items"))
+df_exploded.show()
+```
+
+**Output:**
+
+```
++---+--------------+--------+
+|id |items         |item    |
++---+--------------+--------+
+|1  |[pen, book]   |pen     |
+|1  |[pen, book]   |book    |
+|2  |[mouse, keyboard]|mouse|
+|2  |[mouse, keyboard]|keyboard|
++---+--------------+--------+
+```
+
+---
+
+### 20. `split()`
+
+**Why we need it:**
+To **split a string into array** (reverse of explode usage sometimes).
+
+**Syntax:**
+
+```python
+split(col("string_col"), "delimiter")
+```
+
+**Example:**
+
+```python
+from pyspark.sql.functions import split
+
+df_text = spark.createDataFrame(
+    [(1, "hello spark world")],
+    ["id", "sentence"]
+)
+
+df_split = df_text.withColumn("words", split("sentence", " "))
+df_split.show(truncate=False)
+```
+
+**Output:**
+
+```
++---+-------------------+-------------------------+
+|id |sentence           |words                    |
++---+-------------------+-------------------------+
+|1  |hello spark world  |[hello, spark, world]    |
++---+-------------------+-------------------------+
+```
+
+---
+
+### 21. `union()` / `unionByName()`
+
+**Why we need it:**
+To **stack DataFrames vertically** (append rows), often used when reading same structure from multiple files.
+
+**Syntax:**
+
+```python
+df1.union(df2)          # column order must match
+df1.unionByName(df2)    # matches by column names
+```
+
+**Example:**
+
+```python
+df_a = spark.createDataFrame(
+    [(1, "Rahul"), (2, "Anita")],
+    ["id", "name"]
+)
+df_b = spark.createDataFrame(
+    [(3, "Suresh"), (4, "Meena")],
+    ["id", "name"]
+)
+
+df_union = df_a.union(df_b)
+df_union.show()
+```
+
+**Output:**
+
+```
++---+------+
+|id |name  |
++---+------+
+|1  |Rahul |
+|2  |Anita |
+|3  |Suresh|
+|4  |Meena |
++---+------+
+```
+
+---
+
+### 22. `dropDuplicates()`
+
+**Why we need it:**
+To **remove duplicate rows** based on **specific keys** instead of whole row – classic for de-duplicating dimension tables.
+
+**Syntax:**
+
+```python
+df.dropDuplicates()              # full row
+df.dropDuplicates(["col1",...])  # based on specific columns
+```
+
+**Example:**
+
+```python
+df_dup = spark.createDataFrame(
+    [
+        (1, "Rahul", "IT"),
+        (2, "Anita", "HR"),
+        (3, "Rahul", "IT")
+    ],
+    ["id", "name", "dept"]
+)
+
+df_unique = df_dup.dropDuplicates(["name", "dept"])
+df_unique.show()
+```
+
+**Output:**
+
+```
++---+------+----+
+|id |name  |dept|
++---+------+----+
+|1  |Rahul |IT  |
+|2  |Anita |HR  |
++---+------+----+
+```
+
+---
+
+### 23. `na.drop()` / `na.fill()`
+
+**Why we need it:**
+To **handle missing values (NULLs)** – either drop bad rows or fill default values.
+
+**Syntax:**
+
+```python
+df.na.drop()                     # drop rows with any null
+df.na.fill(value)                # fill all nulls with value
+df.na.fill({"col": value, ...})  # column-wise fill
+```
+
+**Example:**
+
+```python
+df_null = spark.createDataFrame(
+    [
+        (1, "Rahul", None),
+        (2, None, 25),
+        (3, "Suresh", 30)
+    ],
+    ["id", "name", "age"]
+)
+
+# Drop rows with any null
+df_drop = df_null.na.drop()
+df_drop.show()
+
+# Fill nulls
+df_fill = df_null.na.fill({"name": "Unknown", "age": 0})
+df_fill.show()
+```
+
+**Output (`na.drop()`):**
+
+```
++---+------+---+
+|id |name  |age|
++---+------+---+
+|3  |Suresh|30 |
++---+------+---+
+```
+
+**Output (`na.fill()`):**
+
+```
++---+--------+---+
+|id |name    |age|
++---+--------+---+
+|1  |Rahul   |0  |
+|2  |Unknown |25 |
+|3  |Suresh  |30 |
++---+--------+---+
+```
+
 ---
 ## 🧱 PHASE 0 — Tiny Prerequisites (before PySpark)
 
