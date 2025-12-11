@@ -1,120 +1,594 @@
 
-## 0. What is OOP in Python?
+---
 
-**Definition (interview):**
-OOP (Object-Oriented Programming) is a programming technique that organizes code into **classes and objects** to model real-world entities and their behavior.
+# ✅ **0. What is OOP in Python?**
 
-**Simple meaning:**
-Instead of writing everything with functions and variables scattered around, we group related data and functions inside **classes**.
+“OOP is a programming technique that solves real-world problems by organizing code using classes and objects.”
 
-OOP is a method of programming where we structure our code by grouping related data and behaviors into single units called Objects. This allows us to model real-world things—like a 'User' or a 'Product'—directly in our code, making it easier to manage, reuse, and scale.
+
+
+Advantages of OOP
+Provides a clear structure to programs
+Makes code easier to maintain, reuse, and debug
+Helps keep your code DRY (Don't Repeat Yourself)
+Allows you to build reusable applications with less code
+Tip: The DRY principle means you should avoid writing the same code more than once. Move repeated code into functions or classes and reuse it.
+
+---
+Class	| Objects
+Fruit	| Apple, Banana, Mango
+Car	    | Volvo, Audi, Toyota
 
 ---
 
-## 1. Class
+# ⭐ **1. Class**
 
 **Definition (interview):**
 A **class** is a blueprint or template that defines the structure and behavior (data and methods) that its objects will have.
 
-**Simple meaning:**
-Class = design / plan.
+---
 
-**Example:**
+## 🔹 **Creating a Class**
+
+Use the `class` keyword:
+
+```python
+class MyClass:
+    x = 5   # class property
+```
+
+---
+
+## 🔹 **The `pass` Statement**
+
+A class cannot be empty. If you want an empty class, use `pass` to avoid errors:
+
+```python
+class Person:
+    pass
+```
+
+---
+
+# ⭐ **2. Object / Instance**
+
+**Definition (interview):**
+An **object** (or instance) is an actual thing created from a class blueprint.
+It automatically gets access to all properties and methods inside the class.
+
+---
+
+## 🔹 **Creating an Object**
+
+```python
+p1 = MyClass()
+print(p1.x)     # Output: 5
+```
+
+---
+
+# ⭐ **3. Multiple Objects**
+
+You can create multiple objects from the same class:
+
+```python
+p1 = MyClass()
+p2 = MyClass()
+p3 = MyClass()
+
+print(p1.x)
+print(p2.x)
+print(p3.x)
+```
+
+📌 **Note:**
+Each object is independent and gets its **own copy** of class/instance properties.
+
+---
+
+# ⭐ **4. Deleting an Object**
+
+Use `del` to delete an object:
+
+```python
+del p1
+```
+
+After deletion, you can no longer use `p1`.
+
+---
+
+# ⭐ **5. Example with Class + Object (Simple)**
 
 ```python
 class Student:
     pass
+
+s1 = Student()   # creating object
 ```
 
-**Common questions:**
-
-* **Q:** What is a class?
-  **A:** A class is a blueprint or template for creating objects that defines attributes and methods.
 
 ---
 
-## 2. Object / Instance
+# ✅ **3. Attributes (Data of the Object)**
 
-**Definition (interview):**
-An **object** (or instance) is a concrete entity created from a class. It represents an individual example of the class.
+Attributes are the variables inside a class that store data for objects.
 
-**Simple meaning:**
-Object = actual thing built from the plan.
+They are of two types:
 
-**Example:**
-
-```python
-class Student:
-    pass
-
-s1 = Student()  # s1 is an object
-```
-
-**Common question:**
-
-* **Q:** What is the relation between class and object?
-  **A:** A class defines the structure; an object is an instance of that class in memory.
+* **Instance Variables**
+* **Class Variables**
 
 ---
 
-## 3. Attributes (Instance Variables) & Methods
+# 🔥 **3.1 Instance Variable (Object Variable)**
 
-### 3.1 Attributes (Instance Variables)
+### ✔ Definition
 
-**Definition (interview):**
-An **attribute** or **instance variable** is a variable defined inside a class and associated with a specific object.
+An instance variable is a variable that is **unique for every object**.
 
-**Simple meaning:**
-Data stored **inside** the object.
-
-**Example:**
+### ✔ Example
 
 ```python
 class Student:
+    def __init__(self, name, roll):
+        self.name = name       # instance variable
+        self.roll = roll       # instance variable
+
+s1 = Student("Rahul", 1)
+s2 = Student("Priya", 2)
+
+print(s1.name)
+print(s2.name)
+```
+
+### ✔ Output:
+
+```
+Rahul
+Priya
+```
+
+### ✔ Key Point
+
+Each object gets its **own copy** of instance variables.
+
+---
+
+# 🔥 **3.2 Accessing Instance Properties**
+
+You can access an object's properties using **dot notation**.
+
+```python
+class Car:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+car1 = Car("Toyota", "Corolla")
+
+print(car1.brand)
+print(car1.model)
+```
+
+### ✔ Output:
+
+```
+Toyota
+Corolla
+```
+
+---
+
+# 🔥 **3.3 Modify Instance Properties**
+
+```python
+p1 = Person("Tobias", 25)
+print(p1.age)
+
+p1.age = 26
+print(p1.age)
+```
+
+### ✔ Output:
+
+```
+25
+26
+```
+
+---
+
+# 🔥 **3.4 Delete Instance Properties**
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Person("Linus", 30)
+
+del p1.age
+
+print(p1.name)
+# print(p1.age) → ERROR
+```
+
+### ✔ Output:
+
+```
+Linus
+# print(p1.age) would cause:
+AttributeError: 'Person' object has no attribute 'age'
+```
+
+---
+
+# 🔥 **3.5 Adding New Properties to an Object**
+
+```python
+class Person:
     def __init__(self, name):
-        self.name = name  # attribute / instance variable
+        self.name = name
 
-s1 = Student("Rahul")
-print(s1.name)  # Rahul
+p1 = Person("Tobias")
+
+p1.age = 25
+p1.city = "Oslo"
+
+print(p1.name)
+print(p1.age)
+print(p1.city)
+```
+
+### ✔ Output:
+
+```
+Tobias
+25
+Oslo
+```
+
+⚠ **Note:** These new properties belong **ONLY** to `p1`, not to all objects.
+
+---
+
+# 🔥 **3.6 Class Variable (Static Variable)**
+
+### ✔ Definition
+
+A **class variable** is shared by **all objects** of the class.
+
+### ✔ Example
+
+```python
+class Student:
+    school = "DPS"      # class variable
+
+    def __init__(self, name, roll):
+        self.name = name
+        self.roll = roll
+
+s1 = Student("Rahul", 1)
+s2 = Student("Priya", 2)
+
+print(s1.school)
+print(s2.school)
+```
+
+### ✔ Output:
+
+```
+DPS
+DPS
+```
+
+### ✔ Key Point
+
+Class variables belong to the **class itself**, not to objects.
+
+---
+
+# 🔥 **3.7 Class Properties vs Instance Properties**
+
+```python
+class Person:
+    species = "Human"   # class property
+
+    def __init__(self, name):
+        self.name = name  # instance property
+
+p1 = Person("Emil")
+p2 = Person("Tobias")
+
+print(p1.name)
+print(p2.name)
+print(p1.species)
+print(p2.species)
+```
+
+### ✔ Output:
+
+```
+Emil
+Tobias
+Human
+Human
 ```
 
 ---
 
-### 3.2 Methods
+# 🔥 **3.8 Modifying Class Properties**
 
-**Definition (interview):**
-A **method** is a function defined inside a class that operates on the object’s data.
+Changes reflect in **all objects**.
 
-**Simple meaning:**
-Action that the object can perform.
+```python
+class Person:
+    lastname = ""
 
-**Example:**
+    def __init__(self, name):
+        self.name = name
+
+p1 = Person("Linus")
+p2 = Person("Emil")
+
+Person.lastname = "Refsnes"
+
+print(p1.lastname)
+print(p2.lastname)
+```
+
+### ✔ Output:
+
+```
+Refsnes
+Refsnes
+```
+
+---
+
+# 🔥 **3.9 Difference Table: Instance Variable vs Class Variable**
+
+| Instance Variable             | Class Variable                |
+| ----------------------------- | ----------------------------- |
+| Belongs to **object**         | Belongs to **class**          |
+| Different for each object     | Same for all objects          |
+| Created using `self.variable` | Created directly inside class |
+
+---
+
+
+
+# ✅ **4. Methods**
+
+### ✔ Definition
+
+A **method** is a function defined inside a class — the action an object can perform.
+
+---
+
+## ✔ Example
 
 ```python
 class Student:
     def __init__(self, name):
         self.name = name
 
-    def greet(self):      # method
+    def greet(self):
         print("Hello, I am", self.name)
+
+s1 = Student("Amit")
+s1.greet()
 ```
 
-**Common question:**
+### **Output:**
 
-* **Q:** What is the difference between attribute and method?
-  **A:** Attribute is data of the object; method is behavior or function acting on that data.
+```
+Hello, I am Amit
+```
 
 ---
 
-## 4. `__init__` (Constructor)
+# 🔥 **4.1 Methods with Parameters**
+
+```python
+class Calculator:
+  def add(self, a, b):
+    return a + b
+
+  def multiply(self, a, b):
+    return a * b
+
+calc = Calculator()
+print(calc.add(5, 3))
+print(calc.multiply(4, 7))
+```
+
+### **Output:**
+
+```
+8
+28
+```
+
+---
+
+# 🔥 **4.2 Methods Accessing Properties**
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  def get_info(self):
+    return f"{self.name} is {self.age} years old"
+
+p1 = Person("Tobias", 28)
+print(p1.get_info())
+```
+
+### **Output:**
+
+```
+Tobias is 28 years old
+```
+
+---
+
+# 🔥 **4.3 Methods Modifying Properties**
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  def celebrate_birthday(self):
+    self.age += 1
+    print(f"Happy birthday! You are now {self.age}")
+
+p1 = Person("Linus", 25)
+p1.celebrate_birthday()
+p1.celebrate_birthday()
+```
+
+### **Output:**
+
+```
+Happy birthday! You are now 26
+Happy birthday! You are now 27
+```
+
+---
+
+# 🔥 **4.4 `__str__()` Method**
+"__str__() is a special method that returns a user-friendly string representation of an object. It is used by print() and str() to display meaningful information instead of the default memory address."
+The __str__() method is a special method that controls what is returned when the object is printed:
+
+## ❌ Without `__str__()`
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+p1 = Person("Emil", 36)
+print(p1)
+```
+
+### **Output (ugly internal object representation):**
+
+```
+<__main__.Person object at 0x000001A5C8E4BDF0>
+```
+
+---
+
+## ✔ With `__str__()`
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  def __str__(self):
+    return f"{self.name} ({self.age})"
+
+p1 = Person("Tobias", 36)
+print(p1)
+```
+
+### **Output:**
+
+```
+Tobias (36)
+```
+
+---
+
+# 🔥 **4.5 Multiple Methods in a Class**
+
+```python
+class Playlist:
+  def __init__(self, name):
+    self.name = name
+    self.songs = []
+
+  def add_song(self, song):
+    self.songs.append(song)
+
+  def remove_song(self, song):
+    if song in self.songs:
+      self.songs.remove(song)
+
+  def show_songs(self):
+    for song in self.songs:
+      print(song)
+
+my_playlist = Playlist("Favorites")
+my_playlist.add_song("Bohemian Rhapsody")
+my_playlist.add_song("Stairway to Heaven")
+my_playlist.show_songs()
+```
+
+### **Output:**
+
+```
+Bohemian Rhapsody
+Stairway to Heaven
+```
+
+---
+
+# 🔥 **4.6 Delete Methods**
+
+```python
+del Person.greet
+```
+
+After deleting:
+
+```python
+p1 = Person("Emil")
+p1.greet()
+```
+
+### **Output:**
+
+```
+AttributeError: 'Person' object has no attribute 'greet'
+```
+
+---
+
+### ✔ Attribute vs Method
+
+* Attribute → data of the object
+* Method → behavior of the object
+
+---
+
+
+---
+
+# ✅ **5. `__init__` (Constructor)**
 
 **Definition (interview):**
-`__init__` is a special method called a **constructor** that automatically runs when an object is created and is used to initialize the object’s attributes.
+`__init__` is a special method called a **constructor**. It runs automatically when an object is created and initializes its attributes/ object variables.
 
-**Simple meaning:**
-Setup code that runs once when you create the object.
+---
 
-**Example:**
+### ✔ Simple Meaning
+
+Setup code that runs once during object creation.
+
+---
+
+### ✔ Example
 
 ```python
 class Student:
@@ -125,81 +599,172 @@ class Student:
 s1 = Student("Amit", 20)
 ```
 
-**Common questions:**
+---
 
-* **Q:** What is `__init__`?
-  **A:** It is the constructor method in Python classes used to initialize object attributes.
-* **Q:** Is `__init__` mandatory?
-  **A:** No, but it is commonly used when you need to initialize data.
+# ⭐ **Why Use `__init__()`?**
+
+Without the `__init__()` method, you would need to set properties manually for each object:
 
 ---
 
-## 5. `self` keyword
+### ❌ Example
 
-**Definition (interview):**
-`self` is a reference to the current object (instance) of the class and is used to access instance variables and methods.
-
-**Simple meaning:**
-`self` = “this object”.
-
-**Example:**
+Create a class without `__init__()`:
 
 ```python
-class Demo:
-    def show(self):
-        print("Current object is:", self)
+class Person:
+  pass
+
+p1 = Person()
+p1.name = "Tobias"
+p1.age = 25
+
+print(p1.name)
+print(p1.age)
 ```
-
-**Common questions:**
-
-* **Q:** Why do we use `self` in Python methods?
-  **A:** To refer to the instance calling the method and access its attributes.
 
 ---
 
-## 6. Class Variables vs Instance Variables
-
-### 6.1 Instance Variable
-
-**Definition (interview):**
-An **instance variable** is a variable defined inside `__init__` (or methods using `self`) and is unique to each object.
-
-**Example:**
-
-```python
-class Employee:
-    def __init__(self, name):
-        self.name = name   # instance variable
-```
-
-### 6.2 Class Variable
-
-**Definition (interview):**
-A **class variable** is a variable defined directly in the class body and is shared by all objects of that class.
-
-**Example:**
-
-```python
-class Employee:
-    company = "Google"  # class variable
-
-    def __init__(self, name):
-        self.name = name
-```
-
-**Common question:**
-
-* **Q:** Difference between class variable and instance variable?
-  **A:** Class variables are shared by all objects; instance variables are specific to each object.
+Using `__init__()` makes it easier to create objects with initial values:
 
 ---
 
-## 7. Types of Methods: Instance, Class, Static
+### ✔ Example
 
-### 7.1 Instance Method
+With `__init__()`, you can set initial values when creating the object:
 
-**Definition (interview):**
-An **instance method** is a method that takes `self` as the first parameter and works with instance variables.
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+p1 = Person("Linus", 28)
+
+print(p1.name)
+print(p1.age)
+```
+
+---
+
+
+
+---
+
+# ✅ **6. `self` Keyword**
+
+`self` represents the **current instance(object) of the class**.
+Whenever we create an object, `self` helps Python understand **which object’s variables or methods** we want to access.
+
+### Why is it used?
+
+* To access **instance variables**
+* To access **instance methods**
+* To differentiate **class variables vs. object variables**
+
+### ✔ What is `self`?
+
+`self` means **“this object”** — the current object calling the method.
+
+Python automatically passes the object as the first argument to methods, and by convention we name it `self`.
+
+---
+
+### ✔ Why do we need `self`?
+
+Because inside a class we must tell Python:
+
+> “Which object's data am I referring to?”
+
+Without `self`, Python doesn’t know which object's attribute to access.
+
+---
+
+### ✔ Example
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name   # set name for THIS object
+        self.age = age     # set age for THIS object
+```
+
+
+When you write:
+
+```python
+p1 = Person("Rahul", 20)
+```
+
+Python does this internally:
+
+```
+__init__(p1, "Rahul", 20)
+```
+
+So inside the class,
+
+* `self` = `p1`
+* `self.name` → p1.name
+* `self.age` → p1.age
+
+When you create another object:
+
+```python
+p2 = Person("Priya", 22)
+```
+
+Python calls:
+
+```
+__init__(p2, "Priya", 22)
+```
+
+Now `self = p2`.
+
+
+When creating objects:
+
+```python
+p1 = Person("Rahul", 20)
+p2 = Person("Priya", 22)
+```
+
+* In first call → `self = p1`
+* In second call → `self = p2`
+
+So each object stores **its own** name and age.
+
+---
+
+### ✔ Important Note
+
+`self` is **NOT a keyword** — you can rename it, but everyone uses `self`.
+
+---
+
+
+---
+
+# ✅ **7. Types of Methods in Python**
+
+Methods define what actions an object or class can perform.
+
+Python has **three types of methods**:
+
+1. **Instance Method**
+2. **Class Method**
+3. **Static Method**
+
+---
+
+## 🔵 **7.1 Instance Method**
+
+### ✔ Definition
+
+An **instance method** is a method that takes `self` as the first parameter and works on **instance variables**.
+
+### ✔ Example
 
 ```python
 class Demo:
@@ -207,12 +772,25 @@ class Demo:
         print("Instance method")
 ```
 
+### ✔ Key Point
+
+Instance methods can access:
+
+* instance variables
+* class variables
+
+Because they have access to `self`.
+
 ---
 
-### 7.2 Class Method
+## 🟣 **7.2 Class Method**
 
-**Definition (interview):**
-A **class method** is a method that takes `cls` as the first parameter and works with class-level data. It is defined using the `@classmethod` decorator.
+### ✔ Definition
+
+A **class method** takes `cls` as the first argument and works with **class-level data**.
+It is created using **`@classmethod`**.
+
+### ✔ Example
 
 ```python
 class Demo:
@@ -223,12 +801,20 @@ class Demo:
         print(cls.count)
 ```
 
+### ✔ Key Point
+
+Class methods can **access and modify class variables**, not instance variables.
+
 ---
 
-### 7.3 Static Method
+## 🟢 **7.3 Static Method**
 
-**Definition (interview):**
-A **static method** is a method that does not take `self` or `cls` and does not depend on instance or class data. It is defined with the `@staticmethod` decorator.
+### ✔ Definition
+
+A **static method** does NOT take `self` or `cls`.
+It behaves like a normal function inside a class.
+
+### ✔ Example
 
 ```python
 class Demo:
@@ -237,86 +823,651 @@ class Demo:
         return x + y
 ```
 
-**Common question:**
+### ✔ Key Point
 
-* **Q:** When do you use a static method?
-  **A:** When the logic is related to the class but doesn’t need instance or class variables.
+Used when the method logic does **not depend** on instance or class data.
 
 ---
 
-## 8. Encapsulation
+# 🔥 **19️⃣ Difference Between Class Method & Static Method (Interview Style)**
 
-**Definition (interview):**
-Encapsulation is the concept of **bundling data and methods together** in a class and **restricting direct access** to some of the data.
+## 🔵 **Class Method — 3 Points**
 
-**How in Python:**
-We use:
+1. Takes **`cls`** as the first argument.
+2. Can **access or modify class variables**.
+3. Defined using the **`@classmethod` decorator**.
 
-* `_var` → convention for “protected”
-* `__var` → name mangling, treated as “private”
+---
 
-**Example:**
+## 🟢 **Static Method — 3 Points**
+
+1. Takes **neither `self` nor `cls`**.
+2. Behaves like a normal helper function inside a class.
+3. Defined using the **`@staticmethod` decorator**.
+
+---
+
+
+---
+
+# ✅ **8. Encapsulation**
+
+### ✔ **Definition (interview)**
+
+Encapsulation means **bundling data + methods** inside a class and restricting direct access to internal data.
+
+Python supports encapsulation using three levels:
+
+| Type          | Prefix  | Meaning                               |
+| ------------- | ------- | ------------------------------------- |
+| **Public**    | `var`   | Accessible everywhere                 |
+| **Protected** | `_var`  | Convention: “Don’t access directly”   |
+| **Private**   | `__var` | Name-mangled, not directly accessible |
+
+Encapsulation helps with:
+
+✔ Data protection
+✔ Validation before updating values
+✔ Hiding internal implementation
+✔ Cleaner & safer class design
+
+---
+
+# 🔥 **8.1 Private Properties (`__var`)**
+
+Private attributes are created using **double underscore `__`**.
+They **cannot be accessed directly** from outside the class.
+
+### ✔ Example
 
 ```python
-class BankAccount:
-    def __init__(self, balance):
-        self.__balance = balance  # private attribute
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.__age = age   # private property
 
-    def get_balance(self):
-        return self.__balance
+p1 = Person("Emil", 25)
+print(p1.name)
+print(p1.__age)   # ❌ ERROR — cannot access private attribute
 ```
 
-**Common question:**
-
-* **Q:** What is encapsulation in Python?
-  **A:** It is the practice of keeping data and methods inside a class and restricting direct access using private or protected attributes.
+⚠ **Important:** Private attributes are NOT truly hidden — Python applies **name-mangling**.
 
 ---
 
-## 9. Inheritance
+# 🔥 **8.2 Getter: Accessing Private Properties**
 
-**Definition (interview):**
-Inheritance is a mechanism where one class (child/derived) acquires the properties and behaviors of another class (parent/base).
+We create a **getter method** to safely read private values.
 
-**Simple meaning:**
-Child class reuses code from parent class.
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.__age = age
 
-**Example (Single Inheritance):**
+    def get_age(self):
+        return self.__age
+```
+
+Usage:
+
+```python
+p = Person("Tobias", 25)
+print(p.get_age())
+```
+
+---
+
+# 🔥 **8.3 Setter: Modifying Private Properties (with Validation)**
+
+Setter ensures **validated and controlled** updates to private data.
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.__age = age
+
+    def get_age(self):
+        return self.__age
+
+    def set_age(self, age):
+        if age > 0:
+            self.__age = age
+        else:
+            print("Age must be positive")
+```
+
+Usage:
+
+```python
+p = Person("Tobias", 25)
+p.set_age(26)
+print(p.get_age())
+```
+
+---
+
+# 🔥 **8.4 Why Encapsulation? (Very important for interview)**
+
+Encapsulation provides:
+
+### ✔ **Data Protection**
+
+Prevents accidental or unauthorized modification.
+
+### ✔ **Validation**
+
+Setter methods can check values before assigning.
+
+### ✔ **Flexibility**
+
+Internal implementation can change without affecting external code.
+
+### ✔ **Control**
+
+You decide *how* the data is accessed or modified.
+
+### ✔ Example
+
+```python
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.__grade = 0
+
+    def set_grade(self, grade):
+        if 0 <= grade <= 100:
+            self.__grade = grade
+        else:
+            print("Grade must be between 0 and 100")
+
+    def get_grade(self):
+        return self.__grade
+
+    def get_status(self):
+        return "Passed" if self.__grade >= 60 else "Failed"
+```
+
+---
+
+# 🔥 **8.5 Protected Properties (`_var`)**
+
+A single underscore `_var` **does NOT enforce protection** — it’s just a **convention**:
+
+> “This attribute is meant for internal use. Don’t touch it unless necessary.”
+
+```python
+class Person:
+    def __init__(self, name, salary):
+        self.name = name
+        self._salary = salary   # protected property
+```
+
+Still accessible:
+
+```python
+p = Person("Linus", 50000)
+print(p._salary)   # ⚠ Possible but not recommended
+```
+
+---
+
+# 🔥 **8.6 Private Methods (`__method`)**
+
+You can also hide methods the same way you hide variables.
+
+```python
+class Calculator:
+    def __init__(self):
+        self.result = 0
+
+    def __validate(self, num):    # private method
+        return isinstance(num, (int, float))
+
+    def add(self, num):
+        if self.__validate(num):
+            self.result += num
+        else:
+            print("Invalid number")
+```
+
+Attempt to call private method directly:
+
+```python
+calc.__validate(5)   # ❌ ERROR
+```
+
+---
+
+# 🔥 **8.7 Name Mangling (Very Important Concept)**
+
+Python renames private attributes internally:
+
+```
+__age  →  _ClassName__age
+```
+
+### ✔ Example
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.__age = age
+
+p = Person("Emil", 30)
+print(p._Person__age)   # Works due to name-mangling (NOT recommended)
+```
+
+⚠ **Note:** Accessing private variables via name-mangling breaks encapsulation and must be avoided in real code.
+
+---
+
+# 🔥 **8.8 Pythonic Getters & Setters with `@property` (Advanced)**
+
+This is the **recommended** modern Python style.
+No need to call `get_age()` or `set_age()` manually.
+
+```python
+class Student:
+    def __init__(self):
+        self.__age = 18
+
+    @property
+    def age(self):       # getter
+        return self.__age
+
+    @age.setter
+    def age(self, value):   # setter
+        if value > 0:
+            self.__age = value
+        else:
+            print("Invalid age")
+```
+
+Usage:
+
+```python
+s = Student()
+print(s.age)   # getter
+s.age = 25     # setter
+```
+
+✔ Cleaner
+✔ More Pythonic
+✔ Same encapsulation benefits
+
+---
+
+# 🎯 FINAL SUMMARY — Encapsulation in One Shot
+
+* Use `__var` for **private** data
+* Use `_var` for **protected** (soft restriction)
+* Use **getter/setter** to access & modify private attributes
+* Use `@property` for clean, Pythonic encapsulation
+* Private members use **name-mangling** internally: `_Class__var`
+* Encapsulation protects data and gives you full control
+
+---
+
+
+
+# ✅ **Python Inheritance
+
+Inheritance allows us to define a class that **inherits all the methods and properties from another class**.
+
+* **Parent class** → also called **base class**
+* **Child class** → also called **derived class**, inherits from parent
+
+---
+
+# 🔵 **1. Create a Parent Class**
+
+Any class can be a parent class.
+
+### ✔ Example: Creating a `Person` class
+
+```python
+class Person:
+  def __init__(self, fname, lname):
+    self.firstname = fname
+    self.lastname = lname
+
+  def printname(self):
+    print(self.firstname, self.lastname)
+```
+
+### ✔ Create an object and call method
+
+```python
+x = Person("John", "Doe")
+x.printname()
+```
+
+---
+
+# 🔵 **2. Create a Child Class**
+
+To create a class that inherits from another class, pass the parent class as a parameter.
+
+### ✔ Example: `Student` inherits from `Person`
+
+```python
+class Student(Person):
+  pass
+```
+
+Now `Student` has all properties & methods of `Person`.
+
+### ✔ Usage
+
+```python
+x = Student("Mike", "Olsen")
+x.printname()
+```
+
+---
+
+# 🔵 **3. Add `__init__()` in Child Class**
+
+When you add your own `__init__()` in the child:
+
+➡ The child **overrides** the parent’s `__init__()`
+➡ Parent’s constructor is **not inherited automatically**
+
+### ✔ Example: Child overriding constructor
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname):
+    # add properties etc.
+```
+
+This removes the parent `__init__()`.
+
+---
+
+# 🔵 **4. Keeping Parent `__init__()`**
+
+To keep the parent initialization, call it manually:
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname):
+    Person.__init__(self, fname, lname)
+```
+
+Now child has both:
+
+✔ Parent’s initialization
+✔ Additional child logic
+
+---
+
+# 🔵 **5. Using `super()` (Recommended Method)**
+
+`super()` automatically calls the parent class without naming it.
+
+### ✔ Example:
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname):
+    super().__init__(fname, lname)
+```
+
+Benefits of `super()`:
+
+✔ Cleaner
+✔ Works correctly with multiple inheritance
+✔ Avoids hardcoding parent class name
+
+---
+
+# 🔵 **6. Add New Properties in Child Class**
+
+### ✔ Example: Add `graduationyear`
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname):
+    super().__init__(fname, lname)
+    self.graduationyear = 2019
+```
+
+### Child with variable year:
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname, year):
+    super().__init__(fname, lname)
+    self.graduationyear = year
+
+x = Student("Mike", "Olsen", 2019)
+```
+
+---
+
+# 🔵 **7. Add New Methods in Child Class**
+
+### ✔ Example: Add `welcome()` method
+
+```python
+class Student(Person):
+  def __init__(self, fname, lname, year):
+    super().__init__(fname, lname)
+    self.graduationyear = year
+
+  def welcome(self):
+    print("Welcome", self.firstname, self.lastname, "to the class of", self.graduationyear)
+```
+
+---
+
+# 🔵 **8. Method Overriding**
+
+If a child class defines a method with the **same name** as a parent method:
+
+➡ The parent method is **overridden (replaced)**
+➡ The child’s implementation is used
+
+
+
+
+## ⭐ **Types of Inheritance (Definitions)**
+
+| Type             | Meaning                          |
+| ---------------- | -------------------------------- |
+| **Single**       | One parent → one child           |
+| **Multiple**     | Child has *more than one* parent |
+| **Multilevel**   | Parent → Child → GrandChild      |
+| **Hierarchical** | One parent → multiple children   |
+| **Hybrid**       | Combination of above             |
+
+---
+
+## ⭐ **Why is inheritance used?**
+
+✔ Code reuse
+✔ Reduces duplication
+✔ Helps in overriding & polymorphism
+✔ Clear relationship: *child is a type of parent*
+
+---
+
+---
+
+# ⭐ **Multiple Inheritance (Important Concept)**
+
+Python **fully supports** multiple inheritance.
+
+### ✔ Definition
+
+A child class can inherit from **more than one** parent class.
+
+### ✔ Example (with comments)
+
+```python
+class Father:
+    def skills(self):
+        print("Father: Coding")
+
+class Mother:
+    def skills(self):
+        print("Mother: Cooking")
+
+class Child(Father, Mother):   # inherits from both
+    pass
+
+c = Child()
+c.skills()     # which skills() is called?
+```
+
+### ✔ Output
+
+```
+Father: Coding
+```
+
+### ✔ Why father?
+
+Python checks using **MRO order**:
+
+```
+Child → Father → Mother → Object
+```
+
+---
+
+# ⭐ **Types of Inheritance with EXAMPLES + Comments**
+
+---
+
+# 1️⃣ **Single Inheritance**
+
+```python
+class Animal:
+    def eat(self):
+        print("Eating")
+
+class Dog(Animal):       # Dog inherits Animal
+    def bark(self):
+        print("Barking")
+
+d = Dog()
+d.eat()   # parent method
+d.bark()  # child method
+```
+
+---
+
+# 2️⃣ **Multiple Inheritance**
+
+```python
+class A:
+    def f1(self):
+        print("A")
+
+class B:
+    def f2(self):
+        print("B")
+
+class C(A, B):     # inherits from A and B
+    pass
+
+c = C()
+c.f1()
+c.f2()
+```
+
+---
+
+# 3️⃣ **Multilevel Inheritance**
+
+```python
+class A:
+    def f1(self):
+        print("A")
+
+class B(A):       # B is child of A
+    def f2(self):
+        print("B")
+
+class C(B):       # C is child of B
+    def f3(self):
+        print("C")
+
+c = C()
+c.f1()
+c.f2()
+c.f3()
+```
+
+---
+
+# 4️⃣ **Hierarchical Inheritance**
 
 ```python
 class Parent:
     def show(self):
         print("Parent")
 
-class Child(Parent):
-    def display(self):
-        print("Child")
+class Child1(Parent):     # both inherit parent
+    pass
+
+class Child2(Parent):
+    pass
+
+Child1().show()
+Child2().show()
 ```
-
-### Types of Inheritance (just definitions):
-
-* **Single:** One parent → one child
-* **Multiple:** Child has more than one parent
-* **Multilevel:** Parent → Child → GrandChild
-* **Hierarchical:** One parent → multiple children
-* **Hybrid:** Combination of above
-
-**Common questions:**
-
-* **Q:** Why is inheritance used?
-  **A:** To reuse existing code and extend functionality without rewriting.
 
 ---
 
-## 10. `super()` Function
+# 5️⃣ **Hybrid Inheritance**
 
-**Definition (interview):**
-`super()` is a built-in function used to call methods of the parent class in a child class.
+```python
+class A:
+    def f1(self):
+        print("A")
 
-**Simple meaning:**
-Use `super()` when the child wants to use or extend the parent’s behavior.
+class B(A):     # multilevel
+    def f2(self):
+        print("B")
 
-**Example:**
+class C(A):     # hierarchical
+    def f3(self):
+        print("C")
+
+class D(B, C):   # multiple
+    def f4(self):
+        print("D")
+
+d = D()
+d.f1(); d.f2(); d.f3(); d.f4()
+```
+
+---
+
+# ⭐ Quick Revision Table
+
+| Type         | Structure       |
+| ------------ | --------------- |
+| Single       | A → B           |
+| Multiple     | A → C ← B       |
+| Multilevel   | A → B → C       |
+| Hierarchical | A → B and A → C |
+| Hybrid       | Mix of all      |
+
+---
+
+# ✅ **10. `super()` — Calling Parent Methods**
+
+### **Definition (interview):**
+
+`super()` is used to call **parent class methods** from a child class.
+
+### ✔ Example with comments
 
 ```python
 class Parent:
@@ -325,26 +1476,158 @@ class Parent:
 
 class Child(Parent):
     def __init__(self):
-        super().__init__()  # calls Parent __init__
+        super().__init__()     # calls Parent __init__
         print("Child init")
+
+Child()
 ```
 
-**Common question:**
+### ✔ Output
 
-* **Q:** Why do we use `super()` in Python OOP?
-  **A:** To access parent class methods or constructors from the child class.
+```
+Parent init
+Child init
+```
 
 ---
 
-## 11. Polymorphism
+# ⭐ extra — Why super() is important?
+
+super():
+
+✔ avoids confusion in multiple inheritance
+✔ ensures proper MRO order
+✔ prevents calling parent methods manually
+✔ safer & cleaner than `Parent.method(self)`
+
+---
+
+# ✅ **11. MRO (Method Resolution Order)**
+
+### **Definition (interview):**
+
+MRO decides **the order in which Python searches parent classes** when calling a method in multiple inheritance.
+
+Python follows **C3 Linearization Algorithm**.
+
+### ✔ Check MRO of any class:
+
+```python
+print(ClassName.mro())
+```
+
+### ✔ Simple example
+
+```
+Child → Parent1 → Parent2 → Object
+```
+
+### ✔ Why important?
+
+To know which parent’s method runs when multiple parents have the same method.
+
+---
+
+# ⭐ Extra concept (Important💡):
+
+### **Attribute Lookup Flow**
+
+When you access `obj.method()`, Python searches in this order:
+
+```
+1. Object’s class
+2. Parent class (left to right)
+3. Grandparents
+4. ...
+5. Object class
+```
+
+This is MRO in action.
+
+---
+
+# ✅ **12. Diamond Problem**
+
+### **Definition (interview):**
+
+Diamond problem occurs when two parent classes inherit from the same base class, and a child inherits from both parents.
+
+### ✔ Visualization:
+
+```
+     A
+    / \
+   B   C
+    \ /
+     D
+```
+
+### ✔ Problem:
+
+If **both B and C** have the same method, which one should D use?
+
+### ✔ Python’s solution
+
+Python uses **MRO** to ensure:
+
+* the method runs **only once**
+* order is predictable
+* no repeated calls to A
+
+---
+
+# ⭐ Example (with comments)
+
+```python
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    def show(self):
+        print("B")
+
+class C(A):
+    def show(self):
+        print("C")
+
+class D(B, C):     # diamond shape
+    pass
+
+d = D()
+d.show()   # which one?
+```
+
+### ✔ Output
+
+```
+B
+```
+
+### ✔ Why?
+
+MRO for D is:
+
+```
+D → B → C → A → object
+```
+
+---
+
+
+---
+
+# ✅ **11. Polymorphism**
 
 **Definition (interview):**
 Polymorphism means **one name, many forms** – the same operation or method name behaves differently in different classes.
 
-### 11.1 Method Overriding (Supported in Python)
+---
 
-**Definition (interview):**
-When a child class provides its own implementation of a method already defined in its parent class.
+## **11.1 Method Overriding (Supported in Python)**
+
+**Definition:**
+A child class provides its **own version** of a method already defined in the parent.
 
 **Example:**
 
@@ -353,32 +1636,232 @@ class Animal:
     def sound(self):
         print("Some sound")
 
-class Dog(Animal):
+class Dog(Animal):   # overriding
     def sound(self):
         print("Bark")
 ```
 
-### 11.2 Method Overloading (Not true overloading)
+---
 
-Python doesn’t support **true** method overloading by signature, but we can simulate using default arguments or `*args`.
+## **11.2 Method Overloading (Not real overloading)**
 
-**Common questions:**
+Python does NOT support true method overloading by signature.
 
-* **Q:** What is method overriding?
-  **A:** When a subclass defines a method with the same name as in the parent class but with a different implementation.
+We simulate it using:
 
-* **Q:** Does Python support method overloading?
-  **A:** Not in the traditional way; the last defined method with the same name overrides previous ones. We usually use default parameters or `*args` instead.
+* default arguments
+* `*args`
 
 ---
 
-## 12. Abstraction
+## ✅ **11.3 Duck Typing (Python-style Polymorphism)** 🚀 *Missing earlier – now added*
+
+**Definition:**
+Python does not care about the *type* of an object.
+It only cares whether the object has the required *method*.
+
+> “If it walks like a duck and quacks like a duck — it’s a duck.”
+
+**Example:**
+
+```python
+class Dog:
+    def sound(self):
+        print("Bark")
+
+class Cat:
+    def sound(self):
+        print("Meow")
+
+def make_sound(animal):
+    animal.sound()   # works for both Dog and Cat
+
+make_sound(Dog())
+make_sound(Cat())
+```
+
+**Interview line:**
+Duck typing allows polymorphism **without inheritance** in Python.
+
+---
+
+# 🔥 **11.4 Function Polymorphism (W3 Style Explanation)**
+
+Polymorphism also appears in **built-in Python functions**.
+
+The same function name → works differently on different data types.
+
+### ✔ `len()` on **string**
+
+For strings, `len()` returns the number of characters.
+
+```python
+x = "Hello World!"
+print(len(x))       # 12
+```
+
+### ✔ `len()` on **tuple**
+
+For tuples, `len()` returns the number of items.
+
+```python
+mytuple = ("apple", "banana", "cherry")
+print(len(mytuple))     # 3
+```
+
+### ✔ `len()` on **dictionary**
+
+For dictionaries, `len()` returns number of key–value pairs.
+
+```python
+thisdict = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+print(len(thisdict))     # 3
+```
+
+**Why is this polymorphism?**
+Because the **same function name** behaves differently depending on the type of object.
+
+---
+
+# 🔥 **11.5 Class Polymorphism (W3 Style Explanation)**
+
+Polymorphism is also used in **classes** when multiple classes have a method with the **same name**.
+
+For example:
+Car, Boat, and Plane all have a `move()` method, but each behaves differently.
+
+```python
+class Car:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def move(self):
+        print("Drive!")
+
+class Boat:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def move(self):
+        print("Sail!")
+
+class Plane:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def move(self):
+        print("Fly!")
+
+car1 = Car("Ford", "Mustang")
+boat1 = Boat("Ibiza", "Touring 20")
+plane1 = Plane("Boeing", "747")
+
+for x in (car1, boat1, plane1):
+    x.move()
+```
+
+### ✔ Output
+
+```
+Drive!
+Sail!
+Fly!
+```
+
+**Why is this polymorphism?**
+Because `x.move()` calls *different* methods depending on object type — same method name, multiple forms.
+
+---
+
+# 🔥 **11.6 Inheritance-Based Polymorphism (W3 Style Explanation)**
+
+Polymorphism also works with **inheritance**.
+
+A parent class defines a method → child classes can override it.
+
+```python
+class Vehicle:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def move(self):
+        print("Move!")
+
+class Car(Vehicle):     # inherits and does NOT override move()
+    pass
+
+class Boat(Vehicle):    # overrides move()
+    def move(self):
+        print("Sail!")
+
+class Plane(Vehicle):   # overrides move()
+    def move(self):
+        print("Fly!")
+
+car1 = Car("Ford", "Mustang")
+boat1 = Boat("Ibiza", "Touring 20")
+plane1 = Plane("Boeing", "747")
+
+for x in (car1, boat1, plane1):
+    print(x.brand)
+    print(x.model)
+    x.move()
+```
+
+### ✔ Output
+
+```
+Ford
+Mustang
+Move!
+
+Ibiza
+Touring 20
+Sail!
+
+Boeing
+747
+Fly!
+```
+
+### ✔ Key Points
+
+* Child classes inherit parent methods automatically.
+* They can **override** the method for different behavior.
+* This allows calling the same method (`move()`) on different objects with different outputs.
+
+---
+
+# 🔥 **11.7 Operator Polymorphism (Additional Important Concept)**
+
+Same operator → different behavior depending on datatype.
+
+```python
+print(10 + 5)         # 15  (integer addition)
+print("A" + "B")      # AB  (string concatenation)
+print([1, 2] + [3])   # [1, 2, 3]  (list merging)
+```
+---
+
+# ✅ **12. Abstraction**
 
 **Definition (interview):**
-Abstraction means **hiding internal details** and showing only the essential features to the user. In Python, this is implemented using **abstract classes** and **abstract methods** from the `abc` module.
+Abstraction means **hiding internal implementation** and showing only essential details.
 
-**Simple meaning:**
-Show what it does, hide how it does.
+Python achieves abstraction using:
+
+* Abstract classes
+* Abstract methods (`@abstractmethod`)
+* `abc` module
 
 **Example:**
 
@@ -398,20 +1881,15 @@ class Circle(Shape):
         return 3.14 * self.r * self.r
 ```
 
-**Common question:**
-
-* **Q:** How is abstraction implemented in Python?
-  **A:** Using abstract classes and `@abstractmethod` from the `abc` module.
-
 ---
 
-## 13. Composition (Has-a Relationship)
+# ✅ **13. Composition (Has-a Relationship)**
 
 **Definition (interview):**
-Composition is a design principle where one class **contains** an object of another class, representing a **“has-a”** relationship.
+Composition is when one class **contains another class** — forming a “has-a” relationship.
 
 **Simple meaning:**
-A car **has a** engine.
+A car **has an** engine.
 
 **Example:**
 
@@ -422,28 +1900,230 @@ class Engine:
 
 class Car:
     def __init__(self):
-        self.engine = Engine()
+        self.engine = Engine()   # composition
 
     def start(self):
         self.engine.start()
         print("Car started")
 ```
 
-**Common question:**
+---
 
-* **Q:** Difference between inheritance and composition?
-  **A:** Inheritance is "is-a" relationship (Dog is an Animal). Composition is "has-a" relationship (Car has an Engine).
+# 🔥 **13.1 Composition vs Inheritance (Missing earlier — now included)**
+
+### **Inheritance (is-a relationship)**
+
+Dog **is an** Animal
+Car **is a** Vehicle
+
+Used when:
+
+* You want to extend or modify parent behavior
+* You want a class to be a specialized version of another class
 
 ---
 
-## 14. Dunder / Magic Methods
+### **Composition (has-a relationship)**
+
+Car **has an** Engine
+User **has a** Profile
+
+Used when:
+
+* You want to build complex objects from simpler ones
+* You want flexibility and loose coupling
+* You want to avoid complexities of multiple inheritance
+
+---
+
+### **Interview one-liner:**
+
+Use **inheritance** to model *what something is*.
+Use **composition** to model *what something has*.
+
+---
+
+---
+
+# ✅ **18. Inner Classes (Nested Classes)**
+
+An **inner class** is a class defined **inside another class**.
+
+They are used when a class is meant to be used **only inside** another class — helps in grouping related logic and improving code organization.
+
+---
+
+# 🔵 **18.1 Creating an Inner Class**
+
+```python
+class Outer:
+    def __init__(self):
+        self.name = "Outer Class"
+
+    class Inner:
+        def __init__(self):
+            self.name = "Inner Class"
+
+        def display(self):
+            print("This is the inner class")
+```
+
+### ✔ Usage
+
+```python
+outer = Outer()
+print(outer.name)
+
+inner = Outer.Inner()
+inner.display()
+```
+
+---
+
+# 🔵 **18.2 Accessing Inner Class from Outside**
+
+To access an inner class, you must:
+
+1. Create an object of the outer class
+2. Then create an object of the inner class
+
+```python
+class Outer:
+    def __init__(self):
+        self.name = "Outer"
+
+    class Inner:
+        def __init__(self):
+            self.name = "Inner"
+
+        def display(self):
+            print("Hello from inner class")
+
+outer = Outer()
+inner = outer.Inner()
+inner.display()
+```
+
+---
+
+# 🔵 **18.3 Inner Class Accessing Outer Class Data**
+
+Inner classes **do NOT automatically** get access to outer class variables.
+
+You must pass the outer class instance manually:
+
+```python
+class Outer:
+    def __init__(self):
+        self.name = "Emil"
+
+    class Inner:
+        def __init__(self, outer):
+            self.outer = outer
+
+        def display(self):
+            print(f"Outer class name: {self.outer.name}")
+
+outer = Outer()
+inner = outer.Inner(outer)
+inner.display()
+```
+
+---
+
+# 🔵 **18.4 Practical Example — Engine Inside Car**
+
+This is where inner classes are really useful.
+
+```python
+class Car:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+        self.engine = self.Engine()
+
+    class Engine:
+        def __init__(self):
+            self.status = "Off"
+
+        def start(self):
+            self.status = "Running"
+            print("Engine started")
+
+        def stop(self):
+            self.status = "Off"
+            print("Engine stopped")
+
+    def drive(self):
+        if self.engine.status == "Running":
+            print(f"Driving the {self.brand} {self.model}")
+        else:
+            print("Start the engine first!")
+```
+
+### ✔ Usage
+
+```python
+car = Car("Toyota", "Corolla")
+car.drive()              # Start the engine first!
+car.engine.start()       # Engine started
+car.drive()              # Driving the Toyota Corolla
+```
+
+---
+
+# 🔵 **18.5 Multiple Inner Classes**
+
+A class can have multiple nested helper classes.
+
+```python
+class Computer:
+    def __init__(self):
+        self.cpu = self.CPU()
+        self.ram = self.RAM()
+
+    class CPU:
+        def process(self):
+            print("Processing data...")
+
+    class RAM:
+        def store(self):
+            print("Storing data...")
+```
+
+### ✔ Usage
+
+```python
+computer = Computer()
+computer.cpu.process()
+computer.ram.store()
+```
+
+
+
+---
+
+
+
+# ✅ **14. Dunder / Magic Methods**
 
 **Definition (interview):**
-Dunder (double underscore) methods are **special methods** in Python that start and end with `__`, used to define object behavior like printing, addition, length, etc.
+Magic (dunder) methods start and end with `__` and let you define how objects behave with operators and built-in functions.
 
-**Examples:** `__init__`, `__str__`, `__len__`, `__add__`, etc.
+### Common magic methods:
 
-**Example:**
+| Method     | Purpose               |
+| ---------- | --------------------- |
+| `__init__` | Constructor           |
+| `__str__`  | User-friendly string  |
+| `__repr__` | Developer string      |
+| `__len__`  | Length of object      |
+| `__add__`  | Overload `+` operator |
+| `__eq__`   | Compare objects       |
+
+---
+
+## **Example 1: `__len__`**
 
 ```python
 class Book:
@@ -457,573 +2137,81 @@ b = Book(300)
 print(len(b))  # 300
 ```
 
-**Common question:**
-
-* **Q:** What are magic methods in Python?
-  **A:** Built-in special methods with double underscores that define how objects behave with operators and built-in functions.
-
-
-
-Below is the **complete, clean, interview-ready explanation** of all types of inheritance in Python — with **definitions + perfect examples + diagram-style explanation**.
-This includes your first question:
-
 ---
 
-# ✅ **Does Python Support Multiple Inheritance?**
-
-**Yes. Python fully supports *multiple inheritance*.**
-
-### **Definition (Interview):**
-
-Multiple inheritance means a child class can inherit from **more than one parent class**.
-
-### **How It Works:**
-
-Python uses **Method Resolution Order (MRO)** to decide which parent class method is executed when multiple parents have the same method.
-MRO follows the **C3 linearization algorithm**.
-
-### ✔ Example: Multiple Inheritance
+## **Example 2: Operator Overloading with `__add__` (Missing — added)**
 
 ```python
-class Father:
-    def skills(self):
-        print("Father: Coding")
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-class Mother:
-    def skills(self):
-        print("Mother: Cooking")
+    def __add__(self, other):   # object1 + object2
+        return Point(self.x + other.x, self.y + other.y)
 
-class Child(Father, Mother):  # multiple inheritance
-    pass
-
-c = Child()
-c.skills()  
+p1 = Point(2, 3)
+p2 = Point(4, 5)
+p3 = p1 + p2   # calls __add__
+print(p3.x, p3.y)  # 6 8
 ```
-
-### **Output (important):**
-
-```
-Father: Coding
-```
-
-### **Why?**
-
-Because Python searches in this order:
-**Child → Father → Mother → Object**
-This is called **MRO (Method Resolution Order)**.
 
 ---
 
-# ✅ **Now All Types of Inheritance (Definitions + Examples)**
-
----
-
-# 1️⃣ **Single Inheritance**
-
-### **Definition:**
-
-One parent class → one child class.
-
-### ✔ Example:
+## **Example 3: Comparing objects using `__eq__` (Added)**
 
 ```python
-class Animal:
-    def eat(self):
-        print("Eating")
+class Student:
+    def __init__(self, marks):
+        self.marks = marks
 
-class Dog(Animal):  # single inheritance
-    def bark(self):
-        print("Barking")
+    def __eq__(self, other):
+        return self.marks == other.marks
 
-d = Dog()
-d.eat()
-d.bark()
+s1 = Student(90)
+s2 = Student(90)
+
+print(s1 == s2)  # True
 ```
 
----
-
-# 2️⃣ **Multiple Inheritance**
-
-(Already explained above—but giving a simple version here)
-
-### **Definition:**
-
-One child class inherits from **multiple parent classes**.
-
-### ✔ Example:
-
-```python
-class A:
-    def f1(self):
-        print("A")
-
-class B:
-    def f2(self):
-        print("B")
-
-class C(A, B):  # multiple inheritance
-    pass
-```
+Here you go — your **clean, simple, interview-ready** explanation of
+**`__str__` vs `__repr__`**, exactly as you asked:
 
 ---
 
-# 3️⃣ **Multilevel Inheritance**
+# ✅ **What is the difference between `__str__` and `__repr__`?**
 
-### **Definition:**
+## **`__str__`**
 
-Parent → Child → GrandChild
-A chain of inheritance.
-
-### ✔ Example:
-
-```python
-class A:
-    def f1(self):
-        print("A")
-
-class B(A):  # child of A
-    def f2(self):
-        print("B")
-
-class C(B):  # child of B
-    def f3(self):
-        print("C")
-
-c = C()
-c.f1()
-c.f2()
-c.f3()
-```
+* **Purpose:** User-friendly / readable string representation
+* **Used for:** Showing information to end users
+* **Called by:** `print()` or `str(object)`
+* **Goal:** Make the output **easy to read and understand**
 
 ---
 
-# 4️⃣ **Hierarchical Inheritance**
+## **`__repr__`**
 
-### **Definition:**
-
-One parent class → multiple child classes.
-
-### ✔ Example:
-
-```python
-class Parent:
-    def show(self):
-        print("Parent")
-
-class Child1(Parent):
-    pass
-
-class Child2(Parent):
-    pass
-
-c1 = Child1()
-c2 = Child2()
-c1.show()
-c2.show()
-```
+* **Purpose:** Developer-friendly / unambiguous representation
+* **Used for:** Debugging, logging, developers
+* **Called by:** `repr(object)` or automatically in the interpreter
+* **Goal:** Output should be **valid Python code** or enough to recreate the object
 
 ---
 
-# 5️⃣ **Hybrid Inheritance**
+# ⭐ **One-Line Difference**
 
-### **Definition:**
-
-Combination of two or more types of inheritance.
-
-Usually: Multiple + Multilevel + Hierarchical.
-
-### ✔ Example (Simple Hybrid):
-
-```python
-class A:
-    def f1(self):
-        print("A")
-
-class B(A):      # multilevel
-    def f2(self):
-        print("B")
-
-class C(A):      # hierarchical
-    def f3(self):
-        print("C")
-
-class D(B, C):   # multiple inheritance
-    def f4(self):
-        print("D")
-
-d = D()
-d.f1()
-d.f2()
-d.f3()
-d.f4()
-```
-
-### ✔ Why Hybrid Inheritance is tricky?
-
-Because:
-
-* Two parents may have same methods
-* Python must decide which to call
-* So it uses **MRO** to resolve conflicts
+* **`__str__` → Human-readable (for users)**
+* **`__repr__` → Machine-readable / unambiguous (for developers)**
 
 ---
 
-# 🎯 FINAL QUICK REVISION TABLE (VERY IMPORTANT FOR INTERVIEW)
+# ⭐ **Interview Summary Answer**
 
-| Type of Inheritance | Definition                  | Example Structure |
-| ------------------- | --------------------------- | ----------------- |
-| **Single**          | One parent → one child      | A → B             |
-| **Multiple**        | Child has multiple parents  | A → C ← B         |
-| **Multilevel**      | Parent → Child → Grandchild | A → B → C         |
-| **Hierarchical**    | One parent → many children  | A → B, A → C      |
-| **Hybrid**          | Combination of above        | mix of all        |
-
+> **“`__str__` provides a clean, readable output for users, whereas `__repr__` provides a detailed, unambiguous output for developers. If `__str__` is not defined, Python automatically falls back to `__repr__`.”**
 
 ---
 
----
-
-# ✅ **1. How do you achieve Encapsulation in Python?**
-
-### ⭐ **Definition (Interview-Ready)**
-
-Encapsulation is the concept of **hiding data** inside a class and **controlling access** to it using methods.
-In Python, encapsulation is achieved using:
-
-* **Public attributes** → accessible everywhere
-* **Protected attributes (`_variable`)** → convention: treat as protected
-* **Private attributes (`__variable`)** → name-mangled, not directly accessible
-
-### ⭐ **Important: Python does NOT enforce strict access control.**
-
-It uses **name-mangling** for private attributes.
-
----
-
-### ✔ **Example of Encapsulation**
-
-```python
-class BankAccount:
-    def __init__(self, balance):
-        self.__balance = balance  # private variable
-
-    def deposit(self, amount):   # public method
-        self.__balance += amount
-
-    def get_balance(self):
-        return self.__balance
-
-acc = BankAccount(1000)
-acc.deposit(500)
-print(acc.get_balance())  # 1500
-```
-
-👉 You cannot access `__balance` directly:
-`acc.__balance` will raise an `AttributeError`.
-
-👉 But internally Python renames it to `_BankAccount__balance`.
-
----
-
-### ⭐ **Interview Answer (Short)**
-
-**Encapsulation is achieved using private (`__var`) and protected (`_var`) variables along with public getter/setter methods to control access to the data. Python uses name-mangling to internally protect private attributes.**
-
----
-
-# ✅ **2. What is the difference between `__str__` and `__repr__`?**
-
-### ⭐ **Definition (Interview-Ready)**
-
-| Method     | Purpose                                                   | Used For           |
-| ---------- | --------------------------------------------------------- | ------------------ |
-| `__str__`  | Nice, readable, user-friendly string                      | end-users          |
-| `__repr__` | Official, unambiguous representation (developer friendly) | debugging, logging |
-
-### ⭐ Example:
-
-```python
-class Book:
-    def __init__(self, pages):
-        self.pages = pages
-
-    def __str__(self):
-        return f"Book with {self.pages} pages"
-
-    def __repr__(self):
-        return f"Book(pages={self.pages})"
-
-b = Book(200)
-
-print(str(b))   # Book with 200 pages
-print(repr(b))  # Book(pages=200)
-```
-
-### ⭐ **Interview Answer (Short):**
-
-* `__str__` is for **readable** output intended for **users**.
-* `__repr__` is for **unambiguous** output intended for **developers**, ideally something that can recreate the object.
-* If `__str__` is not defined, Python calls `__repr__`.
-
----
-
-# 🎯 **Now Adobe-Level OOP + Python Tricky Questions with Answers**
-
-These questions are asked to check **deep understanding**.
-
----
-
-# ⚡ **Tricky OOP Questions (Adobe-Level)**
-
----
-
-## **Q1: What happens if both parent classes have the same method in multiple inheritance?**
-
-**Answer:**
-Python resolves this using **MRO (Method Resolution Order)**.
-The order is determined by **C3 Linearization**.
-
-```python
-class A:
-    def show(self): print("A")
-
-class B:
-    def show(self): print("B")
-
-class C(A, B):
-    pass
-
-c = C()
-c.show()  # A
-```
-
----
-
-## **Q2: Can we access a private variable in Python?**
-
-**Answer:**
-Yes, indirectly using **name-mangling**:
-
-```python
-obj._ClassName__privateVar
-```
-
-But it’s **not recommended**. Private variables are meant to show intent.
-
----
-
-## **Q3: Does Python support method overloading?**
-
-**Answer:**
-No traditional method overloading.
-Python only keeps the **last defined method**.
-
-But we simulate overloading using:
-
-* default arguments
-* `*args` and `**kwargs`
-
-```python
-def add(self, x, y=0, z=0):
-    return x + y + z
-```
-
----
-
-## **Q4: What is the difference between `is` and `==` ?**
-
-| Operator | Checks                            |
-| -------- | --------------------------------- |
-| `==`     | value equality                    |
-| `is`     | reference identity (same memory?) |
-
-```python
-a = [1,2]
-b = [1,2]
-a == b  # True
-a is b  # False
-```
-
----
-
-## **Q5: What will happen if you don’t write `__init__` in a class?**
-
-**Answer:**
-Python uses the **default constructor** that does nothing.
-Object still gets created.
-
----
-
-## **Q6: What is the purpose of the `super()` keyword with example?**
-
-**Answer:**
-To call the parent’s method or constructor.
-
----
-
-## **Q7: What will happen? (Tricky)**
-
-```python
-class A:
-    def __init__(self):
-        print("A")
-
-class B(A):
-    pass
-
-obj = B()
-```
-
-**Answer:**
-Even though B has no constructor, it inherits A’s constructor → **prints A**.
-
----
-
-## **Q8: Why is composition preferred over inheritance sometimes?**
-
-**Answer:**
-Because composition provides **loose coupling**, better flexibility, and avoids the complexity of deep inheritance trees.
-
-**Example:**
-A Car *has an* Engine → composition.
-
----
-
-## **Q9: How does Python handle multiple constructors?**
-
-```python
-class A:
-    def __init__(self):
-        print("First")
-
-    def __init__(self):
-        print("Second")
-```
-
-**Answer:**
-Python keeps only the **last** `__init__`.
-Output: `Second`
-
----
-
-## **Q10: What is duck typing in Python?**
-
-**Answer:**
-“If it looks like a duck and quacks like a duck, it is a duck.”
-Python doesn’t check *type*, it checks *behavior*.
-
-```python
-class A:
-    def sound(self): print("Meow")
-
-class B:
-    def sound(self): print("Bark")
-
-def make_sound(obj):
-    obj.sound()
-
-make_sound(A())
-make_sound(B())
-```
-
-Python doesn't care about the class, only the method.
-
----
-
-# ⚡ **Even More Tricky Python (Core Basics + OOP) Questions for Adobe**
-
----
-
-## **Q11: What is the output?**
-
-```python
-a = 10
-b = a
-a = 20
-print(b)
-```
-
-**Answer:**
-`10` (integers are immutable)
-
----
-
-## **Q12: What will this print?**
-
-```python
-class Test:
-    x = []
-
-t1 = Test()
-t2 = Test()
-
-t1.x.append(1)
-
-print(t2.x)
-```
-
-**Answer:**
-`[1]`
-Because `x` is a **class variable**, shared across all objects.
-
----
-
-## **Q13: Output?**
-
-```python
-class A:
-    y = 10
-
-a1 = A()
-a2 = A()
-
-a1.y = 20
-print(a2.y)
-```
-
-**Answer:**
-`10`
-Because `a1.y = 20` creates an **instance variable**, does not modify class variable.
-
----
-
-## **Q14: What will this print?**
-
-```python
-class A:
-    def __repr__(self):
-        return "repr-called"
-
-    def __str__(self):
-        return "str-called"
-
-obj = A()
-print(obj)
-```
-
-**Answer:**
-`str-called`
-Because `print()` uses `__str__`.
-`repr-called` would appear if we do:
-
-```python
-repr(obj)
-```
-
----
-
-## **Q15: Why doesn’t Python have true private variables?**
-
-**Answer:**
-Because Python follows **"we are all adults here" philosophy**.
-It focuses on **name-mangling** instead of strict restrictions.
-
----
-
-
-
-
----
 
 # 🐍 Python Interview Q&A (Beginner-Friendly + F2F Ready)
 
@@ -1031,7 +2219,7 @@ It focuses on **name-mangling** instead of strict restrictions.
 
 ## 1️⃣ **What is the use of the `self` keyword in Python?**
 
-`self` represents the **current instance of the class**.
+`self` represents the **current instance(object) of the class**.
 Whenever we create an object, `self` helps Python understand **which object’s variables or methods** we want to access.
 
 ### Why is it used?
@@ -1275,20 +2463,6 @@ A module is simply a **Python file** (.py) that contains **functions, variables,
 * Reuse code
 * Maintain clean structure
 
-### Example:
-
-File: `math_utils.py`
-
-```python
-def add(a, b):
-    return a + b
-```
-
-Import it:
-
-```python
-import math_utils
-```
 
 ---
 
@@ -1360,20 +2534,23 @@ print(math.factorial(5))
 ---
 
 ## **15️⃣ What is the difference between deep and shallow copying of an object in Python?**
+---
 
-| Copy Type        | What it Copies           | Behavior on Nested Objects           |
-| ---------------- | ------------------------ | ------------------------------------ |
-| **Shallow Copy** | Only top-level object    | Nested objects share references      |
-| **Deep Copy**    | All objects (full clone) | Nested objects are fully independent |
+# ✅ **Shallow Copy — 3 Points**
 
-### Example:
+1. **Only outer object is copied; inner objects are NOT copied.**
+2. **Inner elements are shared** between original and copied object.
+3. Changing inner data in one object **also changes** it in the other.
 
-```python
-import copy
-shallow = copy.copy(obj)
-deep = copy.deepcopy(obj)
-```
+---
 
+# ✅ **Deep Copy — 3 Points**
+
+1. **Outer and all inner objects are copied separately (full copy).**
+2. Original and copied object are **completely independent**.
+3. Changing anything (inner or outer) in one **does NOT affect** the other.
+
+---
 ---
 
 ## **16️⃣ How does garbage collection work in Python?**
@@ -1425,25 +2602,23 @@ def gen():
 ---
 
 ## **19️⃣ What is the difference between a static method and a class method in Python?**
+---
 
-| Method Type       | First Argument      | Purpose                       |
-| ----------------- | ------------------- | ----------------------------- |
-| **Static Method** | No default argument | Utility function inside class |
-| **Class Method**  | `cls`               | Access/modify class data      |
+# 🔵 **Class Method — 3 Points**
 
-### Example:
+1. Class method takes **`cls` as the first argument**, which represents the **class**, not the object.
+2. It can **access and modify class variables** but cannot access instance variables.
+3. It is created using the **`@classmethod`** decorator.
 
-```python
-class A:
-    @staticmethod
-    def sm():
-        return "static"
+---
 
-    @classmethod
-    def cm(cls):
-        return "class"
-```
+# 🟢 **Static Method — 3 Points**
 
+1. Static method **does not take `self` or `cls`** — it has no connection to object or class.
+2. It is just a **normal function inside a class**, used for utility/helper tasks.
+3. It is created using the **`@staticmethod`** decorator.
+
+---
 ---
 
 ## **2️⃣0️⃣ How can you create a generator in Python?**
@@ -1472,30 +2647,35 @@ gen = (x*x for x in range(5))
 | ------------ | ------------------------------- | ------------------------------------- |
 | **map()**    | Transform each item             | Returns transformed items             |
 | **filter()** | Select items based on condition | Returns items where condition is True |
+---
 
-### Example:
+# ✅ **Interview-Style Answer: map() vs filter()**
 
-```python
-map_result = list(map(lambda x: x*2, [1,2,3]))
-filter_result = list(filter(lambda x: x%2==0, [1,2,3,4]))
-```
+### 🔸 **map()**
+
+* **Hinglish:** *Sabko badal do* — map() har element par function apply karke **poori list ko transform** kar deta hai.
+* **English:** *Transforms every item* — map() applies a function to **each element** in an iterable and returns the transformed results.
+
+### 🔸 **filter()**
+
+* **Hinglish:** *Jo pasand ho unko rakh lo* — filter() sirf **un items ko select karta hai** jo condition pass karte hain.
+* **English:** *Keeps only items that meet a condition* — filter() returns only those elements for which the function evaluates to True.
 
 ---
 
 ## **22️⃣ How can you handle exceptions in Python?**
 
-Using `try`, `except`, `else`, and `finally`.
+# ✅ **Interview-Style Answer**
 
-### Example:
+In Python, we handle exceptions using the **try–except** block.
+The code that may cause an error goes inside **try**, and the error-handling code goes inside **except**.
 
-```python
-try:
-    x = 10 / 0
-except ZeroDivisionError:
-    print("Cannot divide by zero")
-finally:
-    print("Execution complete")
-```
+### ⭐ Structured Answer:
+
+* **try block** → code that might raise an exception
+* **except block** → handles the exception if it occurs
+* **else block** → runs only if no exception occurs
+* **finally block** → always runs, used for cleanup (like closing files)
 
 ---
 
@@ -1541,42 +2721,22 @@ Immutable objects create **new objects** on modification.
 
 ---
 
-## **26️⃣ What is the difference between `==` and `is` in Python?**
-
-* `==` → compares **values**
-* `is` → compares **memory location**
-
-### Example:
-
-```python
-a = [1,2]
-b = [1,2]
-
-a == b  # True
-a is b  # False
-```
-
----
-
-## **27️⃣ What is the difference between a shallow copy and a deep copy in Python?**
-
-(Repeated but required)
-
-* **Shallow copy** → Only top-level copied
-* **Deep copy** → Full independent clone including nested objects
-
-Use `copy.copy()` and `copy.deepcopy()`.
-
 ---
 
 ## **28️⃣ How are arguments passed in Python — by value or by reference?**
+---
 
-Python uses **Pass-by-Object-Reference**.
+# ✅ **Interview-Style Answer**
 
-### Meaning:
+Python uses **“pass-by-object-reference”** or **“pass-by-assignment.”**
+This means:
 
-* Mutable objects → changes reflect outside
-* Immutable objects → changes don’t reflect
+* If you pass a **mutable object** (list, dict, set), changes inside the function **affect the original object**.
+* If you pass an **immutable object** (int, float, string, tuple), changes inside the function **do NOT affect** the original object because a new object is created.
+
+### ⭐ Final Interview Line:
+
+**“Python doesn’t use pure pass-by-value or pass-by-reference; it passes the reference to the object, but whether it behaves like value or reference depends on the mutability of the object.”**
 
 ---
 
@@ -1593,38 +2753,6 @@ my_set = set(my_list)
 
 ---
 
-## **30️⃣ How can you create an empty NumPy array in Python?**
-
-Using NumPy:
-
-### 1. Completely empty array:
-
-```python
-import numpy as np
-arr = np.array([])
-```
-
-### 2. Uninitialized empty array of given shape:
-
-```python
-arr = np.empty((3,3))
-```
-
-### 3. Zeros array:
-
-```python
-arr = np.zeros((3,3))
-```
-
----
-Here is the **next batch**, continuing numbering **from Question 31**, written in the **same GitHub-style, descriptive, and beginner-friendly format**, suitable for **face-to-face interviews**.
-
----
-
-
----
-
-## **31️⃣ What are Pickling and Unpickling in Python?**
 
 ### ✔ Pickling
 
@@ -1638,21 +2766,6 @@ Pickling is the process of **converting a Python object into a byte stream** so 
 
 Unpickling is the reverse — **converting byte stream back into a Python object**.
 
-### Example:
-
-```python
-import pickle
-
-data = {"name": "John", "age": 30}
-
-# Pickling
-with open("data.pkl", "wb") as f:
-    pickle.dump(data, f)
-
-# Unpickling
-with open("data.pkl", "rb") as f:
-    loaded_data = pickle.load(f)
-```
 
 ---
 
@@ -1676,29 +2789,6 @@ del arr[1]            # [1, 30, 4, 5]
 ```
 
 ---
-
-## **33️⃣ What is a lambda function? How is it written in Python?**
-
-A lambda function is a **small, anonymous function** written in a single line.
-
-### Syntax:
-
-```python
-lambda arguments: expression
-```
-
-### Example:
-
-```python
-square = lambda x: x * x
-print(square(5))  # 25
-```
-
-### When useful?
-
-* For short operations
-* In `map`, `filter`, `reduce`
-* Inline functions
 
 ---
 
@@ -1808,25 +2898,6 @@ Very important for building flexible functions.
 
 ---
 
-## **39️⃣ What are modules and packages in Python?**
-
-### ✔ Module
-
-A **single Python file** (`.py`) containing functions, classes, or variables.
-
-Example: `math.py`, `os.py`
-
-### ✔ Package
-
-A **collection of modules in a folder**, containing `__init__.py`.
-
-Example: `numpy`, `pandas`
-
-### Key Difference:
-
-* Module → One file
-* Package → Folder containing multiple modules
-
 ---
 
 ## **4️⃣0️⃣ How can one create classes in Python?**
@@ -1876,6 +2947,18 @@ class Empty:
 
 ## **4️⃣2️⃣ How are access specifiers used in Python?**
 
+
+Python does **not** have strict access specifiers (like private, protected, public), but it follows conventions:
+
+| Specifier | Syntax       | Meaning                                        |
+| --------- | ------------ | ---------------------------------------------- |
+| Public    | `variable`   | Accessible everywhere                          |
+| Protected | `_variable`  | Internal use, not enforced                     |
+| Private   | `__variable` | Name mangling applied → `_ClassName__variable` |
+
+Python relies on **developer discipline**, not enforcement.
+
+
 Python has **3 types of access modifiers**:
 
 | Type      | Syntax      | Meaning                                           |
@@ -1893,44 +2976,6 @@ class A:
         self._protected = 2
         self.__private = 3
 ```
-
-### Note
-
-Python does not enforce strict access control; it follows naming conventions.
-
-
----
-
-## **43️⃣ Is it possible to call the parent class without creating its instance? How can parent members be accessed inside a child class?**
-
-### ✔ Yes, you can call the parent class **without creating an instance** using:
-
-* `super()`
-* Direct class name, e.g., `Parent.method(self)`
-
-### ✔ Accessing parent members:
-
-1. Using `super()`
-
-```python
-class Parent:
-    def show(self):
-        print("Parent")
-
-class Child(Parent):
-    def display(self):
-        super().show()   # calling parent method
-```
-
-2. Using the class name
-
-```python
-Parent.show(self)
-```
-
-### Why asked?
-
-To test inheritance concepts and method resolution.
 
 ---
 
@@ -1952,6 +2997,55 @@ Or for objects:
 ```python
 isinstance(obj, ClassName)
 ```
+
+
+## **80️⃣ Is it possible to call the parent class without creating its instance?**
+
+✔ Yes.
+
+You can call parent methods using either:
+
+### **1. `super()`**
+
+```python
+super().parent_method()
+```
+
+### **2. Class name directly**
+
+```python
+Parent.parent_method(self)
+```
+
+No need to create a parent object.
+
+---
+
+---
+
+## **82️⃣ How do you access parent members in a child class?**
+
+Two main ways:
+
+### ✔ Using `super()`
+
+```python
+class Parent:
+    def show(self):
+        print("Parent")
+
+class Child(Parent):
+    def display(self):
+        super().show()
+```
+
+### ✔ Using class name
+
+```python
+Parent.show(self)
+```
+
+Both work for methods and attributes.
 
 ---
 
@@ -2015,45 +3109,8 @@ Unit tests are **small tests written to check individual units** (functions/modu
 
 Unit tests ensure code correctness and stability.
 
----
-
-## **49️⃣ What are decorators, and how are they used in Python?**
-
-A decorator is a function that **wraps another function**, adding extra functionality without modifying its actual code.
-
-### Example:
-
-```python
-def log(func):
-    def wrapper():
-        print("Before")
-        func()
-        print("After")
-    return wrapper
-
-@log
-def hello():
-    print("Hello")
-```
-
-Used in: authentication, routing (Flask, Django), logging, caching.
 
 ---
-
-## **50️⃣ What are Python packages?**
-
-A package is a **collection of modules** organized into a folder containing an **`__init__.py`** file.
-
-Example:
-
-```
-numpy/
- ├── core/
- ├── linalg/
- └── __init__.py
-```
-
-Packages help organize large projects.
 
 ---
 
@@ -2271,14 +3328,6 @@ print(linecache.getline("file.txt", line_number))
 
 ---
 
-## **65️⃣ How are arguments passed in Python — by value or reference?**
-
-Python uses **Pass-by-object-reference**.
-
-Meaning:
-
-* Mutable → changes affect original
-* Immutable → changes do NOT affect original
 
 ---
 
@@ -2292,11 +3341,6 @@ Meaning:
 
 ---
 
-## **67️⃣ How does multithreading work in Python?**
-
-* Python supports threads using `threading` module
-* Only **one thread executes at a time** due to GIL
-* Good for **I/O-bound tasks**, not CPU-bound tasks
 
 ---
 
@@ -2309,21 +3353,6 @@ Flask itself is lightweight, but database operations are handled using:
 * **Flask extensions** (Flask-SQLAlchemy)
 
 ### Flask request → route → DB operation → response
-
-Example:
-
-```python
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy(app)
-
-user = User.query.filter_by(id=1).first()
-```
-
----
-Below is the **next batch**, continuing numbering from **69**, written in the same **GitHub-style, descriptive, face-to-face friendly** format.
-
----
-
 
 ---
 
@@ -2384,14 +3413,6 @@ A programming style where:
 * Generator expressions
 * Higher-order functions (functions returning functions)
 
-### Example:
-
-```python
-numbers = [1, 2, 3, 4]
-squared = list(map(lambda x: x*x, numbers))
-```
-
-Python is **multi-paradigm**: supports **OOP**, **procedural**, and **functional** styles.
 
 ---
 
@@ -2428,40 +3449,6 @@ print(df.head())
 
 * The sheet must be **shared publicly** or set to “Anyone with the link → Viewer”
 * No login required for public CSV export
-
----
-
-## **72️⃣ What is meant by the term "Regression"?**
-
-### ✔ Regression (Definition)
-
-Regression is a **statistical and machine learning method** used to:
-
-* Predict **continuous numeric values**
-* Understand the **relationship between variables**
-* Identify how one variable changes with respect to another
-
-### ✔ Examples:
-
-* Predicting house prices
-* Predicting salary
-* Predicting temperature
-* Predicting stock values (approx.)
-
-### ✔ Common regression types:
-
-* Linear Regression
-* Multiple Regression
-* Logistic Regression (classification)
-* Polynomial Regression
-
-### Interview Summary
-
-Regression helps find a **best-fit line** or **mathematical model** that describes how variables influence each other.
-
----
-
-Below is the **next batch**, continuing numbering from **73**, with clear, concise, face-to-face-interview-friendly answers in **GitHub-style formatting**.
 
 ---
 
@@ -2593,97 +3580,7 @@ This question is more **OOP-concept related**, commonly asked in general program
 * Method overriding is done simply by redefining the method in the child class.
 
 ---
-
-## **79️⃣ How is an empty class created in Python?**
-
-Two ways:
-
-### ✔ Using `pass`
-
-```python
-class Empty:
-    pass
-```
-
-### ✔ Using `__init__`
-
-```python
-class Empty:
-    def __init__(self):
-        return
-```
-
----
-
-## **80️⃣ Is it possible to call the parent class without creating its instance?**
-
-✔ Yes.
-
-You can call parent methods using either:
-
-### **1. `super()`**
-
-```python
-super().parent_method()
-```
-
-### **2. Class name directly**
-
-```python
-Parent.parent_method(self)
-```
-
-No need to create a parent object.
-
----
-
-## **81️⃣ Are access specifiers used in Python?**
-
-Python does **not** have strict access specifiers (like private, protected, public), but it follows conventions:
-
-| Specifier | Syntax       | Meaning                                        |
-| --------- | ------------ | ---------------------------------------------- |
-| Public    | `variable`   | Accessible everywhere                          |
-| Protected | `_variable`  | Internal use, not enforced                     |
-| Private   | `__variable` | Name mangling applied → `_ClassName__variable` |
-
-Python relies on **developer discipline**, not enforcement.
-
----
-
-## **82️⃣ How do you access parent members in a child class?**
-
-Two main ways:
-
-### ✔ Using `super()`
-
-```python
-class Parent:
-    def show(self):
-        print("Parent")
-
-class Child(Parent):
-    def display(self):
-        super().show()
-```
-
-### ✔ Using class name
-
-```python
-Parent.show(self)
-```
-
-Both work for methods and attributes.
-
----
-Below is the **next batch of questions**, continuing numbering from **83**, with **clean Python programs**, written in a **simple, interview-friendly style**.
-
----
-
-
-
----
-
+**programs**
 ## **83️⃣ Write a program to convert date from `yyyy-mm-dd` format to `dd-mm-yyyy` format.**
 
 ```python
