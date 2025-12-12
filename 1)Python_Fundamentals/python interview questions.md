@@ -412,6 +412,56 @@ s1.greet()
 ```
 Hello, I am Amit
 ```
+---
+
+## ✅ **1️⃣ `__init__()` → Constructor Method**
+
+**What it is:**
+A special method that **runs automatically** when you create an object.
+
+**Purpose:**
+To initialize (set up) object attributes.
+
+Example:
+
+```python
+def __init__(self, name):
+    self.name = name
+```
+
+This method sets the value of `self.name` every time an object is created.
+
+---
+
+## ✅ **2️⃣ `greet()` → Normal Instance Method**
+
+**What it is:**
+A regular method that belongs to the object.
+
+**Purpose:**
+To perform actions using the object’s data.
+
+Example:
+
+```python
+def greet(self):
+    print("Hello, I am", self.name)
+```
+
+This method prints something using the object’s `name`.
+
+---
+
+## ⭐ Final Answer
+
+**Yes, both are methods.**
+
+| Method       | Type                         | When it runs                         |
+| ------------ | ---------------------------- | ------------------------------------ |
+| `__init__()` | Constructor / Special Method | Automatically when object is created |
+| `greet()`    | Normal Instance Method       | When you call it manually            |
+
+---
 
 ---
 
