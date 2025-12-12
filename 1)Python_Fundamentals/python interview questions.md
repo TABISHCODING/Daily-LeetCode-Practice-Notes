@@ -5,19 +5,44 @@
 
 “OOP is a programming technique that solves real-world problems by organizing code using classes and objects.”
 
+---
 
+# ✅ **Advantages of OOP**
 
-Advantages of OOP
-Provides a clear structure to programs
-Makes code easier to maintain, reuse, and debug
-Helps keep your code DRY (Don't Repeat Yourself)
-Allows you to build reusable applications with less code
-Tip: The DRY principle means you should avoid writing the same code more than once. Move repeated code into functions or classes and reuse it.
+### ✔ **1. Provides a clear structure to programs**
+
+OOP organizes code into **classes and objects**, making programs easier to understand.
+
+### ✔ **2. Easier to maintain, reuse, and debug**
+
+Because code is modular, fixing or updating one part doesn't break the rest.
+
+### ✔ **3. Helps keep your code DRY (Don’t Repeat Yourself)**
+
+Avoids writing the same code again and again.
+You put repeated logic inside **functions or classes**, then reuse it everywhere.
+
+### ✔ **4. Allows you to build reusable applications with less code**
+
+Inheritance, polymorphism, and encapsulation help reduce duplication and improve reusability.
 
 ---
-Class	| Objects
-Fruit	| Apple, Banana, Mango
-Car	    | Volvo, Audi, Toyota
+
+### 💡 **Tip (Interview-friendly)**
+
+DRY = “Don’t Repeat Yourself”
+If you see repeated code → convert it into a method/class and reuse it.
+
+---
+
+# ✅ **Class vs Objects — Simple Table**
+
+| **Class** | **Objects**          |
+| --------- | -------------------- |
+| Fruit     | Apple, Banana, Mango |
+| Car       | Volvo, Audi, Toyota  |
+
+---
 
 ---
 
