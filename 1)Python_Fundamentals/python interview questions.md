@@ -2720,19 +2720,44 @@ Tasks run without waiting → non-blocking.
 ---
 
 ## 🔥 5.4 CPU-bound vs I/O-bound
-
-| CPU-Bound             | I/O-Bound                     |
-| --------------------- | ----------------------------- |
-| heavy computation     | waiting (files, network, API) |
-| needs multiprocessing | needs threads                 |
+Alright, here’s a clean **interview-ready definition** — short, sharp, and exactly what hiring managers want to hear 👇
 
 ---
 
-### ⭐ Interview Notes
+# 🔥 **CPU-Bound vs I/O-Bound (Interview Definition)**
 
-* Understand difference → determines when to use threads vs multiprocessing
-* Threads help with I/O
-* Processes help with CPU
+### ✅ **CPU-Bound Task**
+
+A CPU-bound task is one that spends most of its time doing **heavy computation**.
+Its performance depends mainly on the **CPU speed**.
+
+**Examples:**
+
+* mathematical calculations
+* image/video processing
+* data encryption
+* machine learning model training
+
+**Best Solution:** **Multiprocessing** (uses multiple CPU cores)
+
+---
+
+### ✅ **I/O-Bound Task**
+
+An I/O-bound task is one that spends most of its time **waiting** for external resources, not computing.
+
+**Examples:**
+
+* reading/writing files
+* network requests
+* database calls
+* API calls
+
+**Best Solution:** **Multithreading** or **Async I/O**
+(because the CPU is idle while waiting)
+
+---
+
 
 ---
 
