@@ -2661,6 +2661,14 @@ from math.calc import add
 ```
 
 ---
+| Feature           | `__init__.py`                              | `__init__`                     |
+| ----------------- | ------------------------------------------ | ------------------------------ |
+| What is it?       | A file                                     | A method                       |
+| Where is it used? | In packages                                | In classes                     |
+| Purpose           |package initializer file                    | Initializes object attributes  |
+| Runs when?        | When package is imported                   | When object is created         |
+| Example location  | `mypackage/__init__.py`                    | `class Person: def __init__()` |
+
 
 ## 🔥 4.4 `__all__` (controls what gets imported)
 
