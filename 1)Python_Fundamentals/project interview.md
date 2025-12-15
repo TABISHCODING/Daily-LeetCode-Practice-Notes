@@ -404,14 +404,12 @@ These are *final polished, interview-ready responses* you can speak directly in 
 
 # ⭐ **Q1 — Explain your project end-to-end (architecture + flow).** **Q2 — Walk me through the complete request → response cycle.**
 
+It is a ResumeDoctor.AI, a resume–JD analysis system. It extracts keywords from resumes, compares them with job descriptions, and provides a match score along with improvement suggestions. The architecture follows a clear modular pipeline The flow begins at the frontend, reaches the Flask backend, goes to the extractor module, continues to the AI module, saves to the database if needed, and ends by sending the results back to the frontend.  
 
-### 🎤 *Detailed, Descriptive, Architecture-Focused Answer*
+**Detail workflow answer**
 
-*"Sure, let me walk you through the entire architecture and flow of my project ResumeDoctor.AI."*
-
-so basicaly ResumeDoctor.AI, a resume–JD analysis system. It extracts keywords from resumes, compares them with job descriptions, and provides a match score along with improvement suggestions. The architecture follows a clear modular pipeline The flow begins at the frontend, reaches the Flask backend, goes to the extractor module, continues to the AI module, saves to the database if needed, and ends by sending the results back to the frontend.
-
-Everything begins at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze* button, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
+---
+The flow start at the **frontend**, where the user uploads their resume (PDF or DOCX) and pastes the job description. As soon as they click *Analyze* button, the frontend packages both inputs into a **FormData (multipart/form-data)** request and sends it to the backend API `/analyze`.
 
 Once the request reaches the **Flask backend**, the system reads the resume file through `request.files` and the JD text using `request.form`. Before doing anything else, Flask performs important validations — checking the file type, file size, and ensuring the JD is provided. Only valid requests move further into the pipeline.
 
@@ -422,11 +420,6 @@ Next, Flask sends both the `resume_text` and `jd_text` into **ai_client.py**, wh
 Optionally, the analyzed results are stored in an Oracle database through **db.py**, allowing features like user history, analytics, or dashboards.
 
 Finally, Flask sends the structured JSON response back to the frontend, which displays the score, matched skills, missing skills, and personalized recommendations in a clean UI.
-
-So the complete architecture runs like this:
-**User → Frontend → FormData → Flask → extractor.py → ai_client.py → (db.py optional) → Frontend UI.**
-
-This gives users a seamless, AI-powered resume-JD matching experience from upload to insights.
 
 ----
 
